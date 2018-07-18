@@ -1,0 +1,77 @@
+#!/bin/bash
+
+#-------------------------------------------------------------------------------
+# Copyright (C) 2017-2018 Dominik Salvet
+# SPDX-License-Identifier: MIT
+# <https://github.com/dominiksalvet/asus-zenbook-ux430ua-linux-setup>
+#-------------------------------------------------------------------------------
+
+
+#-------------------------------------------------------------------------------
+# SOFTWARE DEPENDENCIES
+#-------------------------------------------------------------------------------
+
+# list of required software
+SW_REQUIRED='echo [ cat printf'
+
+# check if some software is missing
+for i in $SW_REQUIRED; do
+    # software is missing if at least one piece of software is missing
+    if ! command -v "$i" > /dev/null; then
+        echo "$0: Required software \"$i\" is missing, configuration canceled." >&2
+        exit 1
+    fi
+done
+
+#-------------------------------------------------------------------------------
+# DEFINITIONS
+#-------------------------------------------------------------------------------
+
+# base address for fan speed configuration
+FAN_SPEED_BASE_ADDR=1335
+
+# array of temperatures (in Celsius) per each fan speed level
+FAN_TEMPS=(55 60 62 65 68 72 76 80)
+
+# direct ACPI call
+function acpi_call {
+    # $1 would work in this case, but the following solution is safer due to possible reuse
+    echo "$*" > /proc/acpi/call
+    cat /proc/acpi/call
+    echo
+}
+
+# convert number from decimal to hexadecimal form
+function dec_to_hex {
+    printf '%X' "$1"
+}
+
+# get address of each fan speed level
+function level_to_addr {
+    echo $((FAN_SPEED_BASE_ADDR + $1))
+}
+
+# assigning fan speed level and temperature
+function level_temp_set {
+    acpi_call '\_SB.PCI0.LPCB.EC0.WRAM '"0x$(dec_to_hex "$(level_to_addr "$1")") 0x$(dec_to_hex "$2")"
+}
+
+#-------------------------------------------------------------------------------
+# EXECUTION
+#-------------------------------------------------------------------------------
+
+# check "FAN_TEMPS" length
+if [ ${#FAN_TEMPS[@]} != 8 ]; then
+    echo "$0: Length of the \"FAN_TEMPS\" array must be exactly 8, configuration canceled." >&2
+    exit 1
+fi
+
+# setup each individual fan speed level
+level_temp_set 7 "${FAN_TEMPS[7]}"
+level_temp_set 6 "${FAN_TEMPS[6]}"
+level_temp_set 5 "${FAN_TEMPS[5]}"
+level_temp_set 4 "${FAN_TEMPS[4]}"
+level_temp_set 3 "${FAN_TEMPS[3]}"
+level_temp_set 2 "${FAN_TEMPS[2]}"
+level_temp_set 1 "${FAN_TEMPS[1]}"
+level_temp_set 0 "${FAN_TEMPS[0]}"

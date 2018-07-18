@@ -1,5 +1,7 @@
 # ASUS ZenBook UX430UA Fan Speed Setup
 
+**Do not use until release.**
+
 ## System requirements
 
 * **Linux** operating system
