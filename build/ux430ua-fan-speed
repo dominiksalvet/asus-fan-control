@@ -27,6 +27,56 @@ done
 # DEFINITIONS
 #-------------------------------------------------------------------------------
 
+# the current version of the program
+VERSION='1.0.0'
+
+HELP_MESSAGE="Usage: $0 [OPTION]...
+
+OPTION:
+  -help     display this help and exit
+  -about    display information and exit
+  -version  display version and exit"
+
+ABOUT_MESSAGE="ux430ua-fan-speed $VERSION
+Set up fan speed policy of ASUS ZenBook UX430UA to make it more quiet on Linux.
+
+Copyright 2017-2018 Dominik Salvet
+SPDX-License-Identifier: MIT
+https://gitlab.com/dominiksalvet/ux430ua-fan-speed"
+
+HINT_MESSAGE="Try '$0 -help' for more information."
+
+#-------------------------------------------------------------------------------
+# PROCESSING PARAMETERS
+#-------------------------------------------------------------------------------
+
+# processing each parameter separately
+for i in "$@"; do
+    case "$i" in
+        -help)
+            echo "$HELP_MESSAGE"
+            exit 0
+            ;;
+        -about)
+            echo "$ABOUT_MESSAGE"
+            exit 0
+            ;;
+        -version)
+            echo "$VERSION"
+            exit 0
+            ;;
+        *)
+            echo "$0: The option '$i' was not recognized." >&2
+            echo "$HINT_MESSAGE" >&2
+            exit 1
+            ;;
+    esac
+done
+
+#-------------------------------------------------------------------------------
+# DEFINITIONS
+#-------------------------------------------------------------------------------
+
 # base address for fan speed configuration
 FAN_SPEED_BASE_ADDR=1335
 
