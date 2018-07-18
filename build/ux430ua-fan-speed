@@ -110,6 +110,12 @@ level_temp_set() {
 # EXECUTION
 #-------------------------------------------------------------------------------
 
+# check if running as root
+if [ "$(id -u)" -ne 0 ]; then
+    echo "$0: Please run as root, action canceled." >&2
+    exit 1
+fi
+
 # check "FAN_TEMPS" length
 if ! echo "$FAN_TEMPS" | grep -q -E -e '^([1-9][0-9]* ){7}[1-9][0-9]*$'; then
     echo "$0: Length of the \"FAN_TEMPS\" array must be exactly 8, configuration canceled." >&2
