@@ -24,7 +24,7 @@ for i in $SW_REQUIRED; do
 done
 
 #-------------------------------------------------------------------------------
-# DEFINITIONS
+# PROGRAM OUTPUT INFORMATION
 #-------------------------------------------------------------------------------
 
 # the current version of the program
@@ -77,37 +77,27 @@ done
 # DEFINITIONS
 #-------------------------------------------------------------------------------
 
-# base address for fan speed configuration
-FAN_SPEED_BASE_ADDR=1335
-
-# array of temperatures (in Celsius) per each fan speed level
+# list of ascending values of temperatures (in degrees Celsius) per each fan speed level
 FAN_TEMPS='55 60 62 65 68 72 76 80'
 
-# direct ACPI call
-acpi_call() {
-    # $1 would work in this case, but the following solution is safer due to possible reuse
-    echo "$*" > /proc/acpi/call
+# the base address for fan speed levels configuration
+CONFIG_BASE_ADDR=1335
+
+# DESCRIPTION:
+#   Set temperature boundary to a chosen fan speed level.
+# PARAMETERS:
+#   $1 - fan speed level (0-7)
+#   $2 - temperature in degrees Celsius
+set_temp_boundary() {
+    # direct ACPI call
+    echo '\_SB.PCI0.LPCB.EC0.WRAM '"$((CONFIG_BASE_ADDR + $1)) $2" > /proc/acpi/call
     cat /proc/acpi/call
+    # previous command misses a new line character, so echo new line
     echo
 }
 
-# convert number from decimal to hexadecimal form
-dec_to_hex() {
-    printf '%X' "$1"
-}
-
-# get address of each fan speed level
-level_to_addr() {
-    echo $((FAN_SPEED_BASE_ADDR + $1))
-}
-
-# assigning fan speed level and temperature
-level_temp_set() {
-    acpi_call '\_SB.PCI0.LPCB.EC0.WRAM '"0x$(dec_to_hex "$(level_to_addr "$1")") 0x$(dec_to_hex "$2")"
-}
-
 #-------------------------------------------------------------------------------
-# EXECUTION
+# APPLY CONFIGURATION
 #-------------------------------------------------------------------------------
 
 # check if running as root
@@ -125,6 +115,6 @@ fi
 # setup each individual fan speed level
 i=0
 for temp in $FAN_TEMPS; do
-    level_temp_set "$i" "$temp"
+    set_temp_boundary "$i" "$temp"
     i=$((i + 1))
 done
