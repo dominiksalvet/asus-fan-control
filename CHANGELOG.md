@@ -9,3 +9,10 @@ The changes not yet present in any release are listed in this section.
 ### Changed
 
 * All scrips use SH environment instead of previously used BASH.
+* ACPI calls are executed with integer argument in decimal form rather than previously used hexadecimal form.
+
+### Added
+
+* Flags are accepted, recognized options are `-help`, `-about`, `-version`.
+* Check for root permissions with a warning message.
+* Check for ascending values for temperature boundaries of fan speed levels.
