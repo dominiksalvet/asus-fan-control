@@ -12,7 +12,7 @@
 #-------------------------------------------------------------------------------
 
 # list of required software
-SW_REQUIRED='echo [ cat printf grep'
+SW_REQUIRED='echo [ cat grep'
 
 # check if some software is missing
 for i in $SW_REQUIRED; do
@@ -106,15 +106,29 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
-# check "FAN_TEMPS" length
-if ! echo "$FAN_TEMPS" | grep -q -E -e '^([1-9][0-9]* ){7}[1-9][0-9]*$'; then
-    echo "$0: Length of the \"FAN_TEMPS\" array must be exactly 8, configuration canceled." >&2
+# check values of temperature boundaries
+temp_counter=0
+previous_temp=0
+for temp in $FAN_TEMPS; do
+    # check if parameter is a number and has greater value than the previous one
+    if ! echo "$temp" | grep -q -E -e '^[1-9][0-9]?$' || [ "$temp" -le "$previous_temp" ]; then
+        # indicate this error
+        previous_temp=0
+        break
+    fi
+    temp_counter="$((temp_counter + 1))"
+    previous_temp="$temp"
+done
+
+# check if an error indicated or there is not exactly 8 temperature values
+if [ "$previous_temp" -eq 0 ] || [ "$temp_counter" -ne 8 ]; then
+    echo "$0: Values of temperature boundaries are invalid, action canceled." >&2
     exit 1
 fi
 
-# setup each individual fan speed level
+# set up each individual fan speed level
 i=0
 for temp in $FAN_TEMPS; do
     set_temp_boundary "$i" "$temp"
-    i=$((i + 1))
+    i="$((i + 1))"
 done
