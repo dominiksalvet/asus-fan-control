@@ -1,0 +1,48 @@
+#!/bin/sh
+
+#-------------------------------------------------------------------------------
+# Copyright 2018 Dominik Salvet
+# SPDX-License-Identifier: MIT
+# https://gitlab.com/dominiksalvet/ux430ua-fan-speed
+#-------------------------------------------------------------------------------
+
+
+#-------------------------------------------------------------------------------
+# SOFTWARE DEPENDENCIES
+#-------------------------------------------------------------------------------
+
+# list of required software
+SW_REQUIRED='echo id apt'
+
+# check if some software is missing
+for i in $SW_REQUIRED; do
+    # software is missing if at least one piece of software is missing
+    if ! command -v "$i" > /dev/null; then
+        echo "$0: Required software '$i' is missing, installation of dependencies canceled." >&2
+        exit 1
+    fi
+done
+
+#-------------------------------------------------------------------------------
+# INSTALLATION
+#-------------------------------------------------------------------------------
+
+# check if running as root
+if [ "$(id -u)" -ne 0 ]; then
+    echo "$0: Please run as root, installation of dependencies canceled." >&2
+    exit 1
+fi
+
+# install a kernel module to enable performing ACPI calls
+apt install acpi-call-dkms -y &&
+
+# add this module to '/etc/modules' to load at boot time
+if [ ! -f /etc/modules ]; then
+    # create '/etc/modules' if it does not exist
+    echo 'acpi_call' > /etc/modules
+elif ! grep -q -E -e '^[[:blank:]]*acpi_call(| .*)$' /etc/modules; then
+    echo 'acpi_call' >> /etc/modules
+fi || exit 1
+
+# final messaged
+echo 'Installation of dependencies finished successfully!'
