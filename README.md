@@ -1,6 +1,6 @@
 # ASUS ZenBook UX430UA Fan Speed Setup
 
-In the default setup of the ASUS ZenBook UX430UA running Linux, the system fan is driven very aggressively. Even when the device is not under any load, the fan keeps running quite loudly, it nearly never turn off.
+In the default setup of the ASUS ZenBook UX430UA running Linux, the system fan is driven very aggressively. Even when the device is not under any load, the fan keeps running quite loudly, it nearly never turns off.
 
 The described problem can be solved with this program. The program includes an intelligently designed makefile for easier installation.
 
