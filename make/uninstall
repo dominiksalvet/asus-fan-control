@@ -52,7 +52,6 @@ fi
 
 # revert less aggressive fan speed policy setup
 sed -i -E -e '/^'"$INSTALLED_PATH_ESCAPED"'$/d' /etc/rc.local
-rm /lib/systemd/system-sleep/ux430ua-fan-speed-caller
 rm "$INSTALLED_DIR/ux430ua-fan-speed"
 
 # final message

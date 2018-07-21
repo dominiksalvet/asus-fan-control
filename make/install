@@ -113,15 +113,7 @@ chmod a+x /etc/rc.local
 # apply less aggressive fan speed policy setup
 echo "$ux430ua_fan_speed_string" > "$INSTALL_DIR/ux430ua-fan-speed" &&
 chmod a+x "$INSTALL_DIR/ux430ua-fan-speed" &&
-# create ux430ua-fan-speed caller
-echo "#!/bin/sh
-
-$INSTALL_DIR/ux430ua-fan-speed" > /lib/systemd/system-sleep/ux430ua-fan-speed-caller &&
-chmod a+x /lib/systemd/system-sleep/ux430ua-fan-speed-caller &&
 sed -i -E -e '/'"$CONTAINS_EXIT_0"'/{s//'"'$INSTALL_DIR_ESCAPED"'\/ux430ua-fan-speed'"'"'\n&/; :add_line; N; badd_line}' /etc/rc.local || exit 1
 
-# apply the changes immediately (it may not be successful as the program dependencies may be missing)
-"$INSTALL_DIR"/ux430ua-fan-speed
-
 # final message
-echo 'Installation finished successfully!'
+echo 'Installation finished successfully! In order to apply the changes, reboot your device.'
