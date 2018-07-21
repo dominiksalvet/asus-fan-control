@@ -1,0 +1,127 @@
+#!/bin/sh
+
+#-------------------------------------------------------------------------------
+# Copyright 2017-2018 Dominik Salvet
+# SPDX-License-Identifier: MIT
+# https://gitlab.com/dominiksalvet/ux430ua-fan-speed
+#-------------------------------------------------------------------------------
+# PARAMETERS:
+#   $1 - build directory path
+#   $2 - installation directory path
+#-------------------------------------------------------------------------------
+
+
+#-------------------------------------------------------------------------------
+# SOFTWARE DEPENDENCIES
+#-------------------------------------------------------------------------------
+
+# list of required software
+SW_REQUIRED='echo [ id grep cat chmod sed ln'
+
+# check if some software is missing
+for i in $SW_REQUIRED; do
+    # software is missing if at least one piece of software is missing
+    if ! command -v "$i" > /dev/null; then
+        echo "$0: Required software '$i' is missing, installation canceled." >&2
+        exit 1
+    fi
+done
+
+#-------------------------------------------------------------------------------
+# DEFINITIONS
+#-------------------------------------------------------------------------------
+
+# normalize the installation directory path represented by '$2' parameter
+INSTALL_DIR="$(echo "$2" | sed -E -e 's|/+|/|g; s|/$||')"
+
+# escape delimiters of the installation directory path for later use in a sed script
+INSTALL_DIR_ESCAPED="$(echo "$INSTALL_DIR" | sed -E -e 's|/|\\/|g')"
+
+# sed script - regular expression of line containing a successful exit of a shell script
+CONTAINS_EXIT_0='^[[:blank:]]*exit(|[[:blank:]]+0+)([[:blank:]]*|[[:blank:]]+#.*)$'
+
+#-------------------------------------------------------------------------------
+# CHECK STATE
+#-------------------------------------------------------------------------------
+
+# check if arguments passed
+if [ -z "$1" ] || [ -z "$2" ]; then
+    echo "$0: Please supply non-empty arguments, installation canceled." >&2
+    exit 1
+fi
+
+# check if already installed
+if INSTALLED_PATH="$(grep -s -m 1 -E -e '^[[:blank:]]*'"'"'.*\/ux430ua-fan-speed'"'"'(| .*)$' /etc/rc.local)"; then
+    # get the installation directory from the installation path
+    INSTALLED_DIR="$(echo "$INSTALLED_PATH" | sed -E -e "s/^'//; s/'$//; s|/[^/]*$||")"
+
+    if [ "$INSTALL_DIR" = "$INSTALLED_DIR" ]; then
+        echo "The program is already installed in '$INSTALLED_DIR/', installation canceled."
+        exit 0
+    else
+        echo "$0: The program is already installed in '$INSTALLED_DIR/', installation canceled." >&2
+        exit 1
+    fi
+fi
+
+# check if given installation directory path is absolute
+if ! echo "$INSTALL_DIR/" | grep -q -E -e '^/'; then
+    echo "$0: '$INSTALL_DIR/' isn't an absolute path, installation canceled." >&2
+    exit 1
+fi
+
+# check if given installation directory exists
+if [ ! -d "$INSTALL_DIR/" ]; then
+    echo "$0: '$INSTALL_DIR/' doesn't exist, installation canceled." >&2
+    exit 1
+fi
+
+# check if ux430ua-fan-speed file exists
+if [ ! -f "$1/ux430ua-fan-speed" ]; then
+    echo "$0: '$1/ux430ua-fan-speed' does not exist, installation canceled." >&2
+    exit 1
+else
+    # load ux430ua-fan-speed file content into variable to prevent deletion of this file during the following steps
+    ux430ua_fan_speed_string=$(cat "$1/ux430ua-fan-speed")
+fi
+
+#-------------------------------------------------------------------------------
+# INSTALLATION
+#-------------------------------------------------------------------------------
+
+# check if running as root
+if [ "$(id -u)" -ne 0 ]; then
+    echo "$0: Please run as root, installation canceled." >&2
+    exit 1
+fi
+
+# create '/etc/rc.local' if it does not exist
+if [ ! -f /etc/rc.local ]; then
+    echo '#!/bin/sh -e
+
+exit 0' > /etc/rc.local
+    echo "'/etc/rc.local' has been created."
+# append a successful exit if it does not contain one
+elif ! grep -q -E -e "$CONTAINS_EXIT_0" /etc/rc.local; then
+    echo 'exit 0' >> /etc/rc.local
+    echo "'/etc/rc.local' has been modified to contain a successful exit."
+fi
+
+# set the execution permission of '/etc/rc.local'
+chmod a+x /etc/rc.local
+
+# apply less aggressive fan speed policy setup
+echo "$ux430ua_fan_speed_string" > "$INSTALL_DIR/ux430ua-fan-speed" &&
+chmod a+x "$INSTALL_DIR/ux430ua-fan-speed" &&
+# create ux430ua-fan-speed caller
+echo "#!/bin/sh
+
+$INSTALL_DIR/ux430ua-fan-speed" > /lib/systemd/system-sleep/ux430ua-fan-speed-caller &&
+chmod a+x /lib/systemd/system-sleep/ux430ua-fan-speed-caller &&
+sed -i -E -e '/'"$CONTAINS_EXIT_0"'/{s//'"'$INSTALL_DIR_ESCAPED"'\/ux430ua-fan-speed'"'"'\n&/; :add_line; N; badd_line}' /etc/rc.local || exit 1
+
+# apply the changes immediately (it may not be successful as the program dependencies may be missing)
+"$INSTALL_DIR"/ux430ua-fan-speed
+
+# final message
+echo 'Installation finished successfully!'
