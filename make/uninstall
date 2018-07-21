@@ -1,0 +1,59 @@
+#!/bin/sh
+
+#-------------------------------------------------------------------------------
+# Copyright 2018 Dominik Salvet
+# SPDX-License-Identifier: MIT
+# https://gitlab.com/dominiksalvet/ux430ua-fan-speed
+#-------------------------------------------------------------------------------
+
+
+#-------------------------------------------------------------------------------
+# SOFTWARE DEPENDENCIES
+#-------------------------------------------------------------------------------
+
+# list of required software
+SW_REQUIRED='echo [ rm sed grep'
+
+# check if some software is missing
+for i in $SW_REQUIRED; do
+    # software is missing if at least one piece of software is missing
+    if ! command -v "$i" > /dev/null; then
+        echo "$0: Required software '$i' is missing, uninstallation canceled." >&2
+        exit 1
+    fi
+done
+
+#-------------------------------------------------------------------------------
+# CHECK STATE
+#-------------------------------------------------------------------------------
+
+# check if installed
+if ! INSTALLED_PATH="$(grep -m 1 -E -e '^[[:blank:]]*'"'"'.*\/ux430ua-fan-speed'"'"'(| .*)$' /etc/rc.local)"; then
+    echo "The uninstaller can't detect the program on this system, uninstallation canceled."
+    exit 0
+fi
+
+# escape delimiters of the installed program path for later use in a sed script
+INSTALLED_PATH_ESCAPED="$(echo "$INSTALLED_PATH" | sed -E -e 's|/|\\/|g')"
+
+# get the installation directory from the installation path
+INSTALLED_DIR="$(echo "$INSTALLED_PATH" | sed -E -e "s/^'//; s/'$//; s|/[^/]*$||")"
+echo "The detected installation directory path is '$INSTALLED_DIR/'."
+
+#-------------------------------------------------------------------------------
+# UNINSTALLATION
+#-------------------------------------------------------------------------------
+
+# check if running as root
+if [ "$(id -u)" -ne 0 ]; then
+    echo "$0: Please run as root, uninstallation canceled." >&2
+    exit 1
+fi
+
+# revert less aggressive fan speed policy setup
+sed -i -E -e '/^'"$INSTALLED_PATH_ESCAPED"'$/d' /etc/rc.local
+rm /lib/systemd/system-sleep/ux430ua-fan-speed-caller
+rm "$INSTALLED_DIR/ux430ua-fan-speed"
+
+# final message
+echo 'Uninstallation finished successfully! In order to apply the changes, reboot your device.'

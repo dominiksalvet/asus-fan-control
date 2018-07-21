@@ -45,7 +45,7 @@ endef
 # TARGETS
 #-------------------------------------------------------------------------------
 
-.PHONY: all install-deps install help about
+.PHONY: all install-deps install uninstall help about
 
 # there is no building required, so the default target references to the help target
 all: help
@@ -55,6 +55,9 @@ install-deps: # install dependencies of the program
 
 install: # install the program
 	./$(MAKE_DIR)/install '$(BUILD_DIR)' '$(INSTALL_DIR)'
+
+uninstall: # uninstall the program
+	./$(MAKE_DIR)/uninstall
 
 help: # default, display this help
 	$(call display_generated_help,makefile)
