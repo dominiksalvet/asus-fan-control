@@ -12,7 +12,7 @@
 #-------------------------------------------------------------------------------
 
 # list of required software
-SW_REQUIRED='echo id apt'
+SW_REQUIRED='echo id apt grep'
 
 # check if some software is missing
 for i in $SW_REQUIRED; do
@@ -40,6 +40,7 @@ apt install acpi-call-dkms -y &&
 if [ ! -f /etc/modules ]; then
     # create '/etc/modules' if it does not exist
     echo 'acpi_call' > /etc/modules
+    echo "'/etc/modules' has been created."
 elif ! grep -q -E -e '^[[:blank:]]*acpi_call(| .*)$' /etc/modules; then
     echo 'acpi_call' >> /etc/modules
 fi || exit 1
