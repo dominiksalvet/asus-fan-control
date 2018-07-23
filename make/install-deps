@@ -12,7 +12,7 @@
 #-------------------------------------------------------------------------------
 
 # list of required software
-SW_REQUIRED='echo id apt grep'
+SW_REQUIRED='echo id apt grep modprobe'
 
 # check if some software is missing
 for i in $SW_REQUIRED; do
@@ -44,6 +44,9 @@ if [ ! -f /etc/modules ]; then
 elif ! grep -q -E -e '^[[:blank:]]*acpi_call(| .*)$' /etc/modules; then
     echo 'acpi_call' >> /etc/modules
 fi || exit 1
+
+# load acpi_call module immediately
+modprobe acpi_call
 
 # final messaged
 echo 'Installation of dependencies finished successfully!'
