@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 The changes not yet present in any release are listed in this section.
 
+### Fixed
+
+* Check if `acpi_call` module is loaded before applying new configuration.
+
 ### Changed
 
 * No need of reboot device after the installation, changes are applied immediately.

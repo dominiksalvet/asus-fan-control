@@ -12,16 +12,30 @@
 #-------------------------------------------------------------------------------
 
 # list of required software
-SW_REQUIRED='echo [ cat grep'
+SW_REQUIRED='echo [ cat grep lsmod'
 
 # check if some software is missing
 for i in $SW_REQUIRED; do
     # software is missing if at least one piece of software is missing
     if ! command -v "$i" > /dev/null; then
-        echo "$0: Required software '$i' is missing, installation canceled." >&2
+        echo "$0: Required software '$i' is missing, action canceled." >&2
         exit 1
     fi
 done
+
+# check if 'acpi_call' module loaded
+if ! lsmod | grep -q -E -e '^[[:blank:]]*acpi_call[[:blank:]].*$'; then
+    echo "$0: Required module 'acpi_call' is not loaded, action canceled." >&2
+    echo "$0: Possible solution: reboot your device." >&2
+    exit 1
+fi
+
+# check if interface file for 'acpi_call' module exists
+if [ ! -f /proc/acpi/call ]; then
+    echo "$0: Interface file '/proc/acpi/call' for ACPI doesn't exist, action canceled." >&2
+    echo "$0: Possible solution: reboot your device." >&2
+    exit 1
+fi
 
 #-------------------------------------------------------------------------------
 # PROGRAM OUTPUT INFORMATION
