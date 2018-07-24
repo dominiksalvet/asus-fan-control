@@ -6,23 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 The changes not yet present in any release are listed in this section.
 
-### Fixed
-
-* Check if `acpi_call` module is loaded before applying new configuration.
-
 ### Changed
 
 * No need of reboot device after the installation, changes are applied immediately.
 
+### Fixed
+
+* Check if `acpi_call` module is loaded before applying new configuration.
+
 ## 1.0.0 (2018-07-21)
-
-### Changed
-
-* All scrips use SH environment instead of previously used BASH.
-* ACPI calls are executed with integer argument in decimal form rather than previously used hexadecimal form.
 
 ### Added
 
 * Flags are accepted, recognized options are `-help`, `-about`, `-version`.
 * Check for root permissions with a warning message.
 * Check for ascending values for temperature boundaries of fan speed levels.
+
+### Changed
+
+* All scrips use SH environment instead of previously used BASH.
+* ACPI calls are executed with integer argument in decimal form rather than previously used hexadecimal form.
