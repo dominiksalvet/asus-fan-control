@@ -1,6 +1,6 @@
 # Changelog
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Individual releases can be obtained using the [tags](https://gitlab.com/dominiksalvet/ux430ua-fan-speed/tags). Changes between their files can be viewed on [this website](https://gitlab.com/dominiksalvet/ux430ua-fan-speed/compare).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Individual releases can be obtained using the [tags](https://gitlab.com/dominiksalvet/ux430ua-fan-control/tags). Changes between their files can be viewed on [this website](https://gitlab.com/dominiksalvet/ux430ua-fan-control/compare).
 
 ## Unreleased
 
@@ -9,6 +9,7 @@ The changes not yet present in any release are listed in this section.
 ### Changed
 
 * No need of reboot device after the installation, changes are applied immediately.
+* The program has been renamed from `ux430ua-fan-speed` to `ux430ua-fan-control`.
 
 ### Fixed
 

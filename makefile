@@ -1,7 +1,7 @@
 #-------------------------------------------------------------------------------
 # Copyright 2018 Dominik Salvet
 # SPDX-License-Identifier: MIT
-# https://gitlab.com/dominiksalvet/ux430ua-fan-speed
+# https://gitlab.com/dominiksalvet/ux430ua-fan-control
 #-------------------------------------------------------------------------------
 
 
@@ -63,8 +63,8 @@ help: # default, display this help
 	$(call display_generated_help,makefile)
 
 about: # display information about this makefile
-	@$(ECHO) "Installation manager for 'ux430ua-fan-speed' program."
+	@$(ECHO) "Installation manager for 'ux430ua-fan-control' program."
 	@$(ECHO)
 	@$(ECHO) 'Copyright 2018 Dominik Salvet'
 	@$(ECHO) 'SPDX-License-Identifier: MIT'
-	@$(ECHO) 'https://gitlab.com/dominiksalvet/ux430ua-fan-speed'
+	@$(ECHO) 'https://gitlab.com/dominiksalvet/ux430ua-fan-control'

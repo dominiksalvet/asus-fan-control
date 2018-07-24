@@ -23,16 +23,16 @@ To **automatically install** the latest stable release of this program, open a t
 
 ```sh
 cd ~/Downloads/ &&
-if [ ! -d ux430ua-fan-speed/ ]; then
-    git clone -q https://gitlab.com/dominiksalvet/ux430ua-fan-speed.git
+if [ ! -d ux430ua-fan-control/ ]; then
+    git clone -q https://gitlab.com/dominiksalvet/ux430ua-fan-control.git
 fi &&
-cd ux430ua-fan-speed/ &&
+cd ux430ua-fan-control/ &&
 git checkout -q "$(git describe --abbrev=0)" &&
 sudo make install-deps &&
 sudo make install
 ```
 
-After the installation, the *~/Downloads/ux430ua-fan-speed* directory won't be required for the program to be working and so it can be removed.
+After the installation, the *~/Downloads/ux430ua-fan-control* directory won't be required for the program to be working and so it can be removed.
 
 ---
 
@@ -40,10 +40,10 @@ If it is required to **automatically uninstall** the latest stable release of th
 
 ```sh
 cd ~/Downloads/ &&
-if [ ! -d ux430ua-fan-speed/ ]; then
-    git clone -q https://gitlab.com/dominiksalvet/ux430ua-fan-speed.git
+if [ ! -d ux430ua-fan-control/ ]; then
+    git clone -q https://gitlab.com/dominiksalvet/ux430ua-fan-control.git
 fi &&
-cd ux430ua-fan-speed/ &&
+cd ux430ua-fan-control/ &&
 git checkout -q "$(git describe --abbrev=0)" &&
 sudo make uninstall
 ```

@@ -3,7 +3,7 @@
 #-------------------------------------------------------------------------------
 # Copyright 2017-2018 Dominik Salvet
 # SPDX-License-Identifier: MIT
-# https://gitlab.com/dominiksalvet/ux430ua-fan-speed
+# https://gitlab.com/dominiksalvet/ux430ua-fan-control
 #-------------------------------------------------------------------------------
 
 
@@ -51,12 +51,12 @@ OPTION:
   -about    display information and exit
   -version  display version and exit"
 
-ABOUT_MESSAGE="ux430ua-fan-speed $VERSION
+ABOUT_MESSAGE="ux430ua-fan-control $VERSION
 Set up fan speed policy of ASUS ZenBook UX430UA to make it more quiet on Linux.
 
 Copyright 2017-2018 Dominik Salvet
 SPDX-License-Identifier: MIT
-https://gitlab.com/dominiksalvet/ux430ua-fan-speed"
+https://gitlab.com/dominiksalvet/ux430ua-fan-control"
 
 HINT_MESSAGE="Try '$0 -help' for more information."
 

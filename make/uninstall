@@ -3,7 +3,7 @@
 #-------------------------------------------------------------------------------
 # Copyright 2018 Dominik Salvet
 # SPDX-License-Identifier: MIT
-# https://gitlab.com/dominiksalvet/ux430ua-fan-speed
+# https://gitlab.com/dominiksalvet/ux430ua-fan-control
 #-------------------------------------------------------------------------------
 
 
@@ -28,7 +28,7 @@ done
 #-------------------------------------------------------------------------------
 
 # check if installed
-if ! INSTALLED_PATH="$(grep -m 1 -E -e '^[[:blank:]]*'"'"'.*\/ux430ua-fan-speed'"'"'(| .*)$' /etc/rc.local)"; then
+if ! INSTALLED_PATH="$(grep -m 1 -E -e '^[[:blank:]]*'"'"'.*\/ux430ua-fan-control'"'"'(| .*)$' /etc/rc.local)"; then
     echo "The uninstaller can't detect the program on this system, uninstallation canceled."
     exit 0
 fi
@@ -52,7 +52,7 @@ fi
 
 # revert less aggressive fan speed policy setup
 sed -i -E -e '/^'"$INSTALLED_PATH_ESCAPED"'$/d' /etc/rc.local
-rm "$INSTALLED_DIR/ux430ua-fan-speed"
+rm "$INSTALLED_DIR/ux430ua-fan-control"
 
 # final message
 echo 'Uninstallation finished successfully! In order to apply the changes, reboot your device.'

@@ -3,7 +3,7 @@
 #-------------------------------------------------------------------------------
 # Copyright 2017-2018 Dominik Salvet
 # SPDX-License-Identifier: MIT
-# https://gitlab.com/dominiksalvet/ux430ua-fan-speed
+# https://gitlab.com/dominiksalvet/ux430ua-fan-control
 #-------------------------------------------------------------------------------
 # PARAMETERS:
 #   $1 - build directory path
@@ -51,7 +51,7 @@ if [ -z "$1" ] || [ -z "$2" ]; then
 fi
 
 # check if already installed
-if INSTALLED_PATH="$(grep -s -m 1 -E -e '^[[:blank:]]*'"'"'.*\/ux430ua-fan-speed'"'"'(| .*)$' /etc/rc.local)"; then
+if INSTALLED_PATH="$(grep -s -m 1 -E -e '^[[:blank:]]*'"'"'.*\/ux430ua-fan-control'"'"'(| .*)$' /etc/rc.local)"; then
     # get the installation directory from the installation path
     INSTALLED_DIR="$(echo "$INSTALLED_PATH" | sed -E -e "s/^'//; s/'$//; s|/[^/]*$||")"
 
@@ -76,13 +76,13 @@ if [ ! -d "$INSTALL_DIR/" ]; then
     exit 1
 fi
 
-# check if ux430ua-fan-speed file exists
-if [ ! -f "$1/ux430ua-fan-speed" ]; then
-    echo "$0: '$1/ux430ua-fan-speed' does not exist, installation canceled." >&2
+# check if ux430ua-fan-control file exists
+if [ ! -f "$1/ux430ua-fan-control" ]; then
+    echo "$0: '$1/ux430ua-fan-control' does not exist, installation canceled." >&2
     exit 1
 else
-    # load ux430ua-fan-speed file content into variable to prevent deletion of this file during the following steps
-    ux430ua_fan_speed_string=$(cat "$1/ux430ua-fan-speed")
+    # load ux430ua-fan-control file content into variable to prevent deletion of this file during the following steps
+    ux430ua_fan_control_string=$(cat "$1/ux430ua-fan-control")
 fi
 
 #-------------------------------------------------------------------------------
@@ -111,12 +111,12 @@ fi
 chmod a+x /etc/rc.local
 
 # apply less aggressive fan speed policy setup
-echo "$ux430ua_fan_speed_string" > "$INSTALL_DIR/ux430ua-fan-speed" &&
-chmod a+x "$INSTALL_DIR/ux430ua-fan-speed" &&
-sed -i -E -e '/'"$CONTAINS_EXIT_0"'/{s//'"'$INSTALL_DIR_ESCAPED"'\/ux430ua-fan-speed'"'"'\n&/; :add_line; N; badd_line}' /etc/rc.local || exit 1
+echo "$ux430ua_fan_control_string" > "$INSTALL_DIR/ux430ua-fan-control" &&
+chmod a+x "$INSTALL_DIR/ux430ua-fan-control" &&
+sed -i -E -e '/'"$CONTAINS_EXIT_0"'/{s//'"'$INSTALL_DIR_ESCAPED"'\/ux430ua-fan-control'"'"'\n&/; :add_line; N; badd_line}' /etc/rc.local || exit 1
 
 # apply the changes immediately (it may not be successful as the program dependencies may be missing)
-"$INSTALL_DIR"/ux430ua-fan-speed
+"$INSTALL_DIR"/ux430ua-fan-control
 
 # final message
 echo 'Installation finished successfully!'
