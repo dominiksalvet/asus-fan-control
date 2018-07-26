@@ -12,7 +12,7 @@
 #-------------------------------------------------------------------------------
 
 # list of required software
-SW_REQUIRED='command echo [ rm sed grep'
+SW_REQUIRED='command echo [ rm sed cd realpath head'
 
 # check if some software is missing
 for i in $SW_REQUIRED; do
@@ -24,20 +24,24 @@ for i in $SW_REQUIRED; do
 done
 
 #-------------------------------------------------------------------------------
+# DEFINITIONS
+#-------------------------------------------------------------------------------
+
+# configuration files directory
+CONFIG_DIR=/etc/ux430ua-fan-control-config
+
+#-------------------------------------------------------------------------------
 # CHECK STATE
 #-------------------------------------------------------------------------------
 
 # check if installed
-if ! INSTALLED_PATH="$(grep -m 1 -E -e '^[[:blank:]]*'"'"'.*\/ux430ua-fan-control'"'"'(| .*)$' /etc/rc.local)"; then
-    echo "The uninstaller can't detect the program on this system, uninstallation canceled."
+if [ ! -f "$CONFIG_DIR/install-dir" ]; then
+    echo "The uninstaller can't detect the program installed on this system, uninstallation canceled."
     exit 0
 fi
 
-# escape delimiters of the installed program path for later use in a sed script
-INSTALLED_PATH_ESCAPED="$(echo "$INSTALLED_PATH" | sed -E -e 's|/|\\/|g')"
-
-# get the installation directory from the installation path
-INSTALLED_DIR="$(echo "$INSTALLED_PATH" | sed -E -e "s/^'//; s/'$//; s|/[^/]*$||")"
+# get the installation directory path (it can be relative)
+INSTALLED_DIR="$(cd "$CONFIG_DIR/" && realpath -m "$(head -n 1 install-dir)")"
 echo "The detected installation directory path is '$INSTALLED_DIR/'."
 
 #-------------------------------------------------------------------------------
@@ -50,9 +54,13 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
-# revert less aggressive fan speed policy setup
-sed -i -E -e '/^'"$INSTALLED_PATH_ESCAPED"'$/d' /etc/rc.local
+# remove all lines calling the program from '/etc/rc.local'
+sed -i -E -e '/^[[:blank:]]*'"'.*\/ux430ua-fan-control'"'(| .*)$/d' /etc/rc.local
+sed -i -E -e '/^[[:blank:]]*([^[:blank:]]|\\ |\\	)*\/ux430ua-fan-control(| .*)$/d' /etc/rc.local
+# remove the program itself
 rm "$INSTALLED_DIR/ux430ua-fan-control"
+# finish removing the program by deleting the 'install-dir' file
+rm "$CONFIG_DIR/install-dir"
 
 # final message
 echo 'Uninstallation finished successfully! In order to apply the changes, reboot your device.'

@@ -16,7 +16,7 @@
 #-------------------------------------------------------------------------------
 
 # list of required software
-SW_REQUIRED='command echo [ id grep cat chmod sed cp'
+SW_REQUIRED='command echo [ id grep chmod sed cp realpath mkdir cd head'
 
 # check if some software is missing
 for i in $SW_REQUIRED; do
@@ -31,14 +31,17 @@ done
 # DEFINITIONS
 #-------------------------------------------------------------------------------
 
-# normalize the installation directory path represented by '$2' parameter
-INSTALL_DIR="$(echo "$2" | sed -E -e 's|/+|/|g; s|/$||')"
+# sed script - regular expression of line containing a successful exit of a shell script
+CONTAINS_EXIT_0='^[[:blank:]]*exit(|[[:blank:]]+0+)([[:blank:]]*|[[:blank:]]+#.*)$'
+
+# configuration files directory
+CONFIG_DIR=/etc/ux430ua-fan-control-config
+
+# get real path of the installation directory path
+INSTALL_DIR="$(realpath -m "$2")"
 
 # escape delimiters of the installation directory path for later use in a sed script
 INSTALL_DIR_ESCAPED="$(echo "$INSTALL_DIR" | sed -E -e 's|/|\\/|g')"
-
-# sed script - regular expression of line containing a successful exit of a shell script
-CONTAINS_EXIT_0='^[[:blank:]]*exit(|[[:blank:]]+0+)([[:blank:]]*|[[:blank:]]+#.*)$'
 
 #-------------------------------------------------------------------------------
 # CHECK STATE
@@ -51,9 +54,10 @@ if [ -z "$1" ] || [ -z "$2" ]; then
 fi
 
 # check if already installed
-if INSTALLED_PATH="$(grep -s -m 1 -E -e '^[[:blank:]]*'"'"'.*\/ux430ua-fan-control'"'"'(| .*)$' /etc/rc.local)"; then
-    # get the installation directory from the installation path
-    INSTALLED_DIR="$(echo "$INSTALLED_PATH" | sed -E -e "s/^'//; s/'$//; s|/[^/]*$||")"
+if [ -f "$CONFIG_DIR/install-dir" ]; then
+
+    # get the installation directory path (it can be relative)
+    INSTALLED_DIR="$(cd "$CONFIG_DIR/" && realpath -m "$(head -n 1 install-dir)")"
 
     if [ "$INSTALL_DIR" = "$INSTALLED_DIR" ]; then
         echo "The program is already installed in '$INSTALLED_DIR/', installation canceled."
@@ -62,12 +66,6 @@ if INSTALLED_PATH="$(grep -s -m 1 -E -e '^[[:blank:]]*'"'"'.*\/ux430ua-fan-contr
         echo "$0: The program is already installed in '$INSTALLED_DIR/', installation canceled." >&2
         exit 1
     fi
-fi
-
-# check if given installation directory path is absolute
-if ! echo "$INSTALL_DIR/" | grep -q -E -e '^/'; then
-    echo "$0: '$INSTALL_DIR/' isn't an absolute path, installation canceled." >&2
-    exit 1
 fi
 
 # check if given installation directory exists
@@ -103,12 +101,15 @@ elif ! grep -q -E -e "$CONTAINS_EXIT_0" /etc/rc.local; then
     echo 'exit 0' >> /etc/rc.local
     echo "'/etc/rc.local' has been modified to contain a successful exit."
 fi
-
 # set the execution permission of '/etc/rc.local'
 chmod a+x /etc/rc.local
 
-# apply less aggressive fan speed policy setup
+# create configuration file with the installation directory path
+mkdir -p "$CONFIG_DIR/" &&
+echo "$INSTALL_DIR" > "$CONFIG_DIR/install-dir" &&
+# copy the program itself
 cp "$1/ux430ua-fan-control" "$INSTALL_DIR/" &&
+# add script calling to '/etc/rc.local' file to run the program after boot
 sed -i -E -e '/'"$CONTAINS_EXIT_0"'/{s//'"'$INSTALL_DIR_ESCAPED"'\/ux430ua-fan-control'"'"'\n&/; :add_line; N; badd_line}' /etc/rc.local || exit 1
 
 # apply the changes immediately (it may not be successful as the program dependencies may be missing)

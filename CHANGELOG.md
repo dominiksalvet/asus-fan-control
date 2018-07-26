@@ -6,10 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 The changes not yet present in any release are listed in this section.
 
+### Added
+
+* Support relative paths across all delivered software with the program and within the program itself.
+
 ### Changed
 
 * No need of reboot device after the installation, changes are applied immediately.
 * The program has been renamed from `ux430ua-fan-speed` to `ux430ua-fan-control`.
+* The installation manager now creates a configuration file */etc/ux430ua-fan-control/install-dir* where the installation directory path is stored rather than parsing the */etc/rc.local* file.
 
 ### Fixed
 
