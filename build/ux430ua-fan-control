@@ -46,7 +46,7 @@ fi
 #-------------------------------------------------------------------------------
 
 # the current version of the program
-VERSION='1.0.0'
+VERSION=1.0.0
 
 HELP_MESSAGE="Usage: $0 [OPTION]...
 

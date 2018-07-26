@@ -39,10 +39,10 @@ apt install acpi-call-dkms -y &&
 # add this module to '/etc/modules' to load at boot time
 if [ ! -f /etc/modules ]; then
     # create '/etc/modules' if it does not exist
-    echo 'acpi_call' > /etc/modules
+    echo acpi_call > /etc/modules
     echo "'/etc/modules' has been created."
 elif ! grep -q -E -e '^[[:blank:]]*acpi_call(| .*)$' /etc/modules; then
-    echo 'acpi_call' >> /etc/modules
+    echo acpi_call >> /etc/modules
 fi || exit 1
 
 # load acpi_call module immediately
