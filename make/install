@@ -16,7 +16,7 @@
 #-------------------------------------------------------------------------------
 
 # list of required software
-SW_REQUIRED='echo [ id grep cat chmod sed ln'
+SW_REQUIRED='echo [ id grep cat chmod sed cp'
 
 # check if some software is missing
 for i in $SW_REQUIRED; do
@@ -80,9 +80,6 @@ fi
 if [ ! -f "$1/ux430ua-fan-control" ]; then
     echo "$0: '$1/ux430ua-fan-control' does not exist, installation canceled." >&2
     exit 1
-else
-    # load ux430ua-fan-control file content into variable to prevent deletion of this file during the following steps
-    ux430ua_fan_control_string=$(cat "$1/ux430ua-fan-control")
 fi
 
 #-------------------------------------------------------------------------------
@@ -111,11 +108,11 @@ fi
 chmod a+x /etc/rc.local
 
 # apply less aggressive fan speed policy setup
-echo "$ux430ua_fan_control_string" > "$INSTALL_DIR/ux430ua-fan-control" &&
-chmod a+x "$INSTALL_DIR/ux430ua-fan-control" &&
+cp "$1/ux430ua-fan-control" "$INSTALL_DIR/" &&
 sed -i -E -e '/'"$CONTAINS_EXIT_0"'/{s//'"'$INSTALL_DIR_ESCAPED"'\/ux430ua-fan-control'"'"'\n&/; :add_line; N; badd_line}' /etc/rc.local || exit 1
 
 # apply the changes immediately (it may not be successful as the program dependencies may be missing)
+echo 'Applying changes.'
 "$INSTALL_DIR"/ux430ua-fan-control
 
 # final message
