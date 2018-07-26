@@ -108,7 +108,7 @@ CONFIG_BASE_ADDR=1335
 #   $2 - temperature in degrees Celsius
 set_temp_boundary() {
     # direct ACPI call
-    echo '\_SB.PCI0.LPCB.EC0.WRAM '"$((CONFIG_BASE_ADDR + $1)) $2" > /proc/acpi/call
+    echo '\_SB.PCI0.LPCB.EC0.WRAM '$((CONFIG_BASE_ADDR + $1))" $2" > /proc/acpi/call
     cat /proc/acpi/call
     # previous command misses a new line character, so echo new line
     echo
@@ -134,7 +134,7 @@ for temp in $FAN_TEMPS; do
         previous_temp=0
         break
     fi
-    temp_counter="$((temp_counter + 1))"
+    temp_counter=$((temp_counter + 1))
     previous_temp="$temp"
 done
 
@@ -148,5 +148,5 @@ fi
 i=0
 for temp in $FAN_TEMPS; do
     set_temp_boundary "$i" "$temp"
-    i="$((i + 1))"
+    i=$((i + 1))
 done
