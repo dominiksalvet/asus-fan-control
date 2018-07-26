@@ -12,7 +12,7 @@
 #-------------------------------------------------------------------------------
 
 # list of required software
-SW_REQUIRED='echo [ cat grep lsmod'
+SW_REQUIRED='command echo [ cat grep lsmod'
 
 # check if some software is missing
 for i in $SW_REQUIRED; do

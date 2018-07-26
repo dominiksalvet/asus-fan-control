@@ -12,7 +12,7 @@
 #-------------------------------------------------------------------------------
 
 # list of required software
-SW_REQUIRED='echo id apt grep modprobe'
+SW_REQUIRED='command echo id apt grep modprobe'
 
 # check if some software is missing
 for i in $SW_REQUIRED; do

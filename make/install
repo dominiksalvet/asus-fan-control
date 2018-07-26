@@ -16,7 +16,7 @@
 #-------------------------------------------------------------------------------
 
 # list of required software
-SW_REQUIRED='echo [ id grep cat chmod sed cp'
+SW_REQUIRED='command echo [ id grep cat chmod sed cp'
 
 # check if some software is missing
 for i in $SW_REQUIRED; do

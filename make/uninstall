@@ -12,7 +12,7 @@
 #-------------------------------------------------------------------------------
 
 # list of required software
-SW_REQUIRED='echo [ rm sed grep'
+SW_REQUIRED='command echo [ rm sed grep'
 
 # check if some software is missing
 for i in $SW_REQUIRED; do
