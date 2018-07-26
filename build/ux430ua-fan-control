@@ -186,8 +186,6 @@ speed_level=0
 for temp in $TEMPS; do
     # ACPI call
     echo '\_SB.PCI0.LPCB.EC0.WRAM '$((CONFIG_BASE_ADDR + speed_level))" $temp" > /proc/acpi/call
-    # get the result of previous call (also echo a new line as it doesn't contain one)
-    cat /proc/acpi/call; echo
-
+    # next level
     speed_level=$((speed_level + 1))
 done
