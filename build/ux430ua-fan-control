@@ -98,6 +98,23 @@ check_fan_temps() {
     fi
 }
 
+# DESCRIPTION:
+#   Display preferred valid fan speed level temperatures.
+display_temps() {
+    if [ -f "$CONFIG_DIR/fan-temps" ]; then
+        LOADED_FAN_TEMPS="$(head -n 1 "$CONFIG_DIR/fan-temps")"
+        if check_fan_temps "$LOADED_FAN_TEMPS"; then
+            echo "$LOADED_FAN_TEMPS"
+            return 0
+        else
+            echo "$0: Stored custom temperatures are invalid, using the default ones for the selected action.
+POSSIBLE SOLUTIONS:
+  * use command 'sudo $0 -set-default-temps'" >&2
+        fi
+    fi
+    echo "$FAN_TEMPS"
+}
+
 #-------------------------------------------------------------------------------
 # PROCESSING PARAMETERS
 #-------------------------------------------------------------------------------
@@ -106,14 +123,7 @@ check_fan_temps() {
 for i in "$@"; do
     case "$i" in
         -get-temps)
-            if [ -f "$CONFIG_DIR/fan-temps" ]; then
-                LOADED_FAN_TEMPS="$(head -n 1 "$CONFIG_DIR/fan-temps")"
-                if check_fan_temps "$LOADED_FAN_TEMPS"; then
-                    echo "$LOADED_FAN_TEMPS"
-                    exit 0
-                fi
-            fi
-            echo "$FAN_TEMPS"
+            display_temps
             exit 0
             ;;
         -set-temps:*)
@@ -169,16 +179,7 @@ if [ ! -z "$CUSTOM_FAN_TEMPS" ]; then
 fi
 
 # get current temperatures to apply
-if [ -f "$CONFIG_DIR/fan-temps" ]; then
-    LOADED_FAN_TEMPS="$(head -n 1 "$CONFIG_DIR/fan-temps")"
-    if check_fan_temps "$LOADED_FAN_TEMPS"; then
-        FAN_TEMPS="$LOADED_FAN_TEMPS"
-    else
-        echo "$0: Stored custom temperatures are invalid, falling back to the default ones.
-POSSIBLE SOLUTIONS:
-  * use command 'sudo $0 -set-default-temps'" >&2
-    fi
-fi
+FAN_TEMPS="$(display_temps)"
 
 # set up each individual fan speed level
 speed_level=0
