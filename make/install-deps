@@ -48,5 +48,5 @@ fi || exit 1
 # load acpi_call module immediately
 modprobe acpi_call
 
-# final messaged
+# final message
 echo 'Installation of dependencies finished successfully!'
