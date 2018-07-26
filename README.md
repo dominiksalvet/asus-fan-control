@@ -84,7 +84,7 @@ ux430ua-fan-control -set-temps:'45 50 55 60 65 70 75 80'
 
 ---
 
-This configuration won't be removed during uninstallation process of this program. It is stored in the */etc/ux430ua-fan-control-config* directory.
+Custom temperatures won't be removed during uninstallation process of this program. They are stored in the */etc/ux430ua-fan-control-config/fan-temps* file.
 
 ## Thanks
 
