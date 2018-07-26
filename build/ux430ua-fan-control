@@ -74,22 +74,22 @@ CONFIG_DIR=/etc/ux430ua-fan-control-config
 CONFIG_BASE_ADDR=1335
 
 # list of default values of temperatures (in degrees Celsius) per each fan speed level
-FAN_TEMPS='55 60 62 65 68 72 76 80'
+TEMPS='55 60 62 65 68 72 76 80'
 
 # DESCRIPTION:
 #   Check if given fan speed level temperatures are valid.
 # PARAMETERS:
 #   $1 - temperatures in degrees Celsius
-check_fan_temps() {
+check_temps() {
     temp_counter=0
-    previous_fan_temp=0
-    for fan_temp in $1; do
+    previous_temp=0
+    for temp in $1; do
         # fail if parameter is not a number in range 1-99 or has less or equal value to the previous one
-        if ! echo "$fan_temp" | grep -q -E -e '^[1-9][0-9]?$' || [ "$fan_temp" -le "$previous_fan_temp" ]; then
+        if ! echo "$temp" | grep -q -E -e '^[1-9][0-9]?$' || [ "$temp" -le "$previous_temp" ]; then
             return 1
         fi
         temp_counter=$((temp_counter + 1))
-        previous_fan_temp="$fan_temp"
+        previous_temp="$temp"
     done
     
     # fail if there is not exactly 8 temperature values
@@ -101,10 +101,10 @@ check_fan_temps() {
 # DESCRIPTION:
 #   Display preferred valid fan speed level temperatures.
 display_temps() {
-    if [ -f "$CONFIG_DIR/fan-temps" ]; then
-        LOADED_FAN_TEMPS="$(head -n 1 "$CONFIG_DIR/fan-temps")"
-        if check_fan_temps "$LOADED_FAN_TEMPS"; then
-            echo "$LOADED_FAN_TEMPS"
+    if [ -f "$CONFIG_DIR/temps" ]; then
+        LOADED_TEMPS="$(head -n 1 "$CONFIG_DIR/temps")"
+        if check_temps "$LOADED_TEMPS"; then
+            echo "$LOADED_TEMPS"
             return 0
         else
             echo "$0: Stored custom temperatures are invalid, using the default ones for the selected action.
@@ -112,7 +112,7 @@ POSSIBLE SOLUTIONS:
   * use command 'sudo $0 -set-default-temps'" >&2
         fi
     fi
-    echo "$FAN_TEMPS"
+    echo "$TEMPS"
 }
 
 #-------------------------------------------------------------------------------
@@ -127,14 +127,14 @@ for i in "$@"; do
             exit 0
             ;;
         -set-temps:*)
-            CUSTOM_FAN_TEMPS="$(echo "$i" | sed -E -e 's/^-set-temps://')"
-            if [ -z "$CUSTOM_FAN_TEMPS" ]; then
+            CUSTOM_TEMPS="$(echo "$i" | sed -E -e 's/^-set-temps://')"
+            if [ -z "$CUSTOM_TEMPS" ]; then
                 echo "$0: Empty temperatures are invalid, action canceled." >&2
                 exit 1
             fi
             ;;
         -set-default-temps)
-            CUSTOM_FAN_TEMPS="$FAN_TEMPS"
+            CUSTOM_TEMPS="$TEMPS"
             ;;
         -help)
             echo "$HELP_MESSAGE"
@@ -167,11 +167,11 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 # check if user-defined temperatures provided
-if [ ! -z "$CUSTOM_FAN_TEMPS" ]; then
-    if [ "$CUSTOM_FAN_TEMPS" = "$FAN_TEMPS" ]; then
-        [ -f "$CONFIG_DIR/fan-temps" ] && rm "$CONFIG_DIR/fan-temps"
-    elif check_fan_temps "$CUSTOM_FAN_TEMPS"; then
-        echo "$CUSTOM_FAN_TEMPS" > "$CONFIG_DIR/fan-temps"
+if [ ! -z "$CUSTOM_TEMPS" ]; then
+    if [ "$CUSTOM_TEMPS" = "$TEMPS" ]; then
+        [ -f "$CONFIG_DIR/temps" ] && rm "$CONFIG_DIR/temps"
+    elif check_temps "$CUSTOM_TEMPS"; then
+        echo "$CUSTOM_TEMPS" > "$CONFIG_DIR/temps"
     else
         echo "$0: Entered custom temperatures are invalid, action canceled." >&2
         exit 1
@@ -179,13 +179,13 @@ if [ ! -z "$CUSTOM_FAN_TEMPS" ]; then
 fi
 
 # get current temperatures to apply
-FAN_TEMPS="$(display_temps)"
+TEMPS="$(display_temps)"
 
 # set up each individual fan speed level
 speed_level=0
-for fan_temp in $FAN_TEMPS; do
+for temp in $TEMPS; do
     # ACPI call
-    echo '\_SB.PCI0.LPCB.EC0.WRAM '$((CONFIG_BASE_ADDR + speed_level))" $fan_temp" > /proc/acpi/call
+    echo '\_SB.PCI0.LPCB.EC0.WRAM '$((CONFIG_BASE_ADDR + speed_level))" $temp" > /proc/acpi/call
     # get the result of previous call (also echo a new line as it doesn't contain one)
     cat /proc/acpi/call; echo
 
