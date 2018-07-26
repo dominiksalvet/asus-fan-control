@@ -9,6 +9,7 @@ The changes not yet present in any release are listed in this section.
 ### Added
 
 * Support relative paths across all delivered software with the program and within the program itself.
+* Support for custom temperature values. Associated flags are `-get-temps`, `-set-temps:NUMBERS`, `-set-default-temps`.
 
 ### Changed
 

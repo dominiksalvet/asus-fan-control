@@ -12,7 +12,7 @@
 #-------------------------------------------------------------------------------
 
 # list of required software
-SW_REQUIRED='command echo [ cat grep lsmod'
+SW_REQUIRED='command echo [ cat grep lsmod head id rm'
 
 # check if some software is missing
 for i in $SW_REQUIRED; do
@@ -42,7 +42,7 @@ POSSIBLE SOLUTIONS:
 fi
 
 #-------------------------------------------------------------------------------
-# PROGRAM OUTPUT INFORMATION
+# DEFINITIONS
 #-------------------------------------------------------------------------------
 
 # the current version of the program
@@ -51,9 +51,12 @@ VERSION=1.0.0
 HELP_MESSAGE="Usage: $0 [OPTION]...
 
 OPTION:
-  -help     display this help and exit
-  -about    display information and exit
-  -version  display version and exit"
+  -get-temps          display current temperatures of fan speed levels and exit
+  -set-temps:NUMBERS  use custom temperatures for fan speed levels
+  -set-default-temps  use default temperatures for fan speed levels
+  -help               display this help and exit
+  -about              display information and exit
+  -version            display version and exit"
 
 ABOUT_MESSAGE="ux430ua-fan-control $VERSION
 Set up fan speed policy of ASUS ZenBook UX430UA to make it more quiet on Linux.
@@ -64,6 +67,37 @@ https://gitlab.com/dominiksalvet/ux430ua-fan-control"
 
 HINT_MESSAGE="Try '$0 -help' for more information."
 
+# configuration files directory
+CONFIG_DIR=/etc/ux430ua-fan-control-config
+
+# the base address for fan speed levels configuration
+CONFIG_BASE_ADDR=1335
+
+# list of default values of temperatures (in degrees Celsius) per each fan speed level
+FAN_TEMPS='55 60 62 65 68 72 76 80'
+
+# DESCRIPTION:
+#   Check if given fan speed level temperatures are valid.
+# PARAMETERS:
+#   $1 - temperatures in degrees Celsius
+check_fan_temps() {
+    temp_counter=0
+    previous_fan_temp=0
+    for fan_temp in $1; do
+        # fail if parameter is not a number in range 1-99 or has less or equal value to the previous one
+        if ! echo "$fan_temp" | grep -q -E -e '^[1-9][0-9]?$' || [ "$fan_temp" -le "$previous_fan_temp" ]; then
+            return 1
+        fi
+        temp_counter=$((temp_counter + 1))
+        previous_fan_temp="$fan_temp"
+    done
+    
+    # fail if there is not exactly 8 temperature values
+    if [ "$temp_counter" -ne 8 ]; then
+        return 1
+    fi
+}
+
 #-------------------------------------------------------------------------------
 # PROCESSING PARAMETERS
 #-------------------------------------------------------------------------------
@@ -71,6 +105,27 @@ HINT_MESSAGE="Try '$0 -help' for more information."
 # processing each parameter separately
 for i in "$@"; do
     case "$i" in
+        -get-temps)
+            if [ -f "$CONFIG_DIR/fan-temps" ]; then
+                LOADED_FAN_TEMPS="$(head -n 1 "$CONFIG_DIR/fan-temps")"
+                if check_fan_temps "$LOADED_FAN_TEMPS"; then
+                    echo "$LOADED_FAN_TEMPS"
+                    exit 0
+                fi
+            fi
+            echo "$FAN_TEMPS"
+            exit 0
+            ;;
+        -set-temps:*)
+            CUSTOM_FAN_TEMPS="$(echo "$i" | sed -E -e 's/^-set-temps://')"
+            if [ -z "$CUSTOM_FAN_TEMPS" ]; then
+                echo "$0: Empty temperatures are invalid, action canceled." >&2
+                exit 1
+            fi
+            ;;
+        -set-default-temps)
+            CUSTOM_FAN_TEMPS="$FAN_TEMPS"
+            ;;
         -help)
             echo "$HELP_MESSAGE"
             exit 0
@@ -92,29 +147,6 @@ for i in "$@"; do
 done
 
 #-------------------------------------------------------------------------------
-# DEFINITIONS
-#-------------------------------------------------------------------------------
-
-# list of ascending values of temperatures (in degrees Celsius) per each fan speed level
-FAN_TEMPS='55 60 62 65 68 72 76 80'
-
-# the base address for fan speed levels configuration
-CONFIG_BASE_ADDR=1335
-
-# DESCRIPTION:
-#   Set temperature boundary to a chosen fan speed level.
-# PARAMETERS:
-#   $1 - fan speed level (0-7)
-#   $2 - temperature in degrees Celsius
-set_temp_boundary() {
-    # direct ACPI call
-    echo '\_SB.PCI0.LPCB.EC0.WRAM '$((CONFIG_BASE_ADDR + $1))" $2" > /proc/acpi/call
-    cat /proc/acpi/call
-    # previous command misses a new line character, so echo new line
-    echo
-}
-
-#-------------------------------------------------------------------------------
 # APPLY CONFIGURATION
 #-------------------------------------------------------------------------------
 
@@ -124,29 +156,37 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
-# check values of temperature boundaries
-temp_counter=0
-previous_temp=0
-for temp in $FAN_TEMPS; do
-    # check if parameter is a number and has greater value than the previous one
-    if ! echo "$temp" | grep -q -E -e '^[1-9][0-9]?$' || [ "$temp" -le "$previous_temp" ]; then
-        # indicate this error
-        previous_temp=0
-        break
+# check if user-defined temperatures provided
+if [ ! -z "$CUSTOM_FAN_TEMPS" ]; then
+    if [ "$CUSTOM_FAN_TEMPS" = "$FAN_TEMPS" ]; then
+        [ -f "$CONFIG_DIR/fan-temps" ] && rm "$CONFIG_DIR/fan-temps"
+    elif check_fan_temps "$CUSTOM_FAN_TEMPS"; then
+        echo "$CUSTOM_FAN_TEMPS" > "$CONFIG_DIR/fan-temps"
+    else
+        echo "$0: Entered custom temperatures are invalid, action canceled." >&2
+        exit 1
     fi
-    temp_counter=$((temp_counter + 1))
-    previous_temp="$temp"
-done
+fi
 
-# check if an error indicated or there is not exactly 8 temperature values
-if [ "$previous_temp" -eq 0 ] || [ "$temp_counter" -ne 8 ]; then
-    echo "$0: Values of temperature boundaries are invalid, action canceled." >&2
-    exit 1
+# get current temperatures to apply
+if [ -f "$CONFIG_DIR/fan-temps" ]; then
+    LOADED_FAN_TEMPS="$(head -n 1 "$CONFIG_DIR/fan-temps")"
+    if check_fan_temps "$LOADED_FAN_TEMPS"; then
+        FAN_TEMPS="$LOADED_FAN_TEMPS"
+    else
+        echo "$0: Stored custom temperatures are invalid, falling back to the default ones.
+POSSIBLE SOLUTIONS:
+  * use command 'sudo $0 -set-default-temps'" >&2
+    fi
 fi
 
 # set up each individual fan speed level
-i=0
-for temp in $FAN_TEMPS; do
-    set_temp_boundary "$i" "$temp"
-    i=$((i + 1))
+speed_level=0
+for fan_temp in $FAN_TEMPS; do
+    # ACPI call
+    echo '\_SB.PCI0.LPCB.EC0.WRAM '$((CONFIG_BASE_ADDR + speed_level))" $fan_temp" > /proc/acpi/call
+    # get the result of previous call (also echo a new line as it doesn't contain one)
+    cat /proc/acpi/call; echo
+
+    speed_level=$((speed_level + 1))
 done

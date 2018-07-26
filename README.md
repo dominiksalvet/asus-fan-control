@@ -58,6 +58,34 @@ sudo make install INSTALL_DIR=/opt
 
 In case of uninstalling from a custom installation directory, this variable is not required; the uninstaller automatically detects where the installation directory is.
 
+## Use custom fan speed policy
+
+The fan speed policy is defined by 8 numbers that represent temperature boundaries in degrees Celsius between individual fan speed levels. Those numbers are expected to be increasing as they increase the fan speed level.
+
+The default values are `55 60 62 65 68 72 76 80`, their table representation follows:
+
+| Speed level   | Temperatures (C°) |
+| ------------- | ----------------- |
+| 0 (off)       | 54 and less       |
+| 1             | 55 to 59          |
+| 2             | 60 to 61          |
+| 3             | 62 to 64          |
+| 4             | 65 to 67          |
+| 5             | 68 to 71          |
+| 6             | 72 to 75          |
+| 7             | 76 to 79          |
+| 8 (max)       | 80 and more       |
+
+To customize these temperatures, use the program's `-set-temps:NUMBERS` flag. For more information, use the `-help` flag. An example how to change the temperatures follows:
+
+```sh
+ux430ua-fan-control -set-temps:'45 50 55 60 65 70 75 80'
+```
+
+---
+
+This configuration won't be removed during uninstallation process of this program. It is stored in the */etc/ux430ua-fan-control-config* directory.
+
 ## Thanks
 
 The very core of this program stands on [this issue comment](https://github.com/daringer/asus-fan/issues/44#issuecomment-307589414) from [afilipovich](https://github.com/afilipovich) user.
