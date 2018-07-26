@@ -22,30 +22,30 @@ The described problem can be solved with this program. The program includes an i
 To **automatically install** the latest stable release of this program, open a terminal emulator and use the following commands:
 
 ```sh
-cd ~/Downloads/ &&
-if [ ! -d ux430ua-fan-control/ ]; then
-    git clone -q https://gitlab.com/dominiksalvet/ux430ua-fan-control.git
+cd ~/Downloads/ && # change directory to the 'Downloads' directory
+if [ ! -d ux430ua-fan-control/ ]; then # check if local repository exists
+    git clone -q https://gitlab.com/dominiksalvet/ux430ua-fan-control.git # if not, clone it
 fi &&
-cd ux430ua-fan-control/ &&
-git checkout -q "$(git describe --abbrev=0)" &&
-sudo make install-deps &&
-sudo make install
+cd ux430ua-fan-control/ && # change directory to it
+git checkout -q "$(git describe --abbrev=0)" && # checkout the latest release repository
+sudo make install-deps && # install dependencies
+sudo make install # install the program
 ```
 
 After the installation, the *~/Downloads/ux430ua-fan-control* directory won't be required for the program to be working and so it can be removed.
 
 ---
 
-If it is required to **automatically uninstall** the latest stable release of this program, open a terminal emulator and use the following commands:
+If it is required to **automatically uninstall your current release** of this program installed in the default installation directory ([steps](#installation) stated above do so), open a terminal emulator and use the following commands:
 
 ```sh
-cd ~/Downloads/ &&
-if [ ! -d ux430ua-fan-control/ ]; then
-    git clone -q https://gitlab.com/dominiksalvet/ux430ua-fan-control.git
+cd ~/Downloads/ && # change directory to the 'Downloads' directory
+if [ ! -d ux430ua-fan-control/ ]; then # check if local repository exists
+    git clone -q https://gitlab.com/dominiksalvet/ux430ua-fan-control.git # if not, clone it
 fi &&
-cd ux430ua-fan-control/ &&
-git checkout -q "$(git describe --abbrev=0)" &&
-sudo make uninstall
+cd ux430ua-fan-control/ && # change directory to it
+git checkout -q "$(ux430ua-fan-control -version)" && # checkout to your program's release repository
+sudo make uninstall # uninstall the program (it doesn't uninstall dependencies)
 ```
 
 ### Choose the installation directory
