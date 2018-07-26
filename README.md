@@ -19,7 +19,7 @@ The described problem can be solved with this program. The program includes an i
 
 ## Installation
 
-To **automatically install** the latest stable release of this program, open a terminal emulator and use the following commands:
+To **automatically install the latest stable release** of this program, open a terminal emulator and use the following commands:
 
 ```sh
 cd ~/Downloads/ && # change directory to the 'Downloads' directory
