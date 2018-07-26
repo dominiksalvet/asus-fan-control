@@ -33,7 +33,7 @@ POSSIBLE SOLUTIONS:
 fi
 
 # check if interface file for 'acpi_call' module exists
-if [ -f /proc/acpi/call ]; then
+if [ ! -f /proc/acpi/call ]; then
     echo "$0: Interface file '/proc/acpi/call' for 'acpi_call' module doesn't exist, action canceled.
 POSSIBLE SOLUTIONS:
   * install program dependencies
