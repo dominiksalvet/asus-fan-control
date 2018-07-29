@@ -9,7 +9,6 @@ The changes not yet present in any release are listed in this section.
 ### Changed
 
 * Temperatures obtained from the `-get-temps` flag are read directly from ACPI rather than from stored configuration or using default values.
-* New temperature values range is 20-99 degrees Celsius due to issues while reading ACPI values from the */proc/acpi/call* file.
 
 ## 1.1.0 (2017-07-26)
 

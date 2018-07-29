@@ -93,8 +93,8 @@ check_temps() {
     temp_counter=0
     previous_temp=0
     for temp in $1; do
-        # fail if parameter is not a number in range 20-99 or has less or equal value to the previous one
-        if ! echo "$temp" | grep -q -E -e '^[2-9][0-9]$' || [ "$temp" -le "$previous_temp" ]; then
+        # fail if parameter is not a number in range 1-99 or has less or equal value to the previous one
+        if ! echo "$temp" | grep -q -E -e '^[1-9][0-9]?$' || [ "$temp" -le "$previous_temp" ]; then
             return 1
         fi
         temp_counter=$((temp_counter + 1))
@@ -123,7 +123,7 @@ for i in "$@"; do
             while [ "$speed_level" -le 7 ]; do
                 # ACPI call - read
                 echo '\_SB.PCI0.LPCB.EC0.RRAM '$(( CONFIG_BASE_ADDR + speed_level )) > /proc/acpi/call
-                # get hexadecimal value (may be overlayed with 'called' message)
+                # get hexadecimal value from ACPI message
                 temp="$(cut -c1-4 /proc/acpi/call)"
                 # convert it to decimal and add to the list
                 acpi_temps="${acpi_temps}$(( temp )) "
