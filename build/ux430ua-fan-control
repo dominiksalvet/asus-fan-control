@@ -12,7 +12,7 @@
 #-------------------------------------------------------------------------------
 
 # list of required software
-SW_REQUIRED='command echo [ cat grep lsmod head id rm'
+SW_REQUIRED='command echo [ grep lsmod head id rm cut'
 
 # check if some software is missing
 for i in $SW_REQUIRED; do
@@ -77,6 +77,15 @@ CONFIG_BASE_ADDR=1335
 TEMPS='55 60 62 65 68 72 76 80'
 
 # DESCRIPTION:
+#   Check if running as root.
+root_check() {
+    if [ "$(id -u)" -ne 0 ]; then
+        echo "$0: Please run as root, action canceled." >&2
+        return 1
+    fi
+}
+
+# DESCRIPTION:
 #   Check if given fan speed level temperatures are valid.
 # PARAMETERS:
 #   $1 - temperatures in degrees Celsius
@@ -84,8 +93,8 @@ check_temps() {
     temp_counter=0
     previous_temp=0
     for temp in $1; do
-        # fail if parameter is not a number in range 1-99 or has less or equal value to the previous one
-        if ! echo "$temp" | grep -q -E -e '^[1-9][0-9]?$' || [ "$temp" -le "$previous_temp" ]; then
+        # fail if parameter is not a number in range 20-99 or has less or equal value to the previous one
+        if ! echo "$temp" | grep -q -E -e '^[2-9][0-9]$' || [ "$temp" -le "$previous_temp" ]; then
             return 1
         fi
         temp_counter=$((temp_counter + 1))
@@ -98,23 +107,6 @@ check_temps() {
     fi
 }
 
-# DESCRIPTION:
-#   Display preferred valid fan speed level temperatures.
-display_temps() {
-    if [ -f "$CONFIG_DIR/temps" ]; then
-        LOADED_TEMPS="$(head -n 1 "$CONFIG_DIR/temps")"
-        if check_temps "$LOADED_TEMPS"; then
-            echo "$LOADED_TEMPS"
-            return 0
-        else
-            echo "$0: Stored custom temperatures are invalid, using the default ones for the selected action.
-POSSIBLE SOLUTIONS:
-  * use command 'sudo $0 -set-default-temps'" >&2
-        fi
-    fi
-    echo "$TEMPS"
-}
-
 #-------------------------------------------------------------------------------
 # PROCESSING PARAMETERS
 #-------------------------------------------------------------------------------
@@ -123,7 +115,23 @@ POSSIBLE SOLUTIONS:
 for i in "$@"; do
     case "$i" in
         -get-temps)
-            display_temps
+            root_check || exit 1
+
+            # get each individual fan speed level
+            speed_level=0
+            acpi_temps=''
+            while [ "$speed_level" -le 7 ]; do
+                # ACPI call - read
+                echo '\_SB.PCI0.LPCB.EC0.RRAM '$(( CONFIG_BASE_ADDR + speed_level )) > /proc/acpi/call
+                # get hexadecimal value (may be overlayed with 'called' message)
+                temp="$(cut -c1-4 /proc/acpi/call)"
+                # convert it to decimal and add to the list
+                acpi_temps="${acpi_temps}$(( temp )) "
+                # next level
+                speed_level=$(( speed_level + 1 ))
+            done
+            echo "$acpi_temps"
+
             exit 0
             ;;
         -set-temps:*)
@@ -160,11 +168,7 @@ done
 # APPLY CONFIGURATION
 #-------------------------------------------------------------------------------
 
-# check if running as root
-if [ "$(id -u)" -ne 0 ]; then
-    echo "$0: Please run as root, action canceled." >&2
-    exit 1
-fi
+root_check || exit 1
 
 # check if user-defined temperatures provided
 if [ ! -z "$CUSTOM_TEMPS" ]; then
@@ -178,13 +182,23 @@ if [ ! -z "$CUSTOM_TEMPS" ]; then
     fi
 fi
 
-# get current temperatures to apply
-TEMPS="$(display_temps)"
+# get temperatures to apply
+if [ -f "$CONFIG_DIR/temps" ]; then
+    LOADED_TEMPS="$(head -n 1 "$CONFIG_DIR/temps")"
+    if check_temps "$LOADED_TEMPS"; then
+        TEMPS="$LOADED_TEMPS"
+    else
+        echo "$0: Stored custom temperatures are invalid, using the default ones.
+POSSIBLE SOLUTIONS:
+  * use command 'sudo $0 -set-default-temps'
+  * use command 'sudo $0 -set-temps:NUMBERS' with valid temperatures" >&2
+    fi
+fi
 
 # set up each individual fan speed level
 speed_level=0
 for temp in $TEMPS; do
-    # ACPI call
+    # ACPI call - write
     echo '\_SB.PCI0.LPCB.EC0.WRAM '$((CONFIG_BASE_ADDR + speed_level))" $temp" > /proc/acpi/call
     # next level
     speed_level=$((speed_level + 1))
