@@ -130,8 +130,8 @@ for i in "$@"; do
                 # next level
                 speed_level=$((speed_level + 1))
             done
-            # display the list
-            echo "$acpi_temps"
+            # display the list and remove last space
+            echo "$acpi_temps" | sed -E -e 's/ $//'
 
             exit 0
             ;;
