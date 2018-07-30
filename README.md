@@ -12,10 +12,9 @@ The described problem can be solved with this program. The program includes an i
 
 ### Tested operating systems
 
-* Ubuntu 16.04
-* Linux Mint 18.2
-* Linux Mint 18.3
 * Ubuntu 18.04
+* Ubuntu 16.04
+* Linux Mint 18
 
 ## Installation
 
