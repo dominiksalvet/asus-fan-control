@@ -120,7 +120,7 @@ for i in "$@"; do
             # get each individual fan speed level
             speed_level=0
             acpi_temps=''
-            while [ "$speed_level" -le 7 ]; do
+            for _ in $TEMPS; do
                 # ACPI call - read
                 echo '\_SB.PCI0.LPCB.EC0.RRAM '$(( CONFIG_BASE_ADDR + speed_level )) > /proc/acpi/call
                 # get hexadecimal value from ACPI message
@@ -130,6 +130,7 @@ for i in "$@"; do
                 # next level
                 speed_level=$(( speed_level + 1 ))
             done
+            # display the list
             echo "$acpi_temps"
 
             exit 0
