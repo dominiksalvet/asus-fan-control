@@ -54,7 +54,7 @@ sudo make uninstall # uninstall the program (it doesn't uninstall dependencies)
 
 ### Choose the installation directory
 
-The default installation directory is */usr/local/bin* as it should be included in the `$PATH` variable. However, for the program to work, it is not required that and so to change it, pass your desired installation directory path as an absolute path in `INSTALL_DIR` variable to the `sudo make install` command. For example:
+The default installation directory is */usr/local/bin* as it should be included in the `$PATH` variable. However, for the program to work, it is not required that and so to change it, pass your desired installation directory path in `INSTALL_DIR` variable to the `sudo make install` command. For example:
 
 ```sh
 sudo make install INSTALL_DIR=/opt
