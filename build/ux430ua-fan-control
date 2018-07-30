@@ -23,24 +23,6 @@ for i in $SW_REQUIRED; do
     fi
 done
 
-# check if 'acpi_call' module loaded
-if ! lsmod | grep -q -E -e '^[[:blank:]]*acpi_call[[:blank:]].*$'; then
-    echo "$0: Required module 'acpi_call' is not loaded, action canceled.
-POSSIBLE SOLUTIONS:
-  * install program dependencies
-  * reboot your device" >&2
-    exit 1
-fi
-
-# check if interface file for 'acpi_call' module exists
-if [ ! -f /proc/acpi/call ]; then
-    echo "$0: Interface file '/proc/acpi/call' for 'acpi_call' module doesn't exist, action canceled.
-POSSIBLE SOLUTIONS:
-  * install program dependencies
-  * reboot your device" >&2
-    exit 1
-fi
-
 #-------------------------------------------------------------------------------
 # DEFINITIONS
 #-------------------------------------------------------------------------------
@@ -75,8 +57,27 @@ CONFIG_BASE_ADDR=1335
 TEMPS='55 60 62 65 68 72 76 80'
 
 # DESCRIPTION:
-#   Check if running as root.
-root_check() {
+#   Check conditions to perform an ACPI call.
+acpi_check() {
+    # check if 'acpi_call' module loaded
+    if ! lsmod | grep -q -E -e '^[[:blank:]]*acpi_call[[:blank:]].*$'; then
+        echo "$0: Required module 'acpi_call' is not loaded, action canceled.
+POSSIBLE SOLUTIONS:
+  * install program dependencies
+  * reboot your device" >&2
+        return 1
+    fi
+    
+    # check if interface file for 'acpi_call' module exists
+    if [ ! -f /proc/acpi/call ]; then
+        echo "$0: Interface file '/proc/acpi/call' for 'acpi_call' module doesn't exist, action canceled.
+POSSIBLE SOLUTIONS:
+  * install program dependencies
+  * reboot your device" >&2
+        return 1
+    fi
+
+    # check if running as root
     if [ "$(id -u)" -ne 0 ]; then
         echo "$0: Please run as root, action canceled." >&2
         return 1
@@ -113,7 +114,7 @@ check_temps() {
 for i in "$@"; do
     case "$i" in
         -get-temps)
-            root_check || exit 1
+            acpi_check || exit
 
             # get each individual fan speed level
             speed_level=0
@@ -167,7 +168,7 @@ done
 # APPLY CONFIGURATION
 #-------------------------------------------------------------------------------
 
-root_check || exit 1
+acpi_check || exit
 
 # check if user-defined temperatures provided
 if [ ! -z "$ENTERED_TEMPS" ]; then
