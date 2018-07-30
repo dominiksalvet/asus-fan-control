@@ -23,11 +23,13 @@ To **automatically install the latest stable release** of this program, open a t
 
 ```sh
 cd ~/Downloads/ && # change directory to the 'Downloads' directory
-if [ ! -d ux430ua-fan-control/ ]; then # check if local repository exists
-    git clone -q https://gitlab.com/dominiksalvet/ux430ua-fan-control.git # if not, clone it
+if cd ux430ua-fan-control/; then # check if local repository exists
+    git pull -q # get the most recent state of the repository
+else
+    git clone -q https://gitlab.com/dominiksalvet/ux430ua-fan-control.git && # clone it
+    cd ux430ua-fan-control/ # and change directory to the downloaded repository
 fi &&
-cd ux430ua-fan-control/ && # change directory to it
-git checkout -q "$(git describe --abbrev=0)" && # checkout the latest release repository
+git checkout -q "$(git describe --abbrev=0)" && # use the latest repository tag
 sudo make install-deps && # install dependencies
 sudo make install # install the program
 ```
@@ -40,11 +42,13 @@ If it is required to **automatically uninstall your current release** of this pr
 
 ```sh
 cd ~/Downloads/ && # change directory to the 'Downloads' directory
-if [ ! -d ux430ua-fan-control/ ]; then # check if local repository exists
-    git clone -q https://gitlab.com/dominiksalvet/ux430ua-fan-control.git # if not, clone it
+if cd ux430ua-fan-control/; then # check if local repository exists
+    git pull -q # get the most recent state of the repository
+else
+    git clone -q https://gitlab.com/dominiksalvet/ux430ua-fan-control.git && # clone it
+    cd ux430ua-fan-control/ # and change directory to the downloaded repository
 fi &&
-cd ux430ua-fan-control/ && # change directory to it
-git checkout -q "$(ux430ua-fan-control -version)" && # checkout to your program's release repository
+git checkout -q "$(ux430ua-fan-control -version)" && # use the program version as a tag
 sudo make uninstall # uninstall the program (it doesn't uninstall dependencies)
 ```
 
