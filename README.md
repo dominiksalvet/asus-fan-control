@@ -24,13 +24,14 @@ To **automatically install the latest stable release** of this program, open a t
 ```sh
 cd ~/Downloads/ && # change directory to the 'Downloads' directory
 if cd ux430ua-fan-control/ 2>/dev/null; then # check if local repository exists
-    git checkout -q master && # checkout the master for the pull command
-    git pull -q # get the most recent state of the repository
+    git checkout master && # checkout the master for the pull command
+    git pull # get the most recent state of the repository
+    git fetch --tags # in case of any release commit change
 else
-    git clone -q https://gitlab.com/dominiksalvet/ux430ua-fan-control.git && # clone it
+    git clone https://gitlab.com/dominiksalvet/ux430ua-fan-control.git && # clone it
     cd ux430ua-fan-control/ # and change directory to the downloaded repository
 fi &&
-git checkout -q "$(git describe --abbrev=0)" && # use the latest repository tag
+git checkout "$(git describe --abbrev=0)" && # use the latest repository tag
 sudo make install-deps && # install dependencies
 sudo make install # install the program
 ```
@@ -44,13 +45,14 @@ If it is required to **automatically uninstall your current release** of this pr
 ```sh
 cd ~/Downloads/ && # change directory to the 'Downloads' directory
 if cd ux430ua-fan-control/ 2>/dev/null; then # check if local repository exists
-    git checkout -q master && # checkout the master for the pull command
-    git pull -q # get the most recent state of the repository
+    git checkout master && # checkout the master for the pull command
+    git pull # get the most recent state of the repository
+    git fetch --tags # in case of any release commit change
 else
-    git clone -q https://gitlab.com/dominiksalvet/ux430ua-fan-control.git && # clone it
+    git clone https://gitlab.com/dominiksalvet/ux430ua-fan-control.git && # clone it
     cd ux430ua-fan-control/ # and change directory to the downloaded repository
 fi &&
-git checkout -q "$(ux430ua-fan-control -version)" && # use the program version as a tag
+git checkout "$(ux430ua-fan-control -version)" && # use the program version as a tag
 sudo make uninstall # uninstall the program (it doesn't uninstall dependencies)
 ```
 
