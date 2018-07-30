@@ -23,7 +23,7 @@ To **automatically install the latest stable release** of this program, open a t
 
 ```sh
 cd ~/Downloads/ && # change directory to the 'Downloads' directory
-if cd ux430ua-fan-control/; then # check if local repository exists
+if cd ux430ua-fan-control/ 2>/dev/null; then # check if local repository exists
     git pull -q # get the most recent state of the repository
 else
     git clone -q https://gitlab.com/dominiksalvet/ux430ua-fan-control.git && # clone it
@@ -42,7 +42,7 @@ If it is required to **automatically uninstall your current release** of this pr
 
 ```sh
 cd ~/Downloads/ && # change directory to the 'Downloads' directory
-if cd ux430ua-fan-control/; then # check if local repository exists
+if cd ux430ua-fan-control/ 2>/dev/null; then # check if local repository exists
     git pull -q # get the most recent state of the repository
 else
     git clone -q https://gitlab.com/dominiksalvet/ux430ua-fan-control.git && # clone it
