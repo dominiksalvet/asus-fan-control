@@ -41,8 +41,8 @@ if [ ! -f "$CONFIG_DIR/install-dir" ]; then
 fi
 
 # get the installation directory path (it can be relative)
-INSTALLED_DIR="$(cd "$CONFIG_DIR/" && realpath -m "$(head -n 1 install-dir)")"
-echo "The detected installation directory path is '$INSTALLED_DIR/'."
+installed_dir="$(cd "$CONFIG_DIR/" && realpath -m "$(head -n 1 install-dir)")"
+echo "The detected installation directory path is '$installed_dir/'."
 
 #-------------------------------------------------------------------------------
 # UNINSTALLATION
@@ -58,7 +58,7 @@ fi
 sed -i -E -e '/^[[:blank:]]*'"'.*\/ux430ua-fan-control'"'(| .*)$/d' /etc/rc.local
 sed -i -E -e '/^[[:blank:]]*([^[:blank:]]|\\ |\\	)*\/ux430ua-fan-control(| .*)$/d' /etc/rc.local
 # remove the program itself
-rm "$INSTALLED_DIR/ux430ua-fan-control"
+rm "$installed_dir/ux430ua-fan-control"
 # finish removing the program by deleting the 'install-dir' file
 rm "$CONFIG_DIR/install-dir"
 

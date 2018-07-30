@@ -57,13 +57,13 @@ fi
 if [ -f "$CONFIG_DIR/install-dir" ]; then
 
     # get the installation directory path (it can be relative)
-    INSTALLED_DIR="$(cd "$CONFIG_DIR/" && realpath -m "$(head -n 1 install-dir)")"
+    installed_dir="$(cd "$CONFIG_DIR/" && realpath -m "$(head -n 1 install-dir)")"
 
-    if [ "$INSTALL_DIR" = "$INSTALLED_DIR" ]; then
-        echo "The program is already installed in '$INSTALLED_DIR/', installation canceled."
+    if [ "$INSTALL_DIR" = "$installed_dir" ]; then
+        echo "The program is already installed in '$installed_dir/', installation canceled."
         exit 0
     else
-        echo "$0: The program is already installed in '$INSTALLED_DIR/', installation canceled." >&2
+        echo "$0: The program is already installed in '$installed_dir/', installation canceled." >&2
         exit 1
     fi
 fi

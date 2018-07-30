@@ -52,8 +52,8 @@ HELP_MESSAGE="Usage: $0 [OPTION]...
 
 OPTION:
   -get-temps          display current temperatures of fan speed levels and exit
-  -set-temps:NUMBERS  use custom temperatures for fan speed levels
   -set-default-temps  use default temperatures for fan speed levels
+  -set-temps:NUMBERS  use custom temperatures for fan speed levels
   -help               display this help and exit
   -about              display information and exit
   -version            display version and exit"
@@ -64,8 +64,6 @@ Set up fan speed policy of ASUS ZenBook UX430UA to make it more quiet on Linux.
 Copyright 2017-2018 Dominik Salvet
 SPDX-License-Identifier: MIT
 https://gitlab.com/dominiksalvet/ux430ua-fan-control"
-
-HINT_MESSAGE="Try '$0 -help' for more information."
 
 # configuration files directory
 CONFIG_DIR=/etc/ux430ua-fan-control-config
@@ -124,9 +122,9 @@ for i in "$@"; do
                 # ACPI call - read
                 echo '\_SB.PCI0.LPCB.EC0.RRAM '$((CONFIG_BASE_ADDR + speed_level)) > /proc/acpi/call
                 # get hexadecimal value from ACPI message
-                temp="$(cut -c1-4 /proc/acpi/call)"
+                acpi_temp="$(cut -c1-4 /proc/acpi/call)"
                 # convert it to decimal and add to the list
-                acpi_temps="${acpi_temps}$((temp)) "
+                acpi_temps="${acpi_temps}$((acpi_temp)) "
                 # next level
                 speed_level=$((speed_level + 1))
             done
@@ -135,15 +133,15 @@ for i in "$@"; do
 
             exit 0
             ;;
+        -set-default-temps)
+            ENTERED_TEMPS="$TEMPS"
+            ;;
         -set-temps:*)
-            CUSTOM_TEMPS="$(echo "$i" | sed -E -e 's/^-set-temps://')"
-            if [ -z "$CUSTOM_TEMPS" ]; then
+            ENTERED_TEMPS="$(echo "$i" | sed -E -e 's/^-set-temps://')"
+            if [ -z "$ENTERED_TEMPS" ]; then
                 echo "$0: Empty temperatures are invalid, action canceled." >&2
                 exit 1
             fi
-            ;;
-        -set-default-temps)
-            CUSTOM_TEMPS="$TEMPS"
             ;;
         -help)
             echo "$HELP_MESSAGE"
@@ -158,8 +156,8 @@ for i in "$@"; do
             exit 0
             ;;
         *)
-            echo "$0: The option '$i' was not recognized." >&2
-            echo "$HINT_MESSAGE" >&2
+            echo "$0: The option '$i' was not recognized.
+Try '$0 -help' for more information." >&2
             exit 1
             ;;
     esac
@@ -172,11 +170,11 @@ done
 root_check || exit 1
 
 # check if user-defined temperatures provided
-if [ ! -z "$CUSTOM_TEMPS" ]; then
-    if [ "$CUSTOM_TEMPS" = "$TEMPS" ]; then
+if [ ! -z "$ENTERED_TEMPS" ]; then
+    if [ "$ENTERED_TEMPS" = "$TEMPS" ]; then
         [ -f "$CONFIG_DIR/temps" ] && rm "$CONFIG_DIR/temps"
-    elif check_temps "$CUSTOM_TEMPS"; then
-        echo "$CUSTOM_TEMPS" > "$CONFIG_DIR/temps"
+    elif check_temps "$ENTERED_TEMPS"; then
+        echo "$ENTERED_TEMPS" > "$CONFIG_DIR/temps"
     else
         echo "$0: Entered custom temperatures are invalid, action canceled." >&2
         exit 1
@@ -185,9 +183,9 @@ fi
 
 # get temperatures to apply
 if [ -f "$CONFIG_DIR/temps" ]; then
-    LOADED_TEMPS="$(head -n 1 "$CONFIG_DIR/temps")"
-    if check_temps "$LOADED_TEMPS"; then
-        TEMPS="$LOADED_TEMPS"
+    config_temps="$(head -n 1 "$CONFIG_DIR/temps")"
+    if check_temps "$config_temps"; then
+        TEMPS="$config_temps"
     else
         echo "$0: Stored custom temperatures are invalid, using the default ones.
 POSSIBLE SOLUTIONS:
