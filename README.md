@@ -99,4 +99,4 @@ The very core of this program stands on [this issue comment](https://github.com/
 
 ## License
 
-This project is licensed under an [Open Source Initiative](https://opensource.org/) approved license, the MIT License. See the [*LICENSE.md*](LICENSE.md) file for details. Individual files contain the [SPDX](https://spdx.org/) license identifier instead of the full license text, and they are always licensed under the license defined by that license identifier even if it differs from the project license.
+All files of this project are licensed under an [Open Source Initiative](https://opensource.org/) approved license, the MIT License. See the [*LICENSE.txt*](LICENSE.txt) file for details. Individual files may contain the [SPDX](https://spdx.org/) license identifier as a shortcut for the full license text, and they are always licensed under the license defined by that license identifier even if it differs from the project license.
