@@ -93,10 +93,6 @@ ux430ua-fan-control -set-temps:'45 50 55 60 65 70 75 80'
 
 Custom temperatures won't be removed during uninstallation process of this program and so they persist in case of updating the program. They are stored in the */etc/ux430ua-fan-control-config/temps* file.
 
-## Thanks
-
-The very core of this program stands on [this issue comment](https://github.com/daringer/asus-fan/issues/44#issuecomment-307589414) from [afilipovich](https://github.com/afilipovich) user.
-
 ## License
 
 All files of this project are implicitly licensed under an [Open Source Initiative](https://opensource.org/) approved license, the MIT License - see the [*LICENSE.txt*](LICENSE.txt) file for details. Additionally, individual files may contain the [SPDX](https://spdx.org/) license identifier as a shortcut for the full text of a license, and in this case they are always licensed under the license defined by that license identifier even if it differs from the project license.
