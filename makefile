@@ -65,6 +65,6 @@ help: # default, show this help
 about: # show information about this makefile
 	@$(ECHO) "Installation manager for 'ux430ua-fan-control' program."
 	@$(ECHO)
-	@$(ECHO) 'Copyright 2018 Dominik Salvet'
-	@$(ECHO) 'SPDX-License-Identifier: MIT'
+	@$(ECHO) 'Copy''right 2018 Dominik Salvet'
+	@$(ECHO) 'SPDX License Identifier: MIT'
 	@$(ECHO) 'https://gitlab.com/dominiksalvet/ux430ua-fan-control'
