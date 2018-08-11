@@ -10,6 +10,7 @@ The changes not yet present in any release are listed in this section.
 
 * The `-set-temps:NUMBERS` flag has a new `-set-temps:<numbers>` format now.
 * This project licensing policy is compliant with [REUSE Practices](https://reuse.software/practices/2.0/).
+* The [*README.md*](README.md) file is [Standard-Readme](https://github.com/RichardLitt/standard-readme) compliant.
 
 ## 1.1.1 (2018-08-11)
 

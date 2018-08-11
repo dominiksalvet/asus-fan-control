@@ -1,10 +1,21 @@
-# ASUS ZenBook UX430UA Fan Speed Setup
+# ASUS ZenBook UX430UA Fan Speed Setup *(ux430ua-fan-control)*
+
+> Set up fan speed policy of ASUS ZenBook UX430UA to make it more quiet on Linux.
 
 In the default setup of the ASUS ZenBook UX430UA running Linux, the system fan is driven very aggressively. Even when the device is not under any load, the fan keeps running quite loudly, it nearly never turns off.
 
 The described problem can be solved with this program. The program includes an intelligently designed makefile for easier installation.
 
-## System requirements
+## Table of Contents
+
+* [Install](#install)
+* [Usage](#usage)
+* [Contribute](#contribute)
+* [License](#license)
+
+## Install
+
+### System requirements
 
 * **Linux** operating system
 * **systemd** init system
@@ -14,9 +25,10 @@ The described problem can be solved with this program. The program includes an i
 
 * Ubuntu 18.04
 * Ubuntu 16.04
-* Linux Mint 18
+* Linux Mint 18.3
+* Linux Mint 18.2
 
-## Installation
+### Instructions
 
 To **automatically install the latest stable release** of this program, open a terminal emulator and use the following commands:
 
@@ -39,7 +51,7 @@ After the installation, the *~/Downloads/ux430ua-fan-control* directory won't be
 
 ---
 
-If it is required to **automatically uninstall your current release** of this program installed in the default installation directory ([steps](#installation) stated above do so), open a terminal emulator and use the following commands:
+If it is required to **automatically uninstall your current release** of this program installed in the default installation directory (the [commands](#instructions) stated above do so), open a terminal emulator and use the following commands:
 
 ```sh
 cd ~/Downloads/ && # change directory to the 'Downloads' directory
@@ -55,6 +67,12 @@ git checkout "$(ux430ua-fan-control -version)" && # use the program version as a
 sudo make uninstall # uninstall the program (it doesn't uninstall dependencies)
 ```
 
+However, it will not work when the program is **not installed in the default installation directory**. In this case manual `git checkout <installed_version>` command must be executed before the `sudo make uninstall` command.
+
+---
+
+To **update the program**, uninstall it and install it again using the steps stated above.
+
 ### Choose the installation directory
 
 The default installation directory is */usr/local/bin* as it should be included in the `$PATH` variable. However, for the program to work, it is not required that and so to change it, pass your desired installation directory path in `INSTALL_DIR` variable to the `sudo make install` command. For example:
@@ -65,7 +83,15 @@ sudo make install INSTALL_DIR=/opt
 
 In case of uninstalling from a custom installation directory, this variable is not required; the uninstaller automatically detects where the installation directory is.
 
-## Use custom fan speed policy
+## Usage
+
+The program is executed after the installation for the first time. Then, **it is automatically executed whenever necessary** to keep the effect of permanent change. Nevertheless, it is possible to apply changes manually by running it as shown:
+
+```sh
+sudo ux430ua-fan-control
+```
+
+### Set up custom fan speed policy
 
 The fan speed policy is defined by 8 numbers that represent temperature boundaries in degrees Celsius between individual fan speed levels. Those numbers are expected to be increasing as they increase the fan speed level.
 
@@ -86,12 +112,16 @@ The default values are `55 60 62 65 68 72 76 80`, their table representation fol
 To customize these temperatures, use the program's `-set-temps:<numbers>` flag. For more information, use the `-help` flag. An example how to change the temperatures follows:
 
 ```sh
-ux430ua-fan-control -set-temps:'45 50 55 60 65 70 75 80'
+sudo ux430ua-fan-control -set-temps:'45 50 55 60 65 70 75 80'
 ```
 
 ---
 
 Custom temperatures won't be removed during uninstallation process of this program and so they persist in case of updating the program. They are stored in the */etc/ux430ua-fan-control-config/temps* file.
+
+## Contribute
+
+See the [*CONTRIBUTING.md*](CONTRIBUTING.md) file for details.
 
 ## License
 
