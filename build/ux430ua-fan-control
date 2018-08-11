@@ -33,12 +33,12 @@ VERSION=1.1.1
 HELP_MESSAGE="Usage: $0 [OPTION]...
 
 OPTION:
-  -get-temps            display current temperatures of fan speed levels and exit
+  -get-temps            show current temperatures of fan speed levels and exit
   -set-default-temps    use default temperatures for fan speed levels
   -set-temps:<numbers>  use custom temperatures for fan speed levels
-  -help                 display this help and exit
-  -about                display information and exit
-  -version              display version and exit"
+  -help                 show this help and exit
+  -about                show information and exit
+  -version              show version and exit"
 
 ABOUT_MESSAGE="ux430ua-fan-control $VERSION
 Set up fan speed policy of ASUS ZenBook UX430UA to make it more quiet on Linux.
@@ -129,7 +129,7 @@ for i in "$@"; do
                 # next level
                 speed_level=$((speed_level + 1))
             done
-            # display the list and remove last space
+            # show the list and remove last space
             echo "$acpi_temps" | sed -E -e 's/ $//'
 
             exit 0

@@ -33,8 +33,8 @@ s/^/  /
 endef
 export GET_TARGET_DESCRIPTIONS
 
-# displays generated help of a given makefile from it's comments
-define display_generated_help
+# shows generated help of a given makefile from it's comments
+define show_generated_help
 	@$(ECHO) 'Usage: make [TARGET]...'
 	@$(ECHO)
 	@$(ECHO) 'TARGET:'
@@ -59,10 +59,10 @@ install: # install the program
 uninstall: # uninstall the program
 	./$(MAKE_DIR)/uninstall
 
-help: # default, display this help
-	$(call display_generated_help,makefile)
+help: # default, show this help
+	$(call show_generated_help,makefile)
 
-about: # display information about this makefile
+about: # show information about this makefile
 	@$(ECHO) "Installation manager for 'ux430ua-fan-control' program."
 	@$(ECHO)
 	@$(ECHO) 'Copyright 2018 Dominik Salvet'
