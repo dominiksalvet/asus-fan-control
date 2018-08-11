@@ -33,12 +33,12 @@ VERSION=1.1.1
 HELP_MESSAGE="Usage: $0 [OPTION]...
 
 OPTION:
-  -get-temps          display current temperatures of fan speed levels and exit
-  -set-default-temps  use default temperatures for fan speed levels
-  -set-temps:NUMBERS  use custom temperatures for fan speed levels
-  -help               display this help and exit
-  -about              display information and exit
-  -version            display version and exit"
+  -get-temps            display current temperatures of fan speed levels and exit
+  -set-default-temps    use default temperatures for fan speed levels
+  -set-temps:<numbers>  use custom temperatures for fan speed levels
+  -help                 display this help and exit
+  -about                display information and exit
+  -version              display version and exit"
 
 ABOUT_MESSAGE="ux430ua-fan-control $VERSION
 Set up fan speed policy of ASUS ZenBook UX430UA to make it more quiet on Linux.
@@ -191,7 +191,7 @@ if [ -f "$CONFIG_DIR/temps" ]; then
         echo "$0: Stored custom temperatures are invalid, using the default ones.
 POSSIBLE SOLUTIONS:
   * use command 'sudo $0 -set-default-temps'
-  * use command 'sudo $0 -set-temps:NUMBERS' with valid temperatures" >&2
+  * use command 'sudo $0 -set-temps:<numbers>' with valid temperatures" >&2
     fi
 fi
 

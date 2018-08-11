@@ -83,7 +83,7 @@ The default values are `55 60 62 65 68 72 76 80`, their table representation fol
 | 7             | 76 to 79          |
 | 8 (max)       | 80 and more       |
 
-To customize these temperatures, use the program's `-set-temps:NUMBERS` flag. For more information, use the `-help` flag. An example how to change the temperatures follows:
+To customize these temperatures, use the program's `-set-temps:<numbers>` flag. For more information, use the `-help` flag. An example how to change the temperatures follows:
 
 ```sh
 ux430ua-fan-control -set-temps:'45 50 55 60 65 70 75 80'
