@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 The changes not yet present in any release are listed in this section.
 
-## 1.1.1 (2018-07-30)
+## 1.1.1 (2018-08-11)
 
 ### Changed
 
