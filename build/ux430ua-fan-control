@@ -30,7 +30,7 @@ done
 # the current version of the program
 VERSION=1.1.2
 
-HELP_MESSAGE="Usage: $0 [OPTION]...
+HELP_MESSAGE="USAGE: $0 [OPTION]...
 
 OPTION:
   -get-temps            show current temperatures of fan speed levels and exit

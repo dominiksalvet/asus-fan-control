@@ -35,7 +35,7 @@ export GET_TARGET_DESCRIPTIONS
 
 # shows generated help of a given makefile from it's comments
 define show_generated_help
-	@$(ECHO) 'Usage: make [TARGET]...'
+	@$(ECHO) 'USAGE: make [TARGET]...'
 	@$(ECHO)
 	@$(ECHO) 'TARGET:'
 	@$(SED) -E -e "$$GET_TARGET_DESCRIPTIONS" $(1) | $(COLUMN) -t -s '#'
@@ -45,26 +45,21 @@ endef
 # TARGETS
 #-------------------------------------------------------------------------------
 
-.PHONY: all install-deps install uninstall help about
+.PHONY: all install uninstall install-deps install-project help
 
 # there is no building required, so the default target references to the help target
 all: help
 
-install-deps: # install dependencies of the program
+install: install-deps install-project # install the entire project
+
+uninstall: # uninstall the project
+	./$(MAKE_DIR)/uninstall
+
+install-deps: # install only dependencies of the project
 	./$(MAKE_DIR)/install-deps
 
-install: # install the program
+install-project: # install only the project
 	./$(MAKE_DIR)/install '$(BUILD_DIR)' '$(INSTALL_DIR)'
-
-uninstall: # uninstall the program
-	./$(MAKE_DIR)/uninstall
 
 help: # default, show this help
 	$(call show_generated_help,makefile)
-
-about: # show information about this makefile
-	@$(ECHO) "Installation manager for 'ux430ua-fan-control' program."
-	@$(ECHO)
-	@$(ECHO) 'Copy''right 2018 Dominik Salvet'
-	@$(ECHO) 'SPDX License Identifier: MIT'
-	@$(ECHO) 'https://gitlab.com/dominiksalvet/ux430ua-fan-control'
