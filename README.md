@@ -9,7 +9,11 @@ The described problem can be solved with this program. The program includes an i
 ## Table of Contents
 
 * [Install](#install)
+  * [System requirements](#system-requirements)
+  * [Tested operating systems](#tested-operating-systems)
+  * [Instructions](#instructions)
 * [Usage](#usage)
+  * [Set up custom fan speed policy](#set-up-custom-fan-speed-policy)
 * [Contribute](#contribute)
 * [License](#license)
 
@@ -30,58 +34,27 @@ The described problem can be solved with this program. The program includes an i
 
 ### Instructions
 
-To **automatically install the latest stable release** of this program, open a terminal emulator and use the following commands:
+This project is [gim](https://gitlab.com/dominiksalvet/gim) compliant since version 1.2.0. And so to **automatically install it's latest stable release**, open a terminal emulator and use the following command:
 
 ```sh
-cd ~/Downloads/ && # change directory to the 'Downloads' directory
-if cd ux430ua-fan-control/ 2>/dev/null; then # check if local repository exists
-    git checkout master && # checkout the master for the pull command
-    git pull && # get the most recent state of the repository
-    git fetch --tags # in case of any release commit change
-else
-    git clone https://gitlab.com/dominiksalvet/ux430ua-fan-control.git && # clone it
-    cd ux430ua-fan-control/ # and change directory to the downloaded repository
-fi &&
-git checkout "$(git describe --abbrev=0)" && # use the latest repository tag
-sudo make install-deps && # install dependencies
-sudo make install # install the program
+sudo gim install https://gitlab.com/dominiksalvet/ux430ua-fan-control.git
 ```
 
-After the installation, the *~/Downloads/ux430ua-fan-control* directory won't be required for the program to be working and so it can be removed.
+If it is required to **automatically uninstall your current release** with version 1.2.0 and higher, use the following command:
+
+```sh
+sudo gim uninstall https://gitlab.com/dominiksalvet/ux430ua-fan-control.git
+```
+
+To **automatically update the project** from version 1.2.0 and higher to **it's latest version**, use the following command:
+
+```sh
+sudo gim update https://gitlab.com/dominiksalvet/ux430ua-fan-control.git
+```
 
 ---
 
-If it is required to **automatically uninstall your current release** of this program installed in the default installation directory (the [commands](#instructions) stated above do so), open a terminal emulator and use the following commands:
-
-```sh
-cd ~/Downloads/ && # change directory to the 'Downloads' directory
-if cd ux430ua-fan-control/ 2>/dev/null; then # check if local repository exists
-    git checkout master && # checkout the master for the pull command
-    git pull && # get the most recent state of the repository
-    git fetch --tags # in case of any release commit change
-else
-    git clone https://gitlab.com/dominiksalvet/ux430ua-fan-control.git && # clone it
-    cd ux430ua-fan-control/ # and change directory to the downloaded repository
-fi &&
-git checkout "$(ux430ua-fan-control -version)" && # use the program version as a tag
-sudo make uninstall # uninstall the program (it doesn't uninstall dependencies)
-```
-
-However, it will not work when the program is **not installed in the default installation directory**. In this case manual `git checkout <installed_version>` command must be executed before the `sudo make uninstall` command.
-
----
-
-To **update the program**, uninstall it and install it again using the steps stated above.
-
-### Choose the installation directory
-
-The default installation directory is */usr/local/bin* as it should be included in the `$PATH` variable. However, for the program to work, it is not required that and so to change it, pass your desired installation directory path in `INSTALL_DIR` variable to the `sudo make install` command. For example:
-
-```sh
-sudo make install INSTALL_DIR=/opt
-```
-
-In case of uninstalling from a custom installation directory, this variable is not required; the uninstaller automatically detects where the installation directory is.
+If it is required to **update or uninstall project, whose version is lower than 1.2.0**, see the [README.md](https://gitlab.com/dominiksalvet/ux430ua-fan-control/blob/1.1.2/README.md) file of the 1.1.2 version, last version with previously used installation management system.
 
 ## Usage
 
@@ -93,7 +66,7 @@ sudo ux430ua-fan-control
 
 ### Set up custom fan speed policy
 
-The fan speed policy is defined by 8 numbers that represent temperature boundaries in degrees Celsius between individual fan speed levels. Those numbers are expected to be increasing as they increase the fan speed level.
+The fan speed policy is defined by 8 numbers that represent temperature boundaries in degrees Celsius between individual fan speed levels. These numbers are expected to be increasing as they increase the fan speed level.
 
 The default values are `55 60 62 65 68 72 76 80`, their table representation follows:
 
@@ -117,7 +90,7 @@ sudo ux430ua-fan-control -set-temps:'45 50 55 60 65 70 75 80'
 
 ---
 
-**Custom temperatures won't be removed during uninstallation process** of this program and so they persist in case of updating the program. They are stored in the */etc/ux430ua-fan-control-config/temps* file.
+The custom temperatures won't be removed during the uninstallation process nor the update process. They are stored in the */etc/ux430ua-fan-control-config/custom-temps* file.
 
 ## Contribute
 

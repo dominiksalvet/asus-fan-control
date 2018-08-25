@@ -12,7 +12,7 @@
 #-------------------------------------------------------------------------------
 
 # list of required software
-SW_REQUIRED='command echo [ rm sed cd realpath head'
+SW_REQUIRED='command echo [ rm sed'
 
 # check if some software is missing
 for i in $SW_REQUIRED; do
@@ -27,22 +27,18 @@ done
 # DEFINITIONS
 #-------------------------------------------------------------------------------
 
-# configuration files directory
-CONFIG_DIR=/etc/ux430ua-fan-control-config
+# installation directory of this program
+INSTALL_DIR=/usr/local/bin
 
 #-------------------------------------------------------------------------------
 # CHECK STATE
 #-------------------------------------------------------------------------------
 
-# check if installed
-if [ ! -f "$CONFIG_DIR/install-dir" ]; then
-    echo "The program is not installed."
+# check if already installed
+if [ ! -f "$INSTALL_DIR/ux430ua-fan-control" ]; then
+    echo 'The program is not installed.'
     exit 0
 fi
-
-# get the installation directory path (it can be relative)
-installed_dir="$(cd "$CONFIG_DIR/" && realpath -m "$(head -n 1 install-dir)")"
-echo "The detected installation directory path is '$installed_dir/'."
 
 #-------------------------------------------------------------------------------
 # UNINSTALLATION
@@ -58,6 +54,4 @@ fi
 sed -i -E -e '/^[[:blank:]]*'"'.*\/ux430ua-fan-control'"'(| .*)$/d' /etc/rc.local
 sed -i -E -e '/^[[:blank:]]*([^[:blank:]]|\\ |\\	)*\/ux430ua-fan-control(| .*)$/d' /etc/rc.local
 # remove the program itself
-rm "$installed_dir/ux430ua-fan-control"
-# finish removing the program by deleting the 'install-dir' file
-rm "$CONFIG_DIR/install-dir"
+rm "$INSTALL_DIR/ux430ua-fan-control"

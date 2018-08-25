@@ -18,7 +18,6 @@ COLUMN := column
 # directory definitions
 MAKE_DIR := make
 BUILD_DIR := build
-INSTALL_DIR := /usr/local/bin
 
 #-------------------------------------------------------------------------------
 # HELP GENERATOR
@@ -59,7 +58,7 @@ install-deps: # install only dependencies of the project
 	./$(MAKE_DIR)/install-deps
 
 install-project: # install only the project
-	./$(MAKE_DIR)/install '$(BUILD_DIR)' '$(INSTALL_DIR)'
+	./$(MAKE_DIR)/install '$(BUILD_DIR)'
 
 help: # default, show this help
 	$(call show_generated_help,makefile)

@@ -12,7 +12,7 @@
 #-------------------------------------------------------------------------------
 
 # list of required software
-SW_REQUIRED='command echo [ grep lsmod head id rm cut'
+SW_REQUIRED='command echo [ grep lsmod head id rm cut mkdir'
 
 # check if some software is missing
 for i in $SW_REQUIRED; do
@@ -135,11 +135,11 @@ for i in "$@"; do
             exit 0
             ;;
         -set-default-temps)
-            ENTERED_TEMPS="$temps"
+            entered_temps="$temps"
             ;;
         -set-temps:*)
-            ENTERED_TEMPS="$(echo "$i" | sed -E -e 's/^-set-temps://')"
-            if [ -z "$ENTERED_TEMPS" ]; then
+            entered_temps="$(echo "$i" | sed -E -e 's/^-set-temps://')"
+            if [ -z "$entered_temps" ]; then
                 echo "$0: Empty temperatures are invalid." >&2
                 exit 1
             fi
@@ -172,11 +172,18 @@ done
 acpi_check || exit
 
 # check if user-defined temperatures provided
-if [ ! -z "$ENTERED_TEMPS" ]; then
-    if [ "$ENTERED_TEMPS" = "$temps" ]; then
-        [ -f "$CONFIG_DIR/temps" ] && rm "$CONFIG_DIR/temps"
-    elif check_temps "$ENTERED_TEMPS"; then
-        echo "$ENTERED_TEMPS" > "$CONFIG_DIR/temps"
+if [ ! -z "$entered_temps" ]; then
+    if [ "$entered_temps" = "$temps" ]; then
+        [ -f "$CONFIG_DIR/custom-temps" ] && rm "$CONFIG_DIR/custom-temps"
+    elif check_temps "$entered_temps"; then
+        mkdir -p "$CONFIG_DIR/" &&
+        echo "$entered_temps" > "$CONFIG_DIR/custom-temps" || {
+            echo "$0: Can't create a configuration file for custom temperatures.
+POSSIBLE SOLUTIONS:
+  * free up some storage space
+  * contact a ux430ua-fan-control developer" >&2
+            exit 1
+        }
     else
         echo "$0: Entered custom temperatures are invalid, use the valid ones." >&2
         exit 1
@@ -184,10 +191,10 @@ if [ ! -z "$ENTERED_TEMPS" ]; then
 fi
 
 # get temperatures to apply
-if [ -f "$CONFIG_DIR/temps" ]; then
-    config_temps="$(head -n 1 "$CONFIG_DIR/temps")"
-    if check_temps "$config_temps"; then
-        temps="$config_temps"
+if [ -f "$CONFIG_DIR/custom-temps" ]; then
+    custom_temps="$(head -n 1 "$CONFIG_DIR/custom-temps")"
+    if check_temps "$custom_temps"; then
+        temps="$custom_temps"
     else
         echo "$0: Stored custom temperatures are invalid, using the default ones.
 POSSIBLE SOLUTIONS:

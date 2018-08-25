@@ -7,7 +7,6 @@
 #-------------------------------------------------------------------------------
 # PARAMETERS:
 #   $1 - build directory path
-#   $2 - installation directory path
 #-------------------------------------------------------------------------------
 
 
@@ -16,7 +15,7 @@
 #-------------------------------------------------------------------------------
 
 # list of required software
-SW_REQUIRED='command echo [ id grep chmod sed cp realpath mkdir cd head'
+SW_REQUIRED='command echo [ id grep chmod sed cp'
 
 # check if some software is missing
 for i in $SW_REQUIRED; do
@@ -34,11 +33,8 @@ done
 # sed script - regular expression of line containing a successful exit of a shell script
 CONTAINS_EXIT_0='^[[:blank:]]*exit(|[[:blank:]]+0+)([[:blank:]]*|[[:blank:]]+#.*)$'
 
-# configuration files directory
-CONFIG_DIR=/etc/ux430ua-fan-control-config
-
-# get real path of the installation directory path
-INSTALL_DIR="$(realpath -m "$2")"
+# installation directory of this program
+INSTALL_DIR=/usr/local/bin
 
 # escape delimiters of the installation directory path for later use in a sed script
 INSTALL_DIR_ESCAPED="$(echo "$INSTALL_DIR" | sed -E -e 's|/|\\/|g')"
@@ -47,32 +43,23 @@ INSTALL_DIR_ESCAPED="$(echo "$INSTALL_DIR" | sed -E -e 's|/|\\/|g')"
 # CHECK STATE
 #-------------------------------------------------------------------------------
 
-# check if arguments passed
-if [ -z "$1" ] || [ -z "$2" ]; then
-    echo "$0: Please supply non-empty arguments." >&2
-    exit 1
-fi
-
-# check if already installed
-if [ -f "$CONFIG_DIR/install-dir" ]; then
-
-    # get the installation directory path (it can be relative)
-    installed_dir="$(cd "$CONFIG_DIR/" && realpath -m "$(head -n 1 install-dir)")"
-
-    if [ "$INSTALL_DIR" = "$installed_dir" ]; then
-        echo "The program is already installed in '$installed_dir/'."
-        exit 0
-    else
-        echo "$0: The program is already installed in '$installed_dir/'." >&2
-        exit 1
-    fi
-fi
-
 # check if the installation directory exists
 if [ ! -d "$INSTALL_DIR/" ]; then
     echo "$0: Installation directory '$INSTALL_DIR/' doesn't exist.
 POSSIBLE SOLUTIONS:
   * create '$INSTALL_DIR/' and repeat the action" >&2
+    exit 1
+fi
+
+# check if already installed
+if [ -f "$INSTALL_DIR/ux430ua-fan-control" ]; then
+    echo 'The program is already installed.'
+    exit 0
+fi
+
+# check if the build directory argument passed
+if [ -z "$1" ]; then
+    echo "$0: Please supply non-empty build directory argument." >&2
     exit 1
 fi
 
@@ -108,9 +95,6 @@ fi
 # set the execution permission of '/etc/rc.local'
 chmod a+x /etc/rc.local
 
-# create configuration file with the installation directory path
-mkdir -p "$CONFIG_DIR/" &&
-echo "$INSTALL_DIR" > "$CONFIG_DIR/install-dir" &&
 # copy the program itself
 cp "$1/ux430ua-fan-control" "$INSTALL_DIR/" &&
 # add script calling to '/etc/rc.local' file to run the program after boot
@@ -119,3 +103,5 @@ sed -i -E -e '/'"$CONTAINS_EXIT_0"'/{s//'"'$INSTALL_DIR_ESCAPED"'\/ux430ua-fan-c
 # apply the changes immediately (it may not be successful as the program dependencies may be missing)
 echo 'Trying to apply the changes immediately.'
 "$INSTALL_DIR"/ux430ua-fan-control
+
+exit 0
