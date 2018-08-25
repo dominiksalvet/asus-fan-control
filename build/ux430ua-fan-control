@@ -18,7 +18,7 @@ SW_REQUIRED='command echo [ grep lsmod head id rm cut'
 for i in $SW_REQUIRED; do
     # software is missing if at least one piece of software is missing
     if ! command -v "$i" > /dev/null; then
-        echo "$0: Required software '$i' is missing, action canceled." >&2
+        echo "$0: Required software '$i' is missing." >&2
         exit 1
     fi
 done
@@ -54,14 +54,14 @@ CONFIG_DIR=/etc/ux430ua-fan-control-config
 CONFIG_BASE_ADDR=1335
 
 # list of default values of temperatures (in degrees Celsius) per each fan speed level
-TEMPS='55 60 62 65 68 72 76 80'
+temps='55 60 62 65 68 72 76 80'
 
 # DESCRIPTION:
 #   Check conditions to perform an ACPI call.
 acpi_check() {
     # check if 'acpi_call' module loaded
     if ! lsmod | grep -q -E -e '^[[:blank:]]*acpi_call[[:blank:]].*$'; then
-        echo "$0: Required module 'acpi_call' is not loaded, action canceled.
+        echo "$0: Required module 'acpi_call' is not loaded.
 POSSIBLE SOLUTIONS:
   * install program dependencies
   * reboot your device" >&2
@@ -70,7 +70,7 @@ POSSIBLE SOLUTIONS:
     
     # check if interface file for 'acpi_call' module exists
     if [ ! -f /proc/acpi/call ]; then
-        echo "$0: Interface file '/proc/acpi/call' for 'acpi_call' module doesn't exist, action canceled.
+        echo "$0: Interface file '/proc/acpi/call' for 'acpi_call' module doesn't exist.
 POSSIBLE SOLUTIONS:
   * install program dependencies
   * reboot your device" >&2
@@ -79,7 +79,7 @@ POSSIBLE SOLUTIONS:
 
     # check if running as root
     if [ "$(id -u)" -ne 0 ]; then
-        echo "$0: Please run as root, action canceled." >&2
+        echo "$0: Please run as root." >&2
         return 1
     fi
 }
@@ -119,7 +119,7 @@ for i in "$@"; do
             # get each individual fan speed level
             speed_level=0
             acpi_temps=''
-            for _ in $TEMPS; do
+            for _ in $temps; do
                 # ACPI call - read
                 echo '\_SB.PCI0.LPCB.EC0.RRAM '$((CONFIG_BASE_ADDR + speed_level)) > /proc/acpi/call
                 # get hexadecimal value from ACPI message
@@ -135,12 +135,12 @@ for i in "$@"; do
             exit 0
             ;;
         -set-default-temps)
-            ENTERED_TEMPS="$TEMPS"
+            ENTERED_TEMPS="$temps"
             ;;
         -set-temps:*)
             ENTERED_TEMPS="$(echo "$i" | sed -E -e 's/^-set-temps://')"
             if [ -z "$ENTERED_TEMPS" ]; then
-                echo "$0: Empty temperatures are invalid, action canceled." >&2
+                echo "$0: Empty temperatures are invalid." >&2
                 exit 1
             fi
             ;;
@@ -158,7 +158,8 @@ for i in "$@"; do
             ;;
         *)
             echo "$0: The option '$i' was not recognized.
-Try '$0 -help' for more information." >&2
+POSSIBLE SOLUTIONS:
+  * use the '$0 -help' command for more information" >&2
             exit 1
             ;;
     esac
@@ -172,12 +173,12 @@ acpi_check || exit
 
 # check if user-defined temperatures provided
 if [ ! -z "$ENTERED_TEMPS" ]; then
-    if [ "$ENTERED_TEMPS" = "$TEMPS" ]; then
+    if [ "$ENTERED_TEMPS" = "$temps" ]; then
         [ -f "$CONFIG_DIR/temps" ] && rm "$CONFIG_DIR/temps"
     elif check_temps "$ENTERED_TEMPS"; then
         echo "$ENTERED_TEMPS" > "$CONFIG_DIR/temps"
     else
-        echo "$0: Entered custom temperatures are invalid, action canceled." >&2
+        echo "$0: Entered custom temperatures are invalid, use the valid ones." >&2
         exit 1
     fi
 fi
@@ -186,7 +187,7 @@ fi
 if [ -f "$CONFIG_DIR/temps" ]; then
     config_temps="$(head -n 1 "$CONFIG_DIR/temps")"
     if check_temps "$config_temps"; then
-        TEMPS="$config_temps"
+        temps="$config_temps"
     else
         echo "$0: Stored custom temperatures are invalid, using the default ones.
 POSSIBLE SOLUTIONS:
@@ -197,7 +198,7 @@ fi
 
 # set up each individual fan speed level
 speed_level=0
-for temp in $TEMPS; do
+for temp in $temps; do
     # ACPI call - write
     echo '\_SB.PCI0.LPCB.EC0.WRAM '$((CONFIG_BASE_ADDR + speed_level))" $temp" > /proc/acpi/call
     # next level

@@ -22,7 +22,7 @@ SW_REQUIRED='command echo [ id grep chmod sed cp realpath mkdir cd head'
 for i in $SW_REQUIRED; do
     # software is missing if at least one piece of software is missing
     if ! command -v "$i" > /dev/null; then
-        echo "$0: Required software '$i' is missing, installation canceled." >&2
+        echo "$0: Required software '$i' is missing." >&2
         exit 1
     fi
 done
@@ -49,7 +49,7 @@ INSTALL_DIR_ESCAPED="$(echo "$INSTALL_DIR" | sed -E -e 's|/|\\/|g')"
 
 # check if arguments passed
 if [ -z "$1" ] || [ -z "$2" ]; then
-    echo "$0: Please supply non-empty arguments, installation canceled." >&2
+    echo "$0: Please supply non-empty arguments." >&2
     exit 1
 fi
 
@@ -60,23 +60,27 @@ if [ -f "$CONFIG_DIR/install-dir" ]; then
     installed_dir="$(cd "$CONFIG_DIR/" && realpath -m "$(head -n 1 install-dir)")"
 
     if [ "$INSTALL_DIR" = "$installed_dir" ]; then
-        echo "The program is already installed in '$installed_dir/', installation canceled."
+        echo "The program is already installed in '$installed_dir/'."
         exit 0
     else
-        echo "$0: The program is already installed in '$installed_dir/', installation canceled." >&2
+        echo "$0: The program is already installed in '$installed_dir/'." >&2
         exit 1
     fi
 fi
 
-# check if given installation directory exists
+# check if the installation directory exists
 if [ ! -d "$INSTALL_DIR/" ]; then
-    echo "$0: '$INSTALL_DIR/' doesn't exist, installation canceled." >&2
+    echo "$0: Installation directory '$INSTALL_DIR/' doesn't exist.
+POSSIBLE SOLUTIONS:
+  * create '$INSTALL_DIR/' and repeat the action" >&2
     exit 1
 fi
 
 # check if ux430ua-fan-control file exists
 if [ ! -f "$1/ux430ua-fan-control" ]; then
-    echo "$0: '$1/ux430ua-fan-control' does not exist, installation canceled." >&2
+    echo "$0: '$1/ux430ua-fan-control' does not exist.
+POSSIBLE SOLUTIONS:
+  * download the project again and repeat the action" >&2
     exit 1
 fi
 
@@ -86,7 +90,7 @@ fi
 
 # check if running as root
 if [ "$(id -u)" -ne 0 ]; then
-    echo "$0: Please run as root, installation canceled." >&2
+    echo "$0: Please run as root." >&2
     exit 1
 fi
 
@@ -113,8 +117,5 @@ cp "$1/ux430ua-fan-control" "$INSTALL_DIR/" &&
 sed -i -E -e '/'"$CONTAINS_EXIT_0"'/{s//'"'$INSTALL_DIR_ESCAPED"'\/ux430ua-fan-control'"'"'\n&/; :add_line; N; badd_line}' /etc/rc.local || exit 1
 
 # apply the changes immediately (it may not be successful as the program dependencies may be missing)
-echo 'Applying changes.'
+echo 'Trying to apply the changes immediately.'
 "$INSTALL_DIR"/ux430ua-fan-control
-
-# final message
-echo 'Installation finished successfully!'

@@ -18,7 +18,7 @@ SW_REQUIRED='command echo id apt grep modprobe'
 for i in $SW_REQUIRED; do
     # software is missing if at least one piece of software is missing
     if ! command -v "$i" > /dev/null; then
-        echo "$0: Required software '$i' is missing, installation of dependencies canceled." >&2
+        echo "$0: Required software '$i' is missing." >&2
         exit 1
     fi
 done
@@ -29,7 +29,7 @@ done
 
 # check if running as root
 if [ "$(id -u)" -ne 0 ]; then
-    echo "$0: Please run as root, installation of dependencies canceled." >&2
+    echo "$0: Please run as root." >&2
     exit 1
 fi
 
@@ -39,7 +39,7 @@ apt install acpi-call-dkms -y &&
 # add this module to '/etc/modules' to load at boot time
 if [ ! -f /etc/modules ]; then
     # create '/etc/modules' if it does not exist
-    echo acpi_call > /etc/modules
+    echo acpi_call > /etc/modules &&
     echo "'/etc/modules' has been created."
 elif ! grep -q -E -e '^[[:blank:]]*acpi_call(| .*)$' /etc/modules; then
     echo acpi_call >> /etc/modules
@@ -47,6 +47,3 @@ fi || exit 1
 
 # load acpi_call module immediately
 modprobe acpi_call
-
-# final message
-echo 'Installation of dependencies finished successfully!'
