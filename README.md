@@ -34,19 +34,19 @@ The described problem can be solved with this program. The program includes an i
 
 ### Instructions
 
-This project is [gim](https://gitlab.com/dominiksalvet/gim) compliant since version 1.2.0. And so to **automatically install it's latest stable release**, open a terminal emulator and use the following command:
+This project is [gim](https://gitlab.com/dominiksalvet/gim) compliant since version 2.0.0. And so to **automatically install it's latest stable release**, open a terminal emulator and use the following command:
 
 ```sh
 sudo gim install https://gitlab.com/dominiksalvet/ux430ua-fan-control.git
 ```
 
-If it is required to **automatically uninstall your current release** with version 1.2.0 and higher, use the following command:
+If it is required to **automatically uninstall your current release** with version 2.0.0 and higher, use the following command:
 
 ```sh
 sudo gim uninstall https://gitlab.com/dominiksalvet/ux430ua-fan-control.git
 ```
 
-To **automatically update the project** from version 1.2.0 and higher to **it's latest version**, use the following command:
+To **automatically update the project** from version 2.0.0 and higher to **it's latest version**, use the following command:
 
 ```sh
 sudo gim update https://gitlab.com/dominiksalvet/ux430ua-fan-control.git
@@ -54,7 +54,7 @@ sudo gim update https://gitlab.com/dominiksalvet/ux430ua-fan-control.git
 
 ---
 
-If it is required to **update or uninstall project, whose version is lower than 1.2.0**, see the [README.md](https://gitlab.com/dominiksalvet/ux430ua-fan-control/blob/1.1.2/README.md) file of the 1.1.2 version, last version with previously used installation management system.
+If it is required to **update or uninstall project, whose version is lower than 2.0.0**, see the [README.md](https://gitlab.com/dominiksalvet/ux430ua-fan-control/blob/1.1.2/README.md) file of the 1.1.2 version, last version with previously used installation management system.
 
 ## Usage
 

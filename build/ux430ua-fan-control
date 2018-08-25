@@ -28,7 +28,7 @@ done
 #-------------------------------------------------------------------------------
 
 # the current version of the program
-VERSION=1.2.0
+VERSION=2.0.0
 
 HELP_MESSAGE="USAGE: $0 [OPTION]...
 
