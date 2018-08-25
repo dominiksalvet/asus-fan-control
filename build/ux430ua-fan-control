@@ -48,7 +48,7 @@ SPDX License Identifier: MIT
 https://gitlab.com/dominiksalvet/ux430ua-fan-control'
 
 # configuration files directory
-CONFIG_DIR=/etc/ux430ua-fan-control-config
+CONFIG_DIR=/etc/ux430ua-fan-control
 
 # the base address for fan speed levels configuration
 CONFIG_BASE_ADDR=1335
@@ -174,6 +174,7 @@ acpi_check || exit
 # check if user-defined temperatures provided
 if [ ! -z "$entered_temps" ]; then
     if [ "$entered_temps" = "$temps" ]; then
+        # remove custom temperatures configuration file if it is not necessary to store it
         [ -f "$CONFIG_DIR/custom-temps" ] && rm "$CONFIG_DIR/custom-temps"
     elif check_temps "$entered_temps"; then
         mkdir -p "$CONFIG_DIR/" &&

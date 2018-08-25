@@ -11,6 +11,7 @@ The changes not yet present in any release are listed in this section.
 ### Changed
 
 * The project is [gim](https://gitlab.com/dominiksalvet/gim) complaint and so it uses a new installation manager.
+* The configuration directory is now */etc/ux430ua-fan-control*.
 
 ### Removed
 

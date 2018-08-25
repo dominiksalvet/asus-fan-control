@@ -90,7 +90,7 @@ sudo ux430ua-fan-control -set-temps:'45 50 55 60 65 70 75 80'
 
 ---
 
-The custom temperatures won't be removed during the uninstallation process nor the update process. They are stored in the */etc/ux430ua-fan-control-config/custom-temps* file.
+The custom temperatures won't be removed during the uninstallation process nor the update process. They are stored in the */etc/ux430ua-fan-control/custom-temps* file.
 
 ## Contribute
 
