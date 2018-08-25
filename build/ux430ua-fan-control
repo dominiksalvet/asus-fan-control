@@ -12,7 +12,7 @@
 #-------------------------------------------------------------------------------
 
 # list of required software
-SW_REQUIRED='command echo [ grep lsmod head id rm cut mkdir'
+SW_REQUIRED='command echo [ grep lsmod head id rm cut mkdir sed'
 
 # check if some software is missing
 for i in $SW_REQUIRED; do
@@ -28,7 +28,7 @@ done
 #-------------------------------------------------------------------------------
 
 # the current version of the program
-VERSION=2.0.0
+VERSION=2.0.1
 
 HELP_MESSAGE="USAGE: $0 [OPTION]...
 
@@ -54,7 +54,7 @@ CONFIG_DIR=/etc/ux430ua-fan-control
 CONFIG_BASE_ADDR=1335
 
 # list of default values of temperatures (in degrees Celsius) per each fan speed level
-temps='55 60 62 65 68 72 76 80'
+TEMPS='55 60 62 65 68 72 76 80'
 
 # DESCRIPTION:
 #   Check conditions to perform an ACPI call.
@@ -68,7 +68,7 @@ POSSIBLE SOLUTIONS:
         return 1
     fi
     
-    # check if interface file for 'acpi_call' module exists
+    # check if the interface file for 'acpi_call' module exists
     if [ ! -f /proc/acpi/call ]; then
         echo "$0: Interface file '/proc/acpi/call' for 'acpi_call' module doesn't exist.
 POSSIBLE SOLUTIONS:
@@ -85,10 +85,50 @@ POSSIBLE SOLUTIONS:
 }
 
 # DESCRIPTION:
+#   Read currently applied temperatures using ACPI calls.
+acpi_read_temps() {
+    acpi_check || return # check if an ACPI call can be performed
+
+    # get each individual fan speed level
+    speed_level=0
+    acpi_temps=''
+    for _ in $TEMPS; do
+        # ACPI call - read
+        echo '\_SB.PCI0.LPCB.EC0.RRAM '$((CONFIG_BASE_ADDR + speed_level)) > /proc/acpi/call
+        # get hexadecimal value from ACPI message
+        acpi_temp="$(cut -c1-4 /proc/acpi/call)"
+        # convert it to decimal and add to the list
+        acpi_temps="${acpi_temps}$((acpi_temp)) "
+        # next level
+        speed_level=$((speed_level + 1))
+    done
+
+    # show the list and remove last space
+    echo "$acpi_temps" | sed -E -e 's/ $//'
+}
+
+# DESCRIPTION:
+#   Write given temperatures to be applied using ACPI calls.
+# PARAMETERS:
+#   $1 - temperatures in degrees Celsius
+acpi_write_temps() {
+    acpi_check || return # check if an ACPI call can be performed
+
+    # set each individual fan speed level
+    speed_level=0
+    for temp in $1; do
+        # ACPI call - write
+        echo '\_SB.PCI0.LPCB.EC0.WRAM '$((CONFIG_BASE_ADDR + speed_level))" $temp" > /proc/acpi/call
+        # next level
+        speed_level=$((speed_level + 1))
+    done
+}
+
+# DESCRIPTION:
 #   Check if given fan speed level temperatures are valid.
 # PARAMETERS:
 #   $1 - temperatures in degrees Celsius
-check_temps() {
+valid_temps() {
     temp_counter=0
     previous_temp=0
     for temp in $1; do
@@ -106,6 +146,48 @@ check_temps() {
     fi
 }
 
+# DESCRIPTION:
+#   Prepare temperatures to be applied. If entered temperatures differ from the default ones, store them locally.
+# PARAMETERS:
+#   $1 - user-entered temperatures
+prepare_temps() {
+    if [ "$1" = "$TEMPS" ]; then # if given temperatures are the same as the default ones
+        # remove custom temperatures configuration file if it is not necessary to store it
+        [ -f "$CONFIG_DIR/custom-temps" ] && rm "$CONFIG_DIR/custom-temps"
+    elif valid_temps "$1"; then # else if they are valid
+        mkdir -p "$CONFIG_DIR/" &&
+        echo "$1" > "$CONFIG_DIR/custom-temps" || {
+            echo "$0: Can't create a configuration file for custom temperatures.
+POSSIBLE SOLUTIONS:
+  * free up some storage space
+  * contact a ux430ua-fan-control developer" >&2
+            return 1
+        }
+    else
+        echo "$0: Entered custom temperatures are invalid, use the valid ones." >&2
+        return 1
+    fi
+}
+
+# DESCRIPTION:
+#   Return the temperatures that are about to being applied.
+get_temps() {
+    temps="$TEMPS" # use the default temperatures at the beginning
+    if [ -f "$CONFIG_DIR/custom-temps" ]; then # if the file of custom temperatures exists
+        custom_temps="$(head -n 1 "$CONFIG_DIR/custom-temps")" # get the first line of it
+        if valid_temps "$custom_temps"; then # if these temperatures are valid
+            temps="$custom_temps" # use them
+        else # warning about corrupted stored temperatures
+            echo "$0: Stored custom temperatures are invalid, using the default ones.
+POSSIBLE SOLUTIONS:
+  * use command 'sudo $0 -set-default-temps'
+  * use command 'sudo $0 -set-temps:<numbers>' with valid temperatures" >&2
+        fi
+    fi
+
+    echo "$temps"
+}
+
 #-------------------------------------------------------------------------------
 # PROCESSING PARAMETERS
 #-------------------------------------------------------------------------------
@@ -114,35 +196,23 @@ check_temps() {
 for i in "$@"; do
     case "$i" in
         -get-temps)
-            acpi_check || exit
-
-            # get each individual fan speed level
-            speed_level=0
-            acpi_temps=''
-            for _ in $temps; do
-                # ACPI call - read
-                echo '\_SB.PCI0.LPCB.EC0.RRAM '$((CONFIG_BASE_ADDR + speed_level)) > /proc/acpi/call
-                # get hexadecimal value from ACPI message
-                acpi_temp="$(cut -c1-4 /proc/acpi/call)"
-                # convert it to decimal and add to the list
-                acpi_temps="${acpi_temps}$((acpi_temp)) "
-                # next level
-                speed_level=$((speed_level + 1))
-            done
-            # show the list and remove last space
-            echo "$acpi_temps" | sed -E -e 's/ $//'
-
+            acpi_read_temps || exit
             exit 0
             ;;
         -set-default-temps)
-            entered_temps="$temps"
+            acpi_write_temps "$TEMPS" # apply temperatures
+
+            # remove custom temperatures configuration file to apply using the default temperatures
+            [ -f "$CONFIG_DIR/custom-temps" ] && rm "$CONFIG_DIR/custom-temps"            
             ;;
         -set-temps:*)
+            # parse temperatures from this option
             entered_temps="$(echo "$i" | sed -E -e 's/^-set-temps://')"
-            if [ -z "$entered_temps" ]; then
-                echo "$0: Empty temperatures are invalid." >&2
-                exit 1
-            fi
+
+            # prepare temperatures to be applied
+            prepare_temps "$entered_temps" || exit
+            # get temperatures to be applied
+            acpi_write_temps "$(get_temps)"
             ;;
         -help)
             echo "$HELP_MESSAGE"
@@ -166,49 +236,10 @@ POSSIBLE SOLUTIONS:
 done
 
 #-------------------------------------------------------------------------------
-# APPLY CONFIGURATION
+# APPLY CONFIGURATION WHEN NO ARGUMENTS
 #-------------------------------------------------------------------------------
 
-acpi_check || exit
-
-# check if user-defined temperatures provided
-if [ ! -z "$entered_temps" ]; then
-    if [ "$entered_temps" = "$temps" ]; then
-        # remove custom temperatures configuration file if it is not necessary to store it
-        [ -f "$CONFIG_DIR/custom-temps" ] && rm "$CONFIG_DIR/custom-temps"
-    elif check_temps "$entered_temps"; then
-        mkdir -p "$CONFIG_DIR/" &&
-        echo "$entered_temps" > "$CONFIG_DIR/custom-temps" || {
-            echo "$0: Can't create a configuration file for custom temperatures.
-POSSIBLE SOLUTIONS:
-  * free up some storage space
-  * contact a ux430ua-fan-control developer" >&2
-            exit 1
-        }
-    else
-        echo "$0: Entered custom temperatures are invalid, use the valid ones." >&2
-        exit 1
-    fi
+if [ "$#" -eq 0 ]; then # if no arguments provided
+    # get temperatures to be applied
+    acpi_write_temps "$(get_temps)"
 fi
-
-# get temperatures to apply
-if [ -f "$CONFIG_DIR/custom-temps" ]; then
-    custom_temps="$(head -n 1 "$CONFIG_DIR/custom-temps")"
-    if check_temps "$custom_temps"; then
-        temps="$custom_temps"
-    else
-        echo "$0: Stored custom temperatures are invalid, using the default ones.
-POSSIBLE SOLUTIONS:
-  * use command 'sudo $0 -set-default-temps'
-  * use command 'sudo $0 -set-temps:<numbers>' with valid temperatures" >&2
-    fi
-fi
-
-# set up each individual fan speed level
-speed_level=0
-for temp in $temps; do
-    # ACPI call - write
-    echo '\_SB.PCI0.LPCB.EC0.WRAM '$((CONFIG_BASE_ADDR + speed_level))" $temp" > /proc/acpi/call
-    # next level
-    speed_level=$((speed_level + 1))
-done

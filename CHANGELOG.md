@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 The changes not yet present in any release are listed in this section.
 
+## 2.0.1 (2018-08-25)
+
+### Fixed
+
+* The processing of options now behaves like declared in output of the '-help' flag.
+
 ## 2.0.0 (2018-08-25)
 
 ### Changed
