@@ -10,7 +10,7 @@ The changes not yet present in any release are listed in this section.
 
 ### Fixed
 
-* The processing of options now behaves like declared in output of the '-help' flag.
+* The processing of options now behaves like declared in output of the `-help` flag.
 
 ## 2.0.0 (2018-08-25)
 
