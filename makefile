@@ -44,20 +44,20 @@ endef
 # TARGETS
 #-------------------------------------------------------------------------------
 
-.PHONY: all install uninstall install-deps install-project help
+.PHONY: all install uninstall install-deps install-only help
 
 # there is no building required, so the default target references to the help target
 all: help
 
-install: install-deps install-project # install the entire project
+install: install-deps install-only # install the entire project automatically
 
 uninstall: # uninstall the project
 	./$(MAKE_DIR)/uninstall
 
-install-deps: # install only dependencies of the project
+install-deps: # install dependencies of the project
 	./$(MAKE_DIR)/install-deps
 
-install-project: # install only the project
+install-only: # install the project
 	./$(MAKE_DIR)/install '$(BUILD_DIR)'
 
 help: # default, show this help
