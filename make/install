@@ -47,7 +47,7 @@ INSTALL_DIR_ESCAPED="$(echo "$INSTALL_DIR" | sed -E -e 's|/|\\/|g')"
 if [ ! -d "$INSTALL_DIR/" ]; then
     echo "$0: Installation directory '$INSTALL_DIR/' doesn't exist.
 POSSIBLE SOLUTIONS:
-  * create '$INSTALL_DIR/' and repeat the action" >&2
+  * Create '$INSTALL_DIR/' and repeat the action." >&2
     exit 1
 fi
 
@@ -67,7 +67,7 @@ fi
 if [ ! -f "$1/ux430ua-fan-control" ]; then
     echo "$0: '$1/ux430ua-fan-control' does not exist.
 POSSIBLE SOLUTIONS:
-  * download the project again and repeat the action" >&2
+  * Download the project again and repeat the action." >&2
     exit 1
 fi
 

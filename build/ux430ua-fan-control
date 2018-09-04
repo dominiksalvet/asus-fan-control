@@ -63,8 +63,8 @@ acpi_check() {
     if ! lsmod | grep -q -E -e '^[[:blank:]]*acpi_call[[:blank:]].*$'; then
         echo "$0: Required module 'acpi_call' is not loaded.
 POSSIBLE SOLUTIONS:
-  * install program dependencies
-  * reboot your device" >&2
+  * Install program dependencies.
+  * Reboot your device." >&2
         return 1
     fi
     
@@ -72,8 +72,8 @@ POSSIBLE SOLUTIONS:
     if [ ! -f /proc/acpi/call ]; then
         echo "$0: Interface file '/proc/acpi/call' for 'acpi_call' module doesn't exist.
 POSSIBLE SOLUTIONS:
-  * install program dependencies
-  * reboot your device" >&2
+  * Install program dependencies.
+  * Reboot your device." >&2
         return 1
     fi
 
@@ -159,8 +159,8 @@ prepare_temps() {
         echo "$1" > "$CONFIG_DIR/custom-temps" || {
             echo "$0: Can't create a configuration file for custom temperatures.
 POSSIBLE SOLUTIONS:
-  * free up some storage space
-  * contact a ux430ua-fan-control developer" >&2
+  * Free up some storage space.
+  * Contact a ux430ua-fan-control developer." >&2
             return 1
         }
     else
@@ -180,8 +180,8 @@ get_temps() {
         else # warning about corrupted stored temperatures
             echo "$0: Stored custom temperatures are invalid, using the default ones.
 POSSIBLE SOLUTIONS:
-  * use command 'sudo $0 -set-default-temps'
-  * use command 'sudo $0 -set-temps:<numbers>' with valid temperatures" >&2
+  * Use command 'sudo $0 -set-default-temps'.
+  * Use command 'sudo $0 -set-temps:<numbers>' with valid temperatures." >&2
         fi
     fi
 
@@ -229,7 +229,7 @@ for i in "$@"; do
         *)
             echo "$0: The option '$i' was not recognized.
 POSSIBLE SOLUTIONS:
-  * use the '$0 -help' command for more information" >&2
+  * Use the '$0 -help' command for getting help." >&2
             exit 1
             ;;
     esac
