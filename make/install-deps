@@ -18,7 +18,7 @@ SW_REQUIRED='command echo id apt grep modprobe'
 for i in $SW_REQUIRED; do
     # software is missing if at least one piece of software is missing
     if ! command -v "$i" > /dev/null; then
-        echo "$0: Required software '$i' is missing." >&2
+        echo "$0: Required software $i is missing." >&2
         exit 1
     fi
 done
