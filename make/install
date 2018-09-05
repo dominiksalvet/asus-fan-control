@@ -63,7 +63,7 @@ fi
 
 # check if already installed
 if [ -f "$INSTALL_DIR/ux430ua-fan-control" ]; then
-    echo 'The program is already installed.'
+    echo 'The program is already installed in the given installation directory.'
     exit 0
 fi
 

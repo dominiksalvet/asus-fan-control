@@ -46,7 +46,7 @@ fi
 
 # check if already uninstalled
 if [ ! -f "$INSTALL_DIR/ux430ua-fan-control" ]; then
-    echo 'The program is not installed.'
+    echo 'The program is not installed in the given installation directory.'
     exit 0
 fi
 
