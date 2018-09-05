@@ -5,6 +5,9 @@
 # SPDX-License-Identifier: MIT
 # https://gitlab.com/dominiksalvet/ux430ua-fan-control
 #-------------------------------------------------------------------------------
+# PARAMETERS:
+#   $1 - installation directory path
+#-------------------------------------------------------------------------------
 
 
 #-------------------------------------------------------------------------------
@@ -29,12 +32,17 @@ done
 # DEFINITIONS
 #-------------------------------------------------------------------------------
 
-# installation directory of this program
-INSTALL_DIR=/usr/local/bin
+INSTALL_DIR="$1"
 
 #-------------------------------------------------------------------------------
 # CHECK STATE
 #-------------------------------------------------------------------------------
+
+# check if the installation directory argument passed
+if [ -z "$INSTALL_DIR" ]; then
+    echo "$0: Please supply non-empty installation directory argument." >&2
+    exit 1
+fi
 
 # check if already uninstalled
 if [ ! -f "$INSTALL_DIR/ux430ua-fan-control" ]; then

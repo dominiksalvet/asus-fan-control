@@ -17,6 +17,7 @@ COLUMN := column
 
 # directory definitions
 MAKE_DIR := make
+INSTALL_DIR := /usr/local/bin
 BUILD_DIR := build
 
 #-------------------------------------------------------------------------------
@@ -52,13 +53,13 @@ all: help
 install: install-deps install-only # install the entire project automatically
 
 uninstall: # uninstall the project
-	./$(MAKE_DIR)/uninstall
+	./$(MAKE_DIR)/uninstall '$(INSTALL_DIR)'
 
 install-deps: # install dependencies of the project
 	./$(MAKE_DIR)/install-deps
 
 install-only: # install the project
-	./$(MAKE_DIR)/install '$(BUILD_DIR)'
+	./$(MAKE_DIR)/install '$(INSTALL_DIR)' '$(BUILD_DIR)'
 
 help: # default, show this help
 	$(call show_generated_help,makefile)

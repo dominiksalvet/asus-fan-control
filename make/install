@@ -6,7 +6,8 @@
 # https://gitlab.com/dominiksalvet/ux430ua-fan-control
 #-------------------------------------------------------------------------------
 # PARAMETERS:
-#   $1 - build directory path
+#   $1 - installation directory path
+#   $2 - build directory path
 #-------------------------------------------------------------------------------
 
 
@@ -32,18 +33,25 @@ done
 # DEFINITIONS
 #-------------------------------------------------------------------------------
 
-# sed script - regular expression of line containing a successful exit of a shell script
-CONTAINS_EXIT_0='^[[:blank:]]*exit(|[[:blank:]]+0+)([[:blank:]]*|[[:blank:]]+#.*)$'
-
-# installation directory of this program
-INSTALL_DIR=/usr/local/bin
+INSTALL_DIR="$1"
 
 # escape delimiters of the installation directory path for later use in a sed script
 INSTALL_DIR_ESCAPED="$(echo "$INSTALL_DIR" | sed -E -e 's|/|\\/|g')"
 
+BUILD_DIR="$2"
+
+# sed script - regular expression of line containing a successful exit of a shell script
+CONTAINS_EXIT_0='^[[:blank:]]*exit(|[[:blank:]]+0+)([[:blank:]]*|[[:blank:]]+#.*)$'
+
 #-------------------------------------------------------------------------------
 # CHECK STATE
 #-------------------------------------------------------------------------------
+
+# check if the installation directory argument passed
+if [ -z "$INSTALL_DIR" ]; then
+    echo "$0: Please supply non-empty installation directory argument." >&2
+    exit 1
+fi
 
 # check if the installation directory exists
 if [ ! -d "$INSTALL_DIR/" ]; then
@@ -60,14 +68,14 @@ if [ -f "$INSTALL_DIR/ux430ua-fan-control" ]; then
 fi
 
 # check if the build directory argument passed
-if [ -z "$1" ]; then
+if [ -z "$BUILD_DIR" ]; then
     echo "$0: Please supply non-empty build directory argument." >&2
     exit 1
 fi
 
 # check if ux430ua-fan-control file exists
-if [ ! -f "$1/ux430ua-fan-control" ]; then
-    echo "$0: '$1/ux430ua-fan-control' does not exist.
+if [ ! -f "$BUILD_DIR/ux430ua-fan-control" ]; then
+    echo "$0: '$BUILD_DIR/ux430ua-fan-control' does not exist.
 POSSIBLE SOLUTIONS:
   * Download the project again and repeat the action." >&2
     exit 1
@@ -98,9 +106,15 @@ fi
 chmod a+x /etc/rc.local
 
 # copy the program itself
-cp "$1/ux430ua-fan-control" "$INSTALL_DIR/" &&
+cp "$BUILD_DIR/ux430ua-fan-control" "$INSTALL_DIR/" &&
 # add script calling to '/etc/rc.local' file to run the program after boot
-sed -i -E -e '/'"$CONTAINS_EXIT_0"'/{s//'"'$INSTALL_DIR_ESCAPED"'\/ux430ua-fan-control'"'"'\n&/; :add_line; N; badd_line}' /etc/rc.local || exit 1
+sed -i -E -e '/'"$CONTAINS_EXIT_0"'/{s//'"'$INSTALL_DIR_ESCAPED"'\/ux430ua-fan-control'"'"'\n&/; :add_line; N; badd_line}' /etc/rc.local || {
+    echo "$0: It wasn't possible to finish the installation.
+POSSIBLE SOLUTIONS:
+  * Free up some storage space.
+  * Contact a ux430ua-fan-control developer." >&2
+    exit 1
+}
 
 # apply the changes immediately (it may not be successful as the program dependencies may be missing)
 echo 'Trying to apply the changes immediately.'
