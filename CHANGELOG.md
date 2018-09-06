@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 The changes not yet present in any release are listed in this section.
 
+## 2.0.3 (2018-09-06)
+
+### Fixed
+
+* When uninstalling, only lines calling the program from supplied installation directory are removed from the */etc/rc.local* file.
+
 ## 2.0.2 (2018-09-05)
 
 ### Fixed

@@ -34,6 +34,9 @@ done
 
 INSTALL_DIR="$1"
 
+# escape delimiters of the installation directory path for later use in a sed script
+INSTALL_DIR_ESCAPED="$(echo "$INSTALL_DIR" | sed -E -e 's|/|\\/|g')"
+
 #-------------------------------------------------------------------------------
 # CHECK STATE
 #-------------------------------------------------------------------------------
@@ -45,7 +48,7 @@ if [ -z "$INSTALL_DIR" ]; then
 fi
 
 # check if not installed
-if [ ! -f "$INSTALL_DIR/ux430ua-fan-control" ]; then
+if [ ! -x "$INSTALL_DIR/ux430ua-fan-control" ]; then
     echo 'The program is not installed in the given installation directory.'
     exit 0
 fi
@@ -61,7 +64,11 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 # remove all lines calling the program from '/etc/rc.local'
-sed -i -E -e '/^[[:blank:]]*'"'.*\/ux430ua-fan-control'"'(| .*)$/d' /etc/rc.local
-sed -i -E -e '/^[[:blank:]]*([^[:blank:]]|\\ |\\	)*\/ux430ua-fan-control(| .*)$/d' /etc/rc.local
+sed -i -E -e '/^[[:blank:]]*'"('$INSTALL_DIR_ESCAPED.*\/ux430ua-fan-control'|$INSTALL_DIR_ESCAPED.*\/ux430ua-fan-control)"'(| .*)$/d' /etc/rc.local &&
 # remove the program itself
-rm "$INSTALL_DIR/ux430ua-fan-control"
+rm -f "$INSTALL_DIR/ux430ua-fan-control" || {
+    echo "$0: Can't finish the uninstallation.
+POSSIBLE SOLUTIONS:
+  * Contact a ux430ua-fan-control developer." >&2
+    exit 1
+}
