@@ -69,6 +69,7 @@ sed -i -E -e '/^[[:blank:]]*'"('$INSTALL_DIR_ESCAPED.*\/ux430ua-fan-control'|$IN
 rm -f "$INSTALL_DIR/ux430ua-fan-control" || {
     echo "$0: Can't finish the uninstallation.
 POSSIBLE SOLUTIONS:
+  * Try uninstall ux430ua-fan-control again.
   * Contact a ux430ua-fan-control developer." >&2
     exit 1
 }

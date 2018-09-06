@@ -110,6 +110,7 @@ chmod a+x "$INSTALL_DIR/ux430ua-fan-control" &&
 sed -i -E -e '/'"$CONTAINS_EXIT_0"'/{s//'"'$INSTALL_DIR_ESCAPED"'\/ux430ua-fan-control'"'"'\n&/; :add_line; N; badd_line}' /etc/rc.local || {
     echo "$0: Can't finish the installation.
 POSSIBLE SOLUTIONS:
+  * Try install ux430ua-fan-control again.
   * Free up some storage space.
   * Contact a ux430ua-fan-control developer." >&2
     exit 1
