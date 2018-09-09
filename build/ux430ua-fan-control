@@ -149,7 +149,8 @@ valid_temps() {
 }
 
 # DESCRIPTION:
-#   Prepare temperatures to be applied. If entered temperatures differ from the default ones, store them locally.
+#   Prepare temperatures to be applied. If entered temperatures differ from the
+#   default ones, store them locally.
 # PARAMETERS:
 #   $1 - user-entered temperatures
 prepare_temps() {
