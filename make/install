@@ -3,7 +3,7 @@
 #-------------------------------------------------------------------------------
 # Copyright 2017-2018 Dominik Salvet
 # SPDX-License-Identifier: MIT
-# https://gitlab.com/dominiksalvet/ux430ua-fan-control
+# https://gitlab.com/dominiksalvet/asus-fan-control
 #-------------------------------------------------------------------------------
 # PARAMETERS:
 #   $1 - installation directory path
@@ -62,7 +62,7 @@ POSSIBLE SOLUTIONS:
 fi
 
 # check if installed
-if [ -x "$INSTALL_DIR/ux430ua-fan-control" ]; then
+if [ -x "$INSTALL_DIR/asus-fan-control" ]; then
     echo 'The program is already installed in the given installation directory.'
     exit 0
 fi
@@ -104,20 +104,20 @@ fi
 chmod a+x /etc/rc.local
 
 # copy the program itself
-cp "$BUILD_DIR/ux430ua-fan-control" "$INSTALL_DIR/" &&
-chmod a+x "$INSTALL_DIR/ux430ua-fan-control" &&
+cp "$BUILD_DIR/asus-fan-control" "$INSTALL_DIR/" &&
+chmod a+x "$INSTALL_DIR/asus-fan-control" &&
 # add script calling to '/etc/rc.local' file to run the program after boot
-sed -i -E -e '/'"$CONTAINS_EXIT_0"'/{s//'"'$INSTALL_DIR_ESCAPED"'\/ux430ua-fan-control'"'"'\n&/; :add_line; N; badd_line}' /etc/rc.local || {
+sed -i -E -e '/'"$CONTAINS_EXIT_0"'/{s//'"'$INSTALL_DIR_ESCAPED"'\/asus-fan-control'"'"'\n&/; :add_line; N; badd_line}' /etc/rc.local || {
     echo "$0: Can't finish the installation.
 POSSIBLE SOLUTIONS:
-  * Try install ux430ua-fan-control again.
+  * Try install asus-fan-control again.
   * Free up some storage space.
-  * Contact a ux430ua-fan-control developer." >&2
+  * Contact a asus-fan-control developer." >&2
     exit 1
 }
 
 # apply the changes immediately (it may not be successful as the program dependencies may be missing)
 echo 'Trying to apply the changes immediately.'
-"$INSTALL_DIR"/ux430ua-fan-control
+"$INSTALL_DIR"/asus-fan-control
 
 exit 0

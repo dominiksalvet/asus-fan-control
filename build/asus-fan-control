@@ -3,7 +3,7 @@
 #-------------------------------------------------------------------------------
 # Copyright 2017-2018 Dominik Salvet
 # SPDX-License-Identifier: MIT
-# https://gitlab.com/dominiksalvet/ux430ua-fan-control
+# https://gitlab.com/dominiksalvet/asus-fan-control
 #-------------------------------------------------------------------------------
 
 
@@ -42,15 +42,15 @@ OPTION:
   -about                show information and exit
   -version              show version and exit"
 
-ABOUT_MESSAGE="ux430ua-fan-control $VERSION
-Set up fan speed policy of ASUS ZenBook UX430UA to make it more quiet on Linux.
+ABOUT_MESSAGE="asus-fan-control $VERSION
+Set up fan speed policy of an ASUS device to make it more quiet on Linux.
 
 Copy"'right 2017-2018 Dominik Salvet
 SPDX License Identifier: MIT
-https://gitlab.com/dominiksalvet/ux430ua-fan-control'
+https://gitlab.com/dominiksalvet/asus-fan-control'
 
 # configuration files directory
-CONFIG_DIR=/etc/ux430ua-fan-control
+CONFIG_DIR=/etc/asus-fan-control
 
 # the base address for fan speed levels configuration
 CONFIG_BASE_ADDR=1335
@@ -163,7 +163,7 @@ prepare_temps() {
             echo "$0: Can't create a configuration file for custom temperatures.
 POSSIBLE SOLUTIONS:
   * Free up some storage space.
-  * Contact a ux430ua-fan-control developer." >&2
+  * Contact a asus-fan-control developer." >&2
             return 1
         }
     else

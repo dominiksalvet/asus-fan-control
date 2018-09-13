@@ -1,7 +1,7 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: ux430ua-fan-control
+Upstream-Name: asus-fan-control
 Upstream-Contact: Dominik Salvet
-Source: https://gitlab.com/dominiksalvet/ux430ua-fan-control
+Source: https://gitlab.com/dominiksalvet/asus-fan-control
 
 Files: README.md
 Copyright: Copyright 2017-2018 Dominik Salvet

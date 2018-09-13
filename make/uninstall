@@ -3,7 +3,7 @@
 #-------------------------------------------------------------------------------
 # Copyright 2018 Dominik Salvet
 # SPDX-License-Identifier: MIT
-# https://gitlab.com/dominiksalvet/ux430ua-fan-control
+# https://gitlab.com/dominiksalvet/asus-fan-control
 #-------------------------------------------------------------------------------
 # PARAMETERS:
 #   $1 - installation directory path
@@ -48,7 +48,7 @@ if [ -z "$INSTALL_DIR" ]; then
 fi
 
 # check if not installed
-if [ ! -x "$INSTALL_DIR/ux430ua-fan-control" ]; then
+if [ ! -x "$INSTALL_DIR/asus-fan-control" ]; then
     echo 'The program is not installed in the given installation directory.'
     exit 0
 fi
@@ -64,12 +64,12 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 # remove all lines calling the program from '/etc/rc.local'
-sed -i -E -e '/^[[:blank:]]*'"('$INSTALL_DIR_ESCAPED.*\/ux430ua-fan-control'|$INSTALL_DIR_ESCAPED.*\/ux430ua-fan-control)"'(| .*)$/d' /etc/rc.local &&
+sed -i -E -e '/^[[:blank:]]*'"('$INSTALL_DIR_ESCAPED.*\/asus-fan-control'|$INSTALL_DIR_ESCAPED.*\/asus-fan-control)"'(| .*)$/d' /etc/rc.local &&
 # remove the program itself
-rm -f "$INSTALL_DIR/ux430ua-fan-control" || {
+rm -f "$INSTALL_DIR/asus-fan-control" || {
     echo "$0: Can't finish the uninstallation.
 POSSIBLE SOLUTIONS:
-  * Try uninstall ux430ua-fan-control again.
-  * Contact a ux430ua-fan-control developer." >&2
+  * Try uninstall asus-fan-control again.
+  * Contact a asus-fan-control developer." >&2
     exit 1
 }
