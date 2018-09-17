@@ -1,18 +1,18 @@
 # ASUS Fan Control *(asus-fan-control)*
 
-> Set up fan speed policy of an ASUS device to make it more quiet on Linux.
+> Set up fan speed policy of ASUS devices to make them more quiet on Linux.
 
-**DO NOT INSTALL unless you have the ASUS ZenBook UX430UA. Support for other models is under development.**
+**asus-fan-control will be released soon, now use this project only on ASUS ZenBook UX430UA.**
 
-In the default setup of some ASUS devices running Linux, the system fan is driven very aggressively. Even when these devices are not under any load, the fan keeps running quite loudly and it nearly never turns off.
+In the default setup of some ASUS devices running Linux, the system fan is driven very aggressively. Even when the affected devices are not under any load, the fan keeps running quite loudly and it nearly never turns off.
 
 The described problem can be solved with this project. The project is easy to install.
 
 ## Table of Contents
 
 * [Install](#install)
-  * [System requirements](#system-requirements)
-  * [Tested operating systems](#tested-operating-systems)
+  * [Software requirements](#software-requirements)
+  * [Tested notebook models](#tested-notebook-models)
   * [Instructions](#instructions)
 * [Usage](#usage)
   * [Set up custom fan speed policy](#set-up-custom-fan-speed-policy)
@@ -21,18 +21,18 @@ The described problem can be solved with this project. The project is easy to in
 
 ## Install
 
-### System requirements
+### Software requirements
 
 * **Linux** operating system
 * **systemd** init system
 * **Debian** packaging system
 
-### Tested operating systems
+### Tested notebook models
 
-* Ubuntu 18.04
-* Ubuntu 16.04
-* Linux Mint 18.3
-* Linux Mint 18.2
+It appears that this project could work with a **whole range of ASUS notebook models** with one fan. However, they first need to be tested to being added to the following list. If you are interested in trying this project with a notebook model that hasn't been tested yet and adding it to the following list, see the [*CONTRIBUTING.md*](CONTRIBUTING.md) file first. The list of tested notebook models follows:
+
+* ASUS ZenBook UX430UA ([Dominik Salvet](https://gitlab.com/dominiksalvet))
+* ASUS ROG Strix GL553VD ([Sergio Andrés Ñustes](https://gitlab.com/infinito84))
 
 ### Instructions
 

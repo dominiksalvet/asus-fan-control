@@ -2,6 +2,12 @@
 
 The development of this project is published on [this website](https://gitlab.com/dominiksalvet/asus-fan-control) and **everyone is welcome to contribute**. Here is described how.
 
+## Testing a new notebook model
+
+If you are about to test an ASUS notebook model that hasn't been tested before, you should know that **none of asus-fan-control authors is responsible for possible damage** that it can cause to your device because the program uses ACPI calls and it modifies data on some addresses. Nevertheless, target addresses should be set to their default values on tested models when rebooting the system.
+
+Provided you are aware of the fact above and the program is working on your device, try to find the best temperature configuration for your device using the `sudo asus-fan-control -set-temps:<numbers>` command. Then follow the steps described in the [Suggestions](#suggestions) section and add the outputs of `sudo asus-fan-control -get-temps` and `sudo dmidecode -s system-product-name` commands to the issue text.
+
 ## Suggestions
 
 If you have any suggestions on development of the project, follow these steps:
