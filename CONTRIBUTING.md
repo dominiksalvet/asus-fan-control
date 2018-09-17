@@ -19,6 +19,10 @@ If you have any suggestions on development of the project, follow these steps:
 4. Commit and push your changes to the branch.
 5. Submit a [new merge request](https://gitlab.com/dominiksalvet/asus-fan-control/merge_requests/new) with **clear description of the problem and it's solution**. Also include the relevant issue number if applicable.
 
+---
+
+If you edit any source code, retain its original formatting.
+
 ## License
 
-By contributing, you agree that your contributions will be licensed under the same license as the affected files. In case of creating a new file, choose the most appropriate license with respect to the project [licensing policy](README.md#license) and the type of created file. Otherwise, the contributions may not be approved.
+By contributing, you agree that your contributions will be licensed under the same license as the affected files. In case of creating a new file, choose the most appropriate license with respect to the project [licensing policy](README.md#license) and the type of created file.
