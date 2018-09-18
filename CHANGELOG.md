@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 The changes not yet present in any release are listed in this section.
 
+### Added
+
+* Add mechanisms to support multiple notebook models.
+* Support for ASUS ROG Strix GL553VD ([Sergio Andrés Ñustes](https://gitlab.com/infinito84)).
+
 ### Changed
 
 * The program has been renamed from `ux430ua-fan-control` to `asus-fan-control`.

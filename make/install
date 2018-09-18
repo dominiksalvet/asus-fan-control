@@ -8,6 +8,8 @@
 # PARAMETERS:
 #   $1 - installation directory path
 #   $2 - build directory path
+#   $3 - target data directory path
+#   $4 - source data directory path
 #-------------------------------------------------------------------------------
 
 
@@ -16,7 +18,7 @@
 #-------------------------------------------------------------------------------
 
 # list of required software
-SW_REQUIRED='command echo [ id grep chmod sed cp ls'
+SW_REQUIRED='command echo [ id grep chmod sed cp ls mkdir'
 
 # check if some software is missing
 for i in $SW_REQUIRED; do
@@ -42,6 +44,10 @@ BUILD_DIR="$2"
 
 # sed script - regular expression of line containing a successful exit of a shell script
 CONTAINS_EXIT_0='^[[:blank:]]*exit(|[[:blank:]]+0+)([[:blank:]]*|[[:blank:]]+#.*)$'
+
+TAR_DATA_DIR="$3"
+
+SRC_DATA_DIR="$4"
 
 #-------------------------------------------------------------------------------
 # CHECK STATE
@@ -79,6 +85,24 @@ if [ ! -d "$BUILD_DIR/" ] || [ -z "$(ls -A "$BUILD_DIR/")" ]; then
     exit 1
 fi
 
+# check if the data directory argument passed
+if [ -z "$TAR_DATA_DIR" ]; then
+    echo "$0: Please supply non-empty data directory argument." >&2
+    exit 1
+fi
+
+# check if the data directory argument passed
+if [ -z "$SRC_DATA_DIR" ]; then
+    echo "$0: Please supply non-empty data directory argument." >&2
+    exit 1
+fi
+
+# check if data directory exists and is not empty
+if [ ! -d "$SRC_DATA_DIR/" ] || [ -z "$(ls -A "$SRC_DATA_DIR/")" ]; then
+    echo "$0: Data directory '$SRC_DATA_DIR/' must exist and must not be empty." >&2
+    exit 1
+fi
+
 #-------------------------------------------------------------------------------
 # INSTALLATION
 #-------------------------------------------------------------------------------
@@ -103,6 +127,9 @@ fi
 # set the execution permission of '/etc/rc.local'
 chmod a+x /etc/rc.local
 
+# copy program's static data
+mkdir -p "$TAR_DATA_DIR/" &&
+cp -T -R "$SRC_DATA_DIR/" "$TAR_DATA_DIR/" &&
 # copy the program itself
 cp "$BUILD_DIR/asus-fan-control" "$INSTALL_DIR/" &&
 chmod a+x "$INSTALL_DIR/asus-fan-control" &&
@@ -112,7 +139,7 @@ sed -i -E -e '/'"$CONTAINS_EXIT_0"'/{s//'"'$INSTALL_DIR_ESCAPED"'\/asus-fan-cont
 POSSIBLE SOLUTIONS:
   * Try install asus-fan-control again.
   * Free up some storage space.
-  * Contact a asus-fan-control developer." >&2
+  * Contact an asus-fan-control developer." >&2
     exit 1
 }
 

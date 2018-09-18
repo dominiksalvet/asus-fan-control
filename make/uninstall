@@ -7,6 +7,7 @@
 #-------------------------------------------------------------------------------
 # PARAMETERS:
 #   $1 - installation directory path
+#   $2 - target data directory path
 #-------------------------------------------------------------------------------
 
 
@@ -37,6 +38,8 @@ INSTALL_DIR="$1"
 # escape delimiters of the installation directory path for later use in a sed script
 INSTALL_DIR_ESCAPED="$(echo "$INSTALL_DIR" | sed -E -e 's|/|\\/|g')"
 
+TAR_DATA_DIR="$2"
+
 #-------------------------------------------------------------------------------
 # CHECK STATE
 #-------------------------------------------------------------------------------
@@ -53,6 +56,12 @@ if [ ! -x "$INSTALL_DIR/asus-fan-control" ]; then
     exit 0
 fi
 
+# check if the data directory argument passed
+if [ -z "$TAR_DATA_DIR" ]; then
+    echo "$0: Please supply non-empty data directory argument." >&2
+    exit 1
+fi
+
 #-------------------------------------------------------------------------------
 # UNINSTALLATION
 #-------------------------------------------------------------------------------
@@ -66,10 +75,11 @@ fi
 # remove all lines calling the program from '/etc/rc.local'
 sed -i -E -e '/^[[:blank:]]*'"('$INSTALL_DIR_ESCAPED.*\/asus-fan-control'|$INSTALL_DIR_ESCAPED.*\/asus-fan-control)"'(| .*)$/d' /etc/rc.local &&
 # remove the program itself
-rm -f "$INSTALL_DIR/asus-fan-control" || {
+rm -f "$INSTALL_DIR/asus-fan-control" &&
+rm -r -f "${TAR_DATA_DIR:?}/" || {
     echo "$0: Can't finish the uninstallation.
 POSSIBLE SOLUTIONS:
   * Try uninstall asus-fan-control again.
-  * Contact a asus-fan-control developer." >&2
+  * Contact an asus-fan-control developer." >&2
     exit 1
 }

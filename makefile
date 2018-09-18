@@ -19,6 +19,8 @@ COLUMN := column
 MAKE_DIR := make
 INSTALL_DIR := /usr/local/bin
 BUILD_DIR := build
+SRC_DATA_DIR := data
+TAR_DATA_DIR := /usr/share/asus-fan-control
 
 #-------------------------------------------------------------------------------
 # HELP GENERATOR
@@ -53,13 +55,13 @@ all: help
 install: install-deps install-only # install the entire project automatically
 
 uninstall: # uninstall the project
-	./$(MAKE_DIR)/uninstall '$(INSTALL_DIR)'
+	./$(MAKE_DIR)/uninstall '$(INSTALL_DIR)' '$(TAR_DATA_DIR)'
 
 install-deps: # install dependencies of the project
 	./$(MAKE_DIR)/install-deps
 
 install-only: # install the project
-	./$(MAKE_DIR)/install '$(INSTALL_DIR)' '$(BUILD_DIR)'
+	./$(MAKE_DIR)/install '$(INSTALL_DIR)' '$(BUILD_DIR)' '$(TAR_DATA_DIR)' '$(SRC_DATA_DIR)'
 
 help: # default, show this help
 	$(call show_generated_help,makefile)
