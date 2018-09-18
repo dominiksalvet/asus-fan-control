@@ -2,7 +2,7 @@
 
 > Set up fan speed policy of ASUS devices to make them more quiet on Linux.
 
-**asus-fan-control will be released soon. However, use this project only with ASUS ZenBook UX430UA for now.**
+**asus-fan-control will be released soon. However, do not use the current project state on a different model than ASUS ZenBook UX430UA until then.**
 
 In the default setup of some ASUS devices running Linux, the system fan is driven very aggressively. Even when the affected devices are not under any load, the fan keeps running quite loudly and it nearly never turns off.
 
