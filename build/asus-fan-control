@@ -114,7 +114,7 @@ valid_temps() {
 # DESCRIPTION:
 #   Return the temperatures that are about to being applied.
 get_temps_to_apply() {
-    if [ -f "$CONFIG_DIR/custom-temps" ]; then # if the file of custom temperatures exists
+    if [ -r "$CONFIG_DIR/custom-temps" ]; then # if the file of custom temperatures exists and is readable
         LOCAL_custom_temps="$(head -n 1 "$CONFIG_DIR/custom-temps")" # get the first line of it
         if valid_temps "$LOCAL_custom_temps"; then # if these temperatures are valid
             LOCAL_temps="$LOCAL_custom_temps" # use them
@@ -150,7 +150,7 @@ set_acpi_temps() {
 # DESCRIPTION:
 #   Returns default temperatures for currently used ASUS notebook model.
 get_device_default_temps() {
-    if [ -f "$DATA_DIR/default-temps" ]; then
+    if [ -r "$DATA_DIR/default-temps" ]; then
         LOCAL_model="$(dmidecode -s system-product-name)"
         LOCAL_temps="$(grep -m 1 -E -e "$LOCAL_model" "$DATA_DIR/default-temps" | sed -E -e 's|^'"$LOCAL_model"' ||')"
         if ! valid_temps "$LOCAL_temps"; then
@@ -161,7 +161,7 @@ POSSIBLE SOLUTIONS:
             LOCAL_temps="$FALLBACK_TEMPS"
         fi
     else
-        echo "$0: There is no file with default temperatures for notebook models. Falling back to the UX430UA temperatures.
+        echo "$0: Can't access the file with default temperatures for notebook models. Falling back to the UX430UA temperatures.
 POSSIBLE SOLUTIONS:
   * Uninstall asus-fan-control and install it again.
   * Contact an asus-fan-control developer." >&2
