@@ -47,12 +47,12 @@ endef
 # TARGETS
 #-------------------------------------------------------------------------------
 
-.PHONY: all install uninstall install-deps install-only help
+.PHONY: all install uninstall install-deps deploy help
 
 # there is no building required, so the default target references to the help target
 all: help
 
-install: install-deps install-only # install the entire project automatically
+install: install-deps deploy # install the entire project automatically
 
 uninstall: # uninstall the project
 	./$(MAKE_DIR)/uninstall '$(INSTALL_DIR)' '$(TAR_DATA_DIR)'
@@ -60,8 +60,8 @@ uninstall: # uninstall the project
 install-deps: # install dependencies of the project
 	./$(MAKE_DIR)/install-deps
 
-install-only: # install the project
-	./$(MAKE_DIR)/install-only '$(INSTALL_DIR)' '$(BUILD_DIR)' '$(TAR_DATA_DIR)' '$(SRC_DATA_DIR)'
+deploy: # deploy the project files
+	./$(MAKE_DIR)/deploy '$(INSTALL_DIR)' '$(BUILD_DIR)' '$(TAR_DATA_DIR)' '$(SRC_DATA_DIR)'
 
 help: # default, show this help
 	$(call show_generated_help,makefile)
