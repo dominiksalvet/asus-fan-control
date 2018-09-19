@@ -142,9 +142,3 @@ POSSIBLE SOLUTIONS:
   * Contact an asus-fan-control developer." >&2
     exit 1
 }
-
-# apply the changes immediately (it may not be successful as the program dependencies may be missing)
-echo 'Trying to apply the changes immediately.'
-"$INSTALL_DIR"/asus-fan-control
-
-exit 0

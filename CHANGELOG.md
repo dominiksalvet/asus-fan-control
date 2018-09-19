@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 The changes not yet present in any release are listed in this section.
 
+### Removed
+
+* Stop applying changes after the installation using makefile. The planned substitution will be using [gim](https://gitlab.com/dominiksalvet/gim).
+
 ## 2.1.0 (2018-09-19)
 
 ### Added
