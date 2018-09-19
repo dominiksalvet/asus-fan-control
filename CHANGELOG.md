@@ -10,7 +10,7 @@ The changes not yet present in any release are listed in this section.
 
 ### Fixed
 
-* Stop applying temperatures immediately after the installation of makefile because gim hasn't copied the configuration files yet.
+* Stop applying temperatures immediately after the installation using makefile because gim hasn't copied the configuration files yet.
 
 ## 2.1.0 (2018-09-19)
 
