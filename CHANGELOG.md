@@ -6,9 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 The changes not yet present in any release are listed in this section.
 
-### Removed
+## 2.1.1 (2018-09-19)
 
-* Stop applying changes after the installation using makefile. The planned substitution will be using [gim](https://gitlab.com/dominiksalvet/gim).
+### Fixed
+
+* Stop applying temperatures immediately after the installation of makefile because gim hasn't copied the configuration files yet.
 
 ## 2.1.0 (2018-09-19)
 
