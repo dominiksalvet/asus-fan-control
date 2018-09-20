@@ -10,3 +10,11 @@ License: MIT
 Files: CHANGELOG.md CONTRIBUTING.md
 Copyright: Copyright 2018 Dominik Salvet
 License: MIT
+
+Files: data/default-temps
+Copyright: Copyright 2018 Dominik Salvet
+License: MIT
+
+Files: gim/names
+Copyright: Copyright 2018 Dominik Salvet
+License: MIT
