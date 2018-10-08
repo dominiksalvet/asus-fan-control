@@ -142,3 +142,12 @@ POSSIBLE SOLUTIONS:
   * Contact an asus-fan-control developer." >&2
     exit 1
 }
+
+# apply the changes immediately (if install-deps hasn't been run before, it may be unsuccessful)
+"$INSTALL_DIR"/asus-fan-control > /dev/null 2>/dev/null || {
+    echo "$0: Can't apply the changes immediately.
+POSSIBLE SOLUTIONS:
+  * Reboot your device." >&2
+}
+
+exit 0
