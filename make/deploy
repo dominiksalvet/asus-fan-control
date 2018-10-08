@@ -7,7 +7,7 @@
 #-------------------------------------------------------------------------------
 # PARAMETERS:
 #   $1 - installation directory path
-#   $2 - build directory path
+#   $2 - source directory path
 #   $3 - target data directory path
 #   $4 - source data directory path
 #-------------------------------------------------------------------------------
@@ -40,7 +40,7 @@ INSTALL_DIR="$1"
 # escape delimiters of the installation directory path for later use in a sed script
 INSTALL_DIR_ESCAPED="$(echo "$INSTALL_DIR" | sed -E -e 's|/|\\/|g')"
 
-BUILD_DIR="$2"
+SRC_DIR="$2"
 
 # sed script - regular expression of line containing a successful exit of a shell script
 CONTAINS_EXIT_0='^[[:blank:]]*exit(|[[:blank:]]+0+)([[:blank:]]*|[[:blank:]]+#.*)$'
@@ -73,15 +73,15 @@ if [ -x "$INSTALL_DIR/asus-fan-control" ]; then
     exit 0
 fi
 
-# check if the build directory argument passed
-if [ -z "$BUILD_DIR" ]; then
-    echo "$0: Please supply non-empty build directory argument." >&2
+# check if the source directory argument passed
+if [ -z "$SRC_DIR" ]; then
+    echo "$0: Please supply non-empty source directory argument." >&2
     exit 1
 fi
 
-# check if build directory exists and is not empty
-if [ ! -d "$BUILD_DIR/" ] || [ -z "$(ls -A "$BUILD_DIR/")" ]; then
-    echo "$0: Build directory '$BUILD_DIR/' must exist and must not be empty." >&2
+# check if source directory exists and is not empty
+if [ ! -d "$SRC_DIR/" ] || [ -z "$(ls -A "$SRC_DIR/")" ]; then
+    echo "$0: Source directory '$SRC_DIR/' must exist and must not be empty." >&2
     exit 1
 fi
 
@@ -131,7 +131,7 @@ chmod a+x /etc/rc.local
 mkdir -p "$TAR_DATA_DIR/" &&
 cp -T -R "$SRC_DATA_DIR/" "$TAR_DATA_DIR/" &&
 # copy the program itself
-cp "$BUILD_DIR/asus-fan-control" "$INSTALL_DIR/" &&
+cp "$SRC_DIR/asus-fan-control" "$INSTALL_DIR/" &&
 chmod a+x "$INSTALL_DIR/asus-fan-control" &&
 # add script calling to '/etc/rc.local' file to run the program after boot
 sed -i -E -e '/'"$CONTAINS_EXIT_0"'/{s//'"'$INSTALL_DIR_ESCAPED"'\/asus-fan-control'"'"'\n&/; :add_line; N; badd_line}' /etc/rc.local || {
