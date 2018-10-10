@@ -1,0 +1,44 @@
+#-------------------------------------------------------------------------------
+# Copyright 2018 Dominik Salvet
+# SPDX-License-Identifier: MIT
+# https://gitlab.com/dominiksalvet/asus-fan-control
+#-------------------------------------------------------------------------------
+
+
+#-------------------------------------------------------------------------------
+# SOFTWARE DEPENDENCIES
+#-------------------------------------------------------------------------------
+
+# list of required software
+SW_REQUIRED='command [ compgen compopt complete'
+
+# check if some software is missing
+for i in $SW_REQUIRED; do
+    # software is missing if at least one piece of software is missing
+    if ! command -v "$i" > /dev/null; then
+        echo "$0: Required software $i is missing.
+POSSIBLE SOLUTIONS:
+  * Use command 'sudo apt install $i'." >&2
+        exit 1
+    fi
+done
+
+#-------------------------------------------------------------------------------
+# APPLY TAB COMPLETION
+#-------------------------------------------------------------------------------
+
+# DESCRIPTION:
+#   Prepare a hint consisting of words that can be used from the current part of
+#   word.
+_asus-fan-control() {
+    # generate hint from available asus-fan-control's action
+    COMPREPLY=($(compgen -W "-get-temps -set-default-temps -set-temps: -help -about -version" -- "${COMP_WORDS[COMP_CWORD]}"))
+
+    # if there is only '-set-temps:', do not print an extra space
+    if [ "${#COMPREPLY[@]}" -eq 1 ] && [ "${COMPREPLY[0]}" = '-set-temps:' ]; then
+        compopt -o nospace
+    fi
+}
+
+# assign a function to be called when TAB complete is required when asus-fan-control is used
+complete -F _asus-fan-control asus-fan-control
