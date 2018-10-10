@@ -10,6 +10,7 @@ The changes not yet present in any release are listed in this section.
 
 * The changes are again applied immediately after the installation due to recent gim changes in the installation process.
 * When updating from `ux430ua-fan-control`, configuration files will be copied to the current project, `asus-fan-control`.
+* Add support for TAB completion for bash shell of all possible arguments.
 
 ### Changed
 
