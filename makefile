@@ -60,7 +60,7 @@ uninstall: # uninstall the project
 install-deps: # install dependencies of the project
 	@./$(MAKE_DIR)/install-deps
 
-deploy: # deploy the project files
+deploy: # deploy the project
 	@./$(MAKE_DIR)/deploy '$(INSTALL_DIR)' '$(SRC_DIR)' '$(TAR_DATA_DIR)' '$(SRC_DATA_DIR)'
 
 help: # default, show this help

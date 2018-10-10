@@ -143,11 +143,24 @@ POSSIBLE SOLUTIONS:
     exit 1
 }
 
-# apply the changes immediately (if install-deps hasn't been run before, it may be unsuccessful)
+#-------------------------------------------------------------------------------
+# COPYING PREVIOUS CONFIGURATION FILES
+#-------------------------------------------------------------------------------
+
+if [ -d "/etc/ux430ua-fan-control/" ] && [ ! -d "/etc/asus-fan-control/" ]; then
+    cp -T -a "/etc/ux430ua-fan-control/" "/etc/asus-fan-control/"
+fi
+
+#-------------------------------------------------------------------------------
+# APPLYING THE CHANGES
+#-------------------------------------------------------------------------------
+
+# try to apply all changes immediately (if install-deps hasn't been run before, it may be unsuccessful)
 "$INSTALL_DIR"/asus-fan-control > /dev/null 2>/dev/null || {
     echo "$0: Can't apply the changes immediately.
 POSSIBLE SOLUTIONS:
-  * Reboot your device." >&2
+  * Reboot your device.
+  * Install program dependencies." >&2
 }
 
 exit 0

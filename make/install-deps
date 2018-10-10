@@ -49,3 +49,5 @@ fi || exit 1
 
 # load acpi_call module immediately
 modprobe acpi_call
+
+exit 0
