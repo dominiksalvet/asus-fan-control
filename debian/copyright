@@ -15,6 +15,6 @@ Files: data/default-temps
 Copyright: Copyright 2018 Dominik Salvet
 License: MIT
 
-Files: gim/names
+Files: gim/names gim/unsupported
 Copyright: Copyright 2018 Dominik Salvet
 License: MIT
