@@ -12,7 +12,7 @@ The changes not yet present in any release are listed in this section.
 
 ### Changed
 
-* Installation/uninstallation process now longer prints make recipes before executing them.
+* Installation/uninstallation process no longer prints make recipes before executing them.
 
 ## 2.1.1 (2018-09-19)
 
