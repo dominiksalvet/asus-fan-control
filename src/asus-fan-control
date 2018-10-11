@@ -269,10 +269,10 @@ done
 # APPLY CONFIGURATION WHEN NO ARGUMENTS
 #-------------------------------------------------------------------------------
 
-# check if an ACPI call can be performed (includes root check)
-acpi_call_prepare || exit
-
 if [ "$#" -eq 0 ]; then # if no arguments provided
+    # check if an ACPI call can be performed (includes root check)
+    acpi_call_prepare || exit
+
     # set temperatures using an ACPI call
     set_acpi_temps "$(get_temps_to_apply)"
 fi
