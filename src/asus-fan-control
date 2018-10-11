@@ -35,7 +35,7 @@ VERSION=2.2.0
 HELP_MESSAGE="USAGE: $0 [OPTION]...
 
 OPTION:
-  -get-temps            show current temperatures of fan speed levels and exit
+  -get-temps            show current temperatures of fan speed levels
   -set-default-temps    use default temperatures for fan speed levels
   -set-temps:<numbers>  use custom temperatures for fan speed levels
   -help                 show this help and exit
@@ -62,8 +62,8 @@ ACPI_FAN_BASE_ADDR=1335
 FALLBACK_TEMPS='55 60 62 65 68 72 76 80'
 
 # DESCRIPTION:
-#   Check conditions to perform an ACPI call.
-acpi_check() {
+#   Check if program is able to perform an ACPI call.
+acpi_call_prepare() {
     # check if 'acpi_call' module loaded
     if ! lsmod | grep -q -E -e '^[[:blank:]]*acpi_call[[:blank:]].*$'; then
         echo "$0: Required module 'acpi_call' is not loaded.
@@ -87,6 +87,15 @@ POSSIBLE SOLUTIONS:
         echo "$0: Please run as root." >&2
         return 1
     fi
+
+    # create configuration directory to prevent copying old files when updating
+    mkdir -p "$CONFIG_DIR/" || {
+        echo "$0: Can't create a directory for configuration files.
+POSSIBLE SOLUTIONS:
+  * Free up some storage space.
+  * Contact an asus-fan-control developer." >&2
+        return 1
+    }
 }
 
 # DESCRIPTION:
@@ -180,7 +189,7 @@ for i in "$@"; do
     case "$i" in
         -get-temps)
             # check if an ACPI call can be performed (includes root check)
-            acpi_check || exit
+            acpi_call_prepare || exit
 
             # get each individual fan speed level
             speed_level=0
@@ -198,11 +207,10 @@ for i in "$@"; do
         
             # show the temperatures and remove the last space
             echo "$acpi_temps" | sed -E -e 's/ $//'
-            exit 0
             ;;
         -set-default-temps)
             # check if an ACPI call can be performed (includes root check)
-            acpi_check || exit
+            acpi_call_prepare || exit
 
             # remove custom temperatures configuration file if it exists
             [ -f "$CONFIG_DIR/custom-temps" ] && rm "$CONFIG_DIR/custom-temps"
@@ -212,7 +220,7 @@ for i in "$@"; do
             ;;
         -set-temps:*)
             # check if an ACPI call can be performed (includes root check)
-            acpi_check || exit
+            acpi_call_prepare || exit
 
             # parse temperatures of this parameter
             custom_temps="$(echo "$i" | sed -E -e 's/^-set-temps://')"
@@ -221,7 +229,6 @@ for i in "$@"; do
                 # remove custom temperatures configuration file if it exists
                 [ -f "$CONFIG_DIR/custom-temps" ] && rm "$CONFIG_DIR/custom-temps"
             elif valid_temps "$custom_temps"; then # else if they are valid
-                mkdir -p "$CONFIG_DIR/" &&
                 echo "$custom_temps" > "$CONFIG_DIR/custom-temps" || {
                     echo "$0: Can't create a configuration file with custom temperatures.
 POSSIBLE SOLUTIONS:
@@ -263,7 +270,7 @@ done
 #-------------------------------------------------------------------------------
 
 # check if an ACPI call can be performed (includes root check)
-acpi_check || exit
+acpi_call_prepare || exit
 
 if [ "$#" -eq 0 ]; then # if no arguments provided
     # set temperatures using an ACPI call
