@@ -1,4 +1,4 @@
-# ASUS Fan Control *(asus-fan-control)*
+# asus-fan-control
 
 > Set up fan speed policy of ASUS devices to make them more quiet on Linux.
 
