@@ -34,11 +34,15 @@ It appears that this project could work with a **whole range of ASUS notebook mo
 
 ### Instructions
 
-This project is [gim](https://gitlab.com/dominiksalvet/gim) compliant **since version 2.0.0**.
+This project is [gim](https://gitlab.com/dominiksalvet/gim) compliant **since version 2.0.0**. Install it by:
+
+```sh
+sudo gim install https://gitlab.com/dominiksalvet/asus-fan-control.git
+```
 
 ---
 
-If it is required to **update or uninstall project, whose version is lower than 2.0.0**, see the [README.md](https://gitlab.com/dominiksalvet/asus-fan-control/blob/1.1.2/README.md) file of the 1.1.2 version, the latest version with previously used installation system.
+If it is required to work with the project, whose **version is lower than 2.0.0**, see the [README.md](https://gitlab.com/dominiksalvet/asus-fan-control/blob/1.1.2/README.md) file of the 1.1.2 version, the latest version with previously used installation system.
 
 ## Usage
 
