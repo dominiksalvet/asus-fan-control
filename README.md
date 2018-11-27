@@ -34,23 +34,7 @@ It appears that this project could work with a **whole range of ASUS notebook mo
 
 ### Instructions
 
-This project is [gim](https://gitlab.com/dominiksalvet/gim) compliant since version 2.0.0. And so to **automatically install it's latest stable release**, open a terminal emulator and use the following command:
-
-```sh
-sudo gim install https://gitlab.com/dominiksalvet/asus-fan-control.git
-```
-
-To **automatically update the project** from version 2.0.0 and higher to **it's latest version**, use the following command:
-
-```sh
-sudo gim update https://gitlab.com/dominiksalvet/asus-fan-control.git
-```
-
-If it is required to **automatically uninstall your current release** with version 2.0.0 and higher, use the following command:
-
-```sh
-sudo gim uninstall https://gitlab.com/dominiksalvet/asus-fan-control.git
-```
+This project is [gim](https://gitlab.com/dominiksalvet/gim) compliant **since version 2.0.0**.
 
 ---
 
