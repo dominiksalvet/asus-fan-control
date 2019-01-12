@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #-------------------------------------------------------------------------------
-# Copyright 2018 Dominik Salvet
+# Copyright 2018-2019 Dominik Salvet
 # SPDX-License-Identifier: MIT
 # https://gitlab.com/dominiksalvet/asus-fan-control
 #-------------------------------------------------------------------------------
@@ -12,7 +12,7 @@
 #-------------------------------------------------------------------------------
 
 # list of required software
-SW_REQUIRED='command echo id apt grep modprobe'
+SW_REQUIRED='command echo id apt-get grep modprobe'
 
 # check if some software is missing
 for i in $SW_REQUIRED; do
@@ -36,13 +36,12 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 # install a kernel module to enable performing ACPI calls
-apt install acpi-call-dkms -y &&
+apt-get install acpi-call-dkms -y > /dev/null &&
 
 # add this module to '/etc/modules' to load at boot time
 if [ ! -f /etc/modules ]; then
     # create '/etc/modules' if it does not exist
-    echo acpi_call > /etc/modules &&
-    echo "'/etc/modules' has been created."
+    echo acpi_call > /etc/modules
 elif ! grep -q -E -e '^[[:blank:]]*acpi_call(| .*)$' /etc/modules; then
     echo acpi_call >> /etc/modules
 fi || exit 1

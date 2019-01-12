@@ -76,7 +76,7 @@ To customize these temperatures, use the program's `-set-temps:<numbers>` flag. 
 sudo asus-fan-control -set-temps:'45 50 55 60 65 70 75 80'
 ```
 
-## Contribute
+## Contributing
 
 See the [*CONTRIBUTING.md*](CONTRIBUTING.md) file for details.
 

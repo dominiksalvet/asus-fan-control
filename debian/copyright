@@ -4,7 +4,7 @@ Upstream-Contact: Dominik Salvet
 Source: https://gitlab.com/dominiksalvet/asus-fan-control
 
 Files: README.md
-Copyright: Copyright 2017-2018 Dominik Salvet
+Copyright: Copyright 2017-2019 Dominik Salvet
 License: MIT
 
 Files: CHANGELOG.md CONTRIBUTING.md
