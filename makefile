@@ -14,6 +14,7 @@ SHELL := /bin/sh
 ECHO := echo
 SED := sed
 COLUMN := column
+TRUE := true
 
 # directory definitions
 MAKE_DIR := make
@@ -37,7 +38,8 @@ export GET_TARGET_DESCRIPTIONS
 
 # shows generated help of a given makefile from it's comments
 define show_generated_help
-	@$(ECHO) 'USAGE: make [TARGET]...'
+	@$(ECHO) 'USAGE:'
+	@$(ECHO) '  make [TARGET...]'
 	@$(ECHO)
 	@$(ECHO) 'TARGET:'
 	@$(SED) -E -e "$$GET_TARGET_DESCRIPTIONS" $(1) | $(COLUMN) -t -s '#'
@@ -49,8 +51,9 @@ endef
 
 .PHONY: all install uninstall install-deps deploy help
 
-# there is no building required, so the default target references to the help target
-all: help
+# there is no building required
+all: # default, does nothing
+	@$(TRUE)
 
 install: install-deps deploy # install the entire project automatically
 
@@ -63,5 +66,5 @@ install-deps: # install dependencies of the project
 deploy: # deploy the project
 	@./$(MAKE_DIR)/deploy '$(INSTALL_DIR)' '$(SRC_DIR)' '$(TAR_DATA_DIR)' '$(SRC_DATA_DIR)'
 
-help: # default, show this help
+help: # show this help
 	$(call show_generated_help,makefile)
