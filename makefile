@@ -1,5 +1,5 @@
 #-------------------------------------------------------------------------------
-# Copyright 2018 Dominik Salvet
+# Copyright 2018-2019 Dominik Salvet
 # SPDX-License-Identifier: MIT
 # https://gitlab.com/dominiksalvet/asus-fan-control
 #-------------------------------------------------------------------------------
