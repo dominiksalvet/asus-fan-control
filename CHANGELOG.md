@@ -6,11 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 The changes not yet present in any release are listed in this section.
 
-## Added
+## 2.4.0 (2019-02-23)
 
-* The support for gim 6.0.0 has been added.
+### Added
 
-## Changed
+* The native support for gim 6.0.0 has been added.
+
+### Changed
 
 * Make default target does not have any effect.
 
