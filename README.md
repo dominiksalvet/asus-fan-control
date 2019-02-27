@@ -1,5 +1,11 @@
 # asus-fan-control
 
+[![reuse compliant](https://reuse.software/badge/reuse-compliant.svg)](https://reuse.software/)
+[![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg)](https://github.com/RichardLitt/standard-readme)
+[![keep a changelog](https://img.shields.io/badge/keep-a_changelog-f15d34.svg)](https://keepachangelog.com/en/1.0.0/)
+[![semver 2.0.0](https://img.shields.io/badge/semver-2.0.0-blue.svg)](https://semver.org/)
+[![gim compliant](https://img.shields.io/badge/gim-compliant-571997.svg)](https://gitlab.com/dominiksalvet/gim)
+
 > Set up fan speed policy of ASUS devices to make them more quiet on Linux.
 
 In the default setup of some ASUS devices running Linux, the system fan is driven very aggressively. Even when the affected devices are not under any load, the fan keeps running quite loudly and it nearly never turns off.
