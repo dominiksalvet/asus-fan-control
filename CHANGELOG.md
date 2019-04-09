@@ -6,11 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 The changes not yet present in any release are listed in this section.
 
-## 2.4.0 (2019-03-04)
+## 2.4.0 (2019-04-09)
 
 ### Added
 
-* The native support for gim 6.0.0 has been added.
+* The native support for gim 7.0.0 has been added.
 
 ### Changed
 
