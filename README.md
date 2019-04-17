@@ -1,10 +1,8 @@
 # asus-fan-control
 
+[![gim ready](https://img.shields.io/badge/gim-ready-571997.svg)](https://gitlab.com/dominiksalvet/gim)
 [![reuse compliant](https://reuse.software/badge/reuse-compliant.svg)](https://reuse.software/)
 [![standard-readme compliant](https://img.shields.io/badge/readme_style-standard-brightgreen.svg)](https://github.com/RichardLitt/standard-readme)
-[![keep a changelog](https://img.shields.io/badge/keep-a_changelog-f15d34.svg)](https://keepachangelog.com/en/1.0.0/)
-[![semver 2.0.0](https://img.shields.io/badge/semver-2.0.0-blue.svg)](https://semver.org/)
-[![gim ready](https://img.shields.io/badge/gim-ready-571997.svg)](https://gitlab.com/dominiksalvet/gim)
 
 > Set up fan speed policy of ASUS devices to make them more quiet on Linux.
 
@@ -40,7 +38,7 @@ It appears that this project could work with a **whole range of ASUS notebook mo
 
 ### Instructions
 
-This project is [gim](https://gitlab.com/dominiksalvet/gim) compliant **since version 2.0.0**. Install it by:
+This project is [gim](https://gitlab.com/dominiksalvet/gim) ready **since version 2.0.0**. Install it by:
 
 ```sh
 sudo gim install gitlab.com/dominiksalvet/asus-fan-control
