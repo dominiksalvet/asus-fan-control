@@ -19,6 +19,6 @@ Files: data/default-temps
 Copyright: Copyright 2018 Dominik Salvet
 License: MIT
 
-Files: gim/mirror-urls gim/unsupported-versions
+Files: gim/mirrors gim/unsupported
 Copyright: Copyright 2018-2019 Dominik Salvet
 License: MIT
