@@ -86,4 +86,6 @@ See the [*CONTRIBUTING.md*](CONTRIBUTING.md) file for details.
 
 ## License
 
-Licensing policy of this project is compliant with [REUSE Practices](https://reuse.software/practices/2.0/). Therefore, the license of a file of this project is determined by a [SPDX](https://spdx.org/) License Identifier or by the [*debian/copyright*](debian/copyright) file content.
+Licensing policy of gim is compliant with [REUSE Practices](https://reuse.software/practices/2.0/).
+
+The preferred license is the **MIT License** as stated in the [*LICENSE.txt*](LICENSE.txt) file.
