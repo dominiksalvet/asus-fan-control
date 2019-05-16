@@ -86,6 +86,6 @@ See the [*CONTRIBUTING.md*](CONTRIBUTING.md) file for details.
 
 ## License
 
-Licensing policy of gim is compliant with [REUSE Practices](https://reuse.software/practices/2.0/).
+Licensing policy of asus-fan-control is compliant with [REUSE Practices](https://reuse.software/practices/2.0/).
 
 The preferred license is the **MIT License** as stated in the [*LICENSE.txt*](LICENSE.txt) file.
