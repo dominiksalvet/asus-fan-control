@@ -21,7 +21,7 @@ If you have any suggestions on development of the project, follow these steps:
 
 1. Fork this project.
 2. Create a new branch with descriptive name according to your changes.
-3. Note your changes to the [Unreleased](docs/CHANGELOG.md#unreleased) section in the [*CHANGELOG.md*](docs/CHANGELOG.md) file.
+3. Note your changes to the [Unreleased](CHANGELOG.md#unreleased) section in the [*CHANGELOG.md*](CHANGELOG.md) file.
 4. Commit and push your changes to the branch.
 5. Submit a [new pull request](https://github.com/dominiksalvet/asus-fan-control/pulls) with **clear description of the problem and it's solution**. Also include the relevant issue number if applicable.
 
