@@ -1,6 +1,8 @@
 # Changelog
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Individual releases can be obtained using the [tags](https://gitlab.com/dominiksalvet/asus-fan-control/tags). Changes between their files can be viewed using the [compare](https://gitlab.com/dominiksalvet/asus-fan-control/compare).
+All notable changes to gim will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and gim adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
@@ -89,7 +91,7 @@ The changes not yet present in any release are listed in this section.
 
 ### Changed
 
-* The project is [gim](https://gitlab.com/dominiksalvet/gim) complaint and so it uses a new installation manager.
+* The project is [gim](https://github.com/dominiksalvet/gim) complaint and so it uses a new installation manager.
 * The configuration directory is now */etc/ux430ua-fan-control*.
 
 ### Removed

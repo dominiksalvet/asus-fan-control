@@ -3,7 +3,7 @@
 #-------------------------------------------------------------------------------
 # Copyright 2017-2018 Dominik Salvet
 # SPDX-License-Identifier: MIT
-# https://gitlab.com/dominiksalvet/asus-fan-control
+# https://github.com/dominiksalvet/asus-fan-control
 #-------------------------------------------------------------------------------
 # PARAMETERS:
 #   $1 - installation directory path

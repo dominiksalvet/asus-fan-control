@@ -1,6 +1,6 @@
 # asus-fan-control
 
-[![gim ready](https://img.shields.io/badge/gim-ready-571997.svg)](https://gitlab.com/dominiksalvet/gim)
+[![gim ready](https://img.shields.io/badge/gim-ready-571997.svg)](https://github.com/dominiksalvet/gim)
 [![reuse compliant](https://reuse.software/badge/reuse-compliant.svg)](https://reuse.software/)
 [![standard-readme compliant](https://img.shields.io/badge/readme_style-standard-brightgreen.svg)](https://github.com/RichardLitt/standard-readme)
 
@@ -33,20 +33,20 @@ The described problem can be solved with this project. The project is easy to in
 
 It appears that this project could work with a **whole range of ASUS notebook models**. However, they first need to be tested to being added to the following list. If you are interested in trying this project with an ASUS notebook model that hasn't been tested yet and adding it to the following list, see the [*CONTRIBUTING.md*](CONTRIBUTING.md) file first. The list of tested notebook models follows:
 
-* ASUS ZenBook UX430UA ([Dominik Salvet](https://gitlab.com/dominiksalvet))
+* ASUS ZenBook UX430UA ([Dominik Salvet](https://github.com/dominiksalvet))
 * ASUS ROG Strix GL553VD ([Sergio Andrés Ñustes](https://gitlab.com/infinito84))
 
 ### Instructions
 
-This project is [gim](https://gitlab.com/dominiksalvet/gim) ready **since version 2.0.0**. Install it by:
+This project is [gim](https://github.com/dominiksalvet/gim) ready **since version 2.0.0**. Install it by:
 
 ```sh
-sudo gim install gitlab.com/dominiksalvet/asus-fan-control
+sudo gim install github.com/dominiksalvet/asus-fan-control
 ```
 
 ---
 
-If it is required to work with the project, whose **version is lower than 2.0.0**, see the [README.md](https://gitlab.com/dominiksalvet/asus-fan-control/blob/1.1.2/README.md) file of the 1.1.2 version, the latest version with previously used installation system.
+If it is required to work with the project, whose **version is lower than 2.0.0**, see the [README.md](https://github.com/dominiksalvet/asus-fan-control/blob/1.1.2/README.md) file of the 1.1.2 version, the latest version with previously used installation system.
 
 ## Usage
 

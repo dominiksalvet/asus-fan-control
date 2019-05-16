@@ -3,7 +3,7 @@
 #-------------------------------------------------------------------------------
 # Copyright 2017-2019 Dominik Salvet
 # SPDX-License-Identifier: MIT
-# https://gitlab.com/dominiksalvet/asus-fan-control
+# https://github.com/dominiksalvet/asus-fan-control
 #-------------------------------------------------------------------------------
 
 
@@ -45,9 +45,9 @@ OPTION:
 ABOUT_MESSAGE="asus-fan-control $VERSION
 Fan control program for Asus devices running Linux.
 
-Copy"'right 2017-2018 Dominik Salvet
+Copy"'right 2017-2019 Dominik Salvet
 SPDX License Identifier: MIT
-https://gitlab.com/dominiksalvet/asus-fan-control'
+https://github.com/dominiksalvet/asus-fan-control'
 
 # a directory for storing static data
 DATA_DIR=/usr/share/asus-fan-control
