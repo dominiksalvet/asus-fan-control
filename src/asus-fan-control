@@ -43,7 +43,7 @@ OPTION:
   -version              show version and exit"
 
 ABOUT_MESSAGE="asus-fan-control $VERSION
-Set up fan speed policy of ASUS devices to make them more quiet on Linux.
+Fan control program for Asus devices running Linux.
 
 Copy"'right 2017-2018 Dominik Salvet
 SPDX License Identifier: MIT
