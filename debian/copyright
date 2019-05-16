@@ -7,12 +7,12 @@ Files: README.md
 Copyright: Copyright 2017-2019 Dominik Salvet
 License: MIT
 
-Files: CHANGELOG.md
+Files: docs/CHANGELOG.md
 Copyright: Copyright 2018-2019 Dominik Salvet
 License: MIT
 
 Files: docs/CONTRIBUTING.md
-Copyright: Copyright 2018 Dominik Salvet
+Copyright: Copyright 2018-2019 Dominik Salvet
 License: MIT
 
 Files: data/default-temps
