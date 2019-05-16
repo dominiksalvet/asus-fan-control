@@ -1,6 +1,6 @@
 # Contributing
 
-The development of this project is published on [this website](https://gitlab.com/dominiksalvet/asus-fan-control) and **everyone is welcome to contribute**. Here is described how.
+The development of this project is published on [this website](https://github.com/dominiksalvet/asus-fan-control) and **everyone is welcome to contribute**. Here is described how.
 
 ## Testing a new notebook model
 
@@ -12,18 +12,18 @@ Provided you are aware of the fact stated above and the program is working on yo
 
 If you have any suggestions on development of the project, follow these steps:
 
-1. Take a look at [issues](https://gitlab.com/dominiksalvet/asus-fan-control/issues) of the project and **make sure that the same suggestion wasn't already reported**.
-2. If not, open a [new issue](https://gitlab.com/dominiksalvet/asus-fan-control/issues/new). In the issue, **try to provide as much relevant information as possible**.
+1. Take a look at [issues](https://github.com/dominiksalvet/asus-fan-control/issues) of the project and **make sure that the same suggestion wasn't already reported**.
+2. If not, open a [new issue](https://github.com/dominiksalvet/asus-fan-control/issues/new). In the issue, **try to provide as much relevant information as possible**.
 
-## Merge requests
+## Pull requests
 
-**Except the merge requests with bug fixes**, every merge request must precede creating an issue as described in the [previous section](#suggestions) and also must be approved. Then, continue as described below:
+**Except the pull requests with bug fixes**, every pull request must precede creating an issue as described in the [previous section](#suggestions) and also must be approved. Then, continue as described below:
 
 1. Fork this project.
 2. Create a new branch with descriptive name according to your changes.
 3. Note your changes to the [Unreleased](CHANGELOG.md#unreleased) section in the [*CHANGELOG.md*](CHANGELOG.md) file.
 4. Commit and push your changes to the branch.
-5. Submit a [new merge request](https://gitlab.com/dominiksalvet/asus-fan-control/merge_requests/new) with **clear description of the problem and it's solution**. Also include the relevant issue number if applicable.
+5. Submit a [new pull request](https://github.com/dominiksalvet/asus-fan-control/pulls) with **clear description of the problem and it's solution**. Also include the relevant issue number if applicable.
 
 ---
 
