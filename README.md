@@ -31,7 +31,7 @@ The described problem can be solved with this project. The project is easy to in
 
 ### Tested notebook models
 
-It appears that this project could work with a **whole range of ASUS notebook models**. However, they first need to be tested to being added to the following list. If you are interested in trying this project with an ASUS notebook model that hasn't been tested yet and adding it to the following list, see the [*CONTRIBUTING.md*](CONTRIBUTING.md) file first. The list of tested notebook models follows:
+It appears that this project could work with a **whole range of ASUS notebook models**. However, they first need to be tested to being added to the following list. If you are interested in trying this project with an ASUS notebook model that hasn't been tested yet and adding it to the following list, see the [*CONTRIBUTING.md*](docs/CONTRIBUTING.md) file first. The list of tested notebook models follows:
 
 * ASUS ZenBook UX430UA ([Dominik Salvet](https://github.com/dominiksalvet))
 * ASUS ROG Strix GL553VD ([Sergio Andrés Ñustes](https://gitlab.com/infinito84))
@@ -82,7 +82,7 @@ sudo asus-fan-control -set-temps:'45 50 55 60 65 70 75 80'
 
 ## Contributing
 
-See the [*CONTRIBUTING.md*](CONTRIBUTING.md) file for details.
+See the [*CONTRIBUTING.md*](docs/CONTRIBUTING.md) file for details.
 
 ## License
 
