@@ -13,7 +13,7 @@ Provided you are aware of the fact stated above and the program is working on yo
 If you have any suggestions on development of the project, follow these steps:
 
 1. Take a look at [issues](https://github.com/dominiksalvet/asus-fan-control/issues) of the project and **make sure that the same suggestion wasn't already reported**.
-2. If not, open a [new issue](https://github.com/dominiksalvet/asus-fan-control/issues/new). In the issue, **try to provide as much relevant information as possible**.
+2. If not, open a [new issue](https://github.com/dominiksalvet/asus-fan-control/issues/new/choose). In the issue, **try to provide as much relevant information as possible**.
 
 ## Pull requests
 
