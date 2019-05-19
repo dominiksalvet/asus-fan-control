@@ -43,7 +43,7 @@ OPTION:
   -version              show version and exit"
 
 ABOUT_MESSAGE="asus-fan-control $VERSION
-Fan control program for ASUS devices running Linux.
+Fan control for ASUS devices running Linux.
 
 Copy"'right 2017-2019 Dominik Salvet
 SPDX License Identifier: MIT
