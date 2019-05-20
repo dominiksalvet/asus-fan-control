@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: asus-fan-control
-Upstream-Contact: Dominik Salvet
+Upstream-Contact: Dominik Salvet <dominik.salvet@gmail.com>
 Source: https://github.com/dominiksalvet/asus-fan-control
 
 Files: README.md
