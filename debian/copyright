@@ -7,11 +7,7 @@ Files: README.md
 Copyright: Copyright 2017-2019 Dominik Salvet
 License: MIT
 
-Files: CHANGELOG.md
-Copyright: Copyright 2018-2019 Dominik Salvet
-License: MIT
-
-Files: CONTRIBUTING.md
+Files: CHANGELOG.md CONTRIBUTING.md
 Copyright: Copyright 2018-2019 Dominik Salvet
 License: MIT
 
@@ -19,6 +15,10 @@ Files: data/default-temps
 Copyright: Copyright 2018 Dominik Salvet
 License: MIT
 
-Files: gim/mirrors gim/unsupported
+Files: gim/*
 Copyright: Copyright 2018-2019 Dominik Salvet
+License: MIT
+
+Files: .github/*
+Copyright: Copyright 2019 Dominik Salvet
 License: MIT
