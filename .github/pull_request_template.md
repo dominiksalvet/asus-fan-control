@@ -1,1 +1,8 @@
-<!-- Make sure you meet the steps stated in the CONTRIBUTING.md file. -->
+**Description**
+State a clear description of the problem and your solution.
+
+**Screenshots**
+If applicable, add screenshots to help explain your solution.
+
+**Additional context**
+Add any other context here including related issue numbers.
