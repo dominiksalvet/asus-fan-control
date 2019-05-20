@@ -7,8 +7,8 @@ assignees: dominiksalvet
 
 ---
 
-* **Version**:
-* **Platform**:
+**Environment**
+State your version of this project and target platform information.
 
 **Describe the bug**
 A clear and concise description of what the bug is.
