@@ -5,4 +5,4 @@ State a clear description of the problem and your solution.
 If applicable, add screenshots to help explain your solution.
 
 **Additional context**
-Add any other context here including related issue numbers.
+Add any other context about the problem here including related issue numbers.
