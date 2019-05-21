@@ -8,7 +8,7 @@ assignees: dominiksalvet
 ---
 
 **Environment**
-State your version of this project and target platform information.
+State installed version of this project and your OS information.
 
 **Temperature configuration**
 Add output of `sudo asus-fan-control -get-temps` command.

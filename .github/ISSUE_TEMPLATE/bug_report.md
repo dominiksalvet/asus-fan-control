@@ -8,7 +8,7 @@ assignees: dominiksalvet
 ---
 
 **Environment**
-State your version of this project and target platform information.
+State installed version of this project and your OS information.
 
 **Describe the bug**
 A clear and concise description of what the bug is.
