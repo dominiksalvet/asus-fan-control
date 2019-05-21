@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 The changes not yet present in any release are listed in this section.
 
-## 2.4.1 (2019-05-20)
+## 2.4.1 (2019-05-21)
 
 ### Changed
 
