@@ -11,6 +11,10 @@ Files: CHANGELOG.md CONTRIBUTING.md
 Copyright: Copyright 2018-2019 Dominik Salvet
 License: MIT
 
+Files: SECURITY.md
+Copyright: Copyright 2019 Dominik Salvet
+License: MIT
+
 Files: data/default-temps
 Copyright: Copyright 2018 Dominik Salvet
 License: MIT
