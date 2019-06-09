@@ -35,6 +35,7 @@ It appears that this project could work with a **whole range of ASUS notebook mo
 
 * ASUS ZenBook UX430UA ([Dominik Salvet](https://github.com/dominiksalvet))
 * ASUS ROG Strix GL553VD ([Sergio Andrés Ñustes](https://gitlab.com/infinito84))
+* ASUS ZenBook UX410UA ([Fernando Sanz](https://github.com/fsanzdev))
 
 ### Instructions
 
