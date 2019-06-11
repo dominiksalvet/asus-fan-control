@@ -39,7 +39,7 @@ It appears that this project could work with a **whole range of ASUS notebook mo
 
 ### Instructions
 
-This project is [gim](https://github.com/dominiksalvet/gim) ready **since version 2.0.0**. Install it by:
+This project is [gim ready](https://github.com/dominiksalvet/gim) **since version 2.0.0**. Install/update it by:
 
 ```sh
 sudo gim install github.com/dominiksalvet/asus-fan-control
