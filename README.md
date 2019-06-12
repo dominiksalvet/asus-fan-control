@@ -27,7 +27,6 @@ The described problem can be solved with this project. The project is easy to in
 ### Software requirements
 
 * **Linux** operating system
-* **systemd** init system
 * **Debian** packaging system
 
 ### Tested notebook models
