@@ -19,7 +19,7 @@ The described problem can be solved with this project. The project is easy to in
 * [Usage](#usage)
   * [Set up custom fan speed policy](#set-up-custom-fan-speed-policy)
 * [Thanks](#thanks)
-* [Contribute](#contribute)
+* [Contributing](#contributing)
 * [License](#license)
 
 ## Install
