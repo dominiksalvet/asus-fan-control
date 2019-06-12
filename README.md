@@ -18,6 +18,7 @@ The described problem can be solved with this project. The project is easy to in
   * [Instructions](#instructions)
 * [Usage](#usage)
   * [Set up custom fan speed policy](#set-up-custom-fan-speed-policy)
+* [Thanks](#thanks)
 * [Contribute](#contribute)
 * [License](#license)
 
@@ -80,6 +81,10 @@ To customize these temperatures, use the program's `-set-temps:<numbers>` flag. 
 ```sh
 sudo asus-fan-control -set-temps:'45 50 55 60 65 70 75 80'
 ```
+
+## Thanks
+
+The very core of this project stands on [Aleh Filipovich](https://github.com/afilipovich)'s observation.
 
 ## Contributing
 
