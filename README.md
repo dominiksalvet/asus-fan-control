@@ -62,7 +62,7 @@ sudo asus-fan-control
 
 The fan speed policy is defined by 8 numbers that represent temperature boundaries in degrees Celsius between individual fan speed levels. These numbers are expected to be increasing as they increase the fan speed level.
 
-The default values are `55 60 62 65 68 72 76 80`, their table representation follows:
+The default values are `55 60 62 65 68 72 76 80` (for UX430UA model), their table representation follows:
 
 | Speed level   | Temperatures (C°) |
 | ------------- | ----------------- |
