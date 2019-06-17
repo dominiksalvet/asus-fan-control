@@ -12,7 +12,7 @@
 #-------------------------------------------------------------------------------
 
 # list of required software
-SW_REQUIRED='command echo id apt-get grep modprobe'
+SW_REQUIRED='command echo id grep'
 
 # check if some software is missing
 for i in $SW_REQUIRED; do
@@ -33,6 +33,14 @@ done
 if [ "$(id -u)" -ne 0 ]; then
     echo "$0: Please run as root." >&2
     exit 1
+fi
+
+# if software for dependency installation is not present
+if ! command -v apt-get > /dev/null || ! command -v modprobe > /dev/null; then
+    # print warning about manual installation
+    echo "$0: kernel module acpi_call must be installed manually" >&2
+    # exit with success eventually
+    exit 0
 fi
 
 # install a kernel module to enable performing ACPI calls

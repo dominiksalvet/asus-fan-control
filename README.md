@@ -27,7 +27,8 @@ The described problem can be solved with this project. The project is easy to in
 ### Software requirements
 
 * **Linux** operating system
-* **Debian** packaging system
+* **acpi_call** kernel module
+  * In case of a Debian-based OS, it will be installed during setup
 
 ### Tested notebook models
 

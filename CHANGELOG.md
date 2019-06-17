@@ -12,6 +12,10 @@ The changes not yet present in any release are listed in this section.
 
 * Support for ASUS ZenBook Flip UX360UAK ([Aleh Filipovich](https://github.com/afilipovich)).
 
+### Changed
+
+* Debian packaging system is no longer required.
+
 ## 2.5.0 (2019-06-09)
 
 ### Added
