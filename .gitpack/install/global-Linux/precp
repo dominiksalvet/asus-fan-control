@@ -1,10 +1,17 @@
 #!/bin/sh
 
+# dependencies are not installed by default
+installed=false &&
+
 # check whether dependencies can be installed automatically
 if command -v apt-get > /dev/null; then
     # install acpi_call kernel module to make ACPI calls
     apt-get install -y acpi-call-dkms > /dev/null &&
+    installed=true # acpi_call installed
+fi &&
 
+# if dependencies have been installed
+if "$installed"; then
     # load acpi_call at boot
     if [ ! -f /etc/modules ]; then
         echo acpi_call > /etc/modules
