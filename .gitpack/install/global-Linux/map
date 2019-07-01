@@ -1,0 +1,3 @@
+data/default-temps /usr/share/asus-fan-control
+src/asus-fan-control /usr/local/bin
+src/asus-fan-control-completion /etc/bash_completion.d
