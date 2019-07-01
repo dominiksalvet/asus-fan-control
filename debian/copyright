@@ -31,3 +31,7 @@ Files: CODE_OF_CONDUCT.md
 Copyright: Copyright 2014-2019 Coraline Ada Ehmke
            Copyright 2019 Dominik Salvet
 License: CC-BY-4.0
+
+Files: .gitpack/*
+Copyright: Copyright 2019 Dominik Salvet
+License: MIT

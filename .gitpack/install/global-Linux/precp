@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# install acpi_call kernel module to make ACPI calls
+if command -v apt-get > /dev/null; then
+    # install a package containing acpi_call
+    apt-get install -y acpi-call-dkms > /dev/null &&
+
+    # load acpi_call at boot
+    if [ ! -f /etc/modules ]; then
+        echo acpi_call > /etc/modules
+    elif ! grep -q '^acpi_call$' /etc/modules; then
+        echo acpi_call >> /etc/modules
+    fi &&
+
+    # load acpi_call immediately
+    if command -v modprobe > /dev/null; then
+        modprobe acpi_call; true # not a problem if it fails
+    fi
+fi
