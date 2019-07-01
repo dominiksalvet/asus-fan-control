@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# install acpi_call kernel module to make ACPI calls
+# check whether dependencies can be installed automatically
 if command -v apt-get > /dev/null; then
-    # install a package containing acpi_call
+    # install acpi_call kernel module to make ACPI calls
     apt-get install -y acpi-call-dkms > /dev/null &&
 
     # load acpi_call at boot
