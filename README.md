@@ -14,7 +14,7 @@ The described problem can be solved with this project. The project is easy to in
 
 * [Install](#install)
   * [Tested notebook models](#tested-notebook-models)
-  * [Dependencies](#dependencies)
+  * [Software requirements](#software-requirements)
   * [Instructions](#instructions)
 * [Usage](#usage)
   * [Set up custom fan speed policy](#set-up-custom-fan-speed-policy)
@@ -33,7 +33,7 @@ It appears that this project could work with a **whole range of ASUS notebook mo
 * ASUS ZenBook UX410UA ([Fernando Sanz](https://github.com/fsanzdev) + [Petr](https://github.com/xtelcz))
 * ASUS ZenBook Flip UX360UAK ([Aleh Filipovich](https://github.com/afilipovich))
 
-### Dependencies
+### Software requirements
 
 * **acpi_call** kernel module
   * If your system uses `apt`, it will be installed automatically.
