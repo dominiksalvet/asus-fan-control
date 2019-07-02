@@ -13,8 +13,8 @@ The described problem can be solved with this project. The project is easy to in
 ## Table of Contents
 
 * [Install](#install)
-  * [Software requirements](#software-requirements)
   * [Tested notebook models](#tested-notebook-models)
+  * [Dependencies](#dependencies)
   * [Instructions](#instructions)
 * [Usage](#usage)
   * [Set up custom fan speed policy](#set-up-custom-fan-speed-policy)
@@ -23,12 +23,6 @@ The described problem can be solved with this project. The project is easy to in
 * [License](#license)
 
 ## Install
-
-### Software requirements
-
-* **Linux** operating system
-* **acpi_call** kernel module
-  * In case of a Debian-based OS, it will be installed during setup
 
 ### Tested notebook models
 
@@ -39,6 +33,11 @@ It appears that this project could work with a **whole range of ASUS notebook mo
 * ASUS ZenBook UX410UA ([Fernando Sanz](https://github.com/fsanzdev) + [Petr](https://github.com/xtelcz))
 * ASUS ZenBook Flip UX360UAK ([Aleh Filipovich](https://github.com/afilipovich))
 
+### Dependencies
+
+* **acpi_call** kernel module
+  * If your system uses `apt`, it will be installed automatically.
+
 ### Instructions
 
 This project is [gim ready](https://github.com/dominiksalvet/gim) **since version 2.0.0**. Install/update it by:
@@ -46,10 +45,6 @@ This project is [gim ready](https://github.com/dominiksalvet/gim) **since versio
 ```sh
 sudo gim install github.com/dominiksalvet/asus-fan-control
 ```
-
----
-
-If it is required to work with the project, whose **version is lower than 2.0.0**, see the [README.md](https://github.com/dominiksalvet/asus-fan-control/blob/1.1.2/README.md) file of the 1.1.2 version, the latest version with previously used installation system.
 
 ## Usage
 
