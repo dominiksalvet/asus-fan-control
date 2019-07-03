@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 The changes not yet present in any release are listed in this section.
 
+### Added
+
+* Support for [GitPack](https://github.com/dominiksalvet/gitpack).
+
 ## 2.6.1 (2019-06-19)
 
 ### Changed
