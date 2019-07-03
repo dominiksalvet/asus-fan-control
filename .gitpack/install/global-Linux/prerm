@@ -2,4 +2,5 @@
 
 # stop running asus-fan-control after boot
 grep -v '^asus-fan-control$' /etc/rc.local > /etc/rc.local.tmp &&
-mv /etc/rc.local.tmp /etc/rc.local
+mv /etc/rc.local.tmp /etc/rc.local &&
+chmod +x /etc/rc.local

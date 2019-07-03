@@ -4,8 +4,7 @@
 if [ ! -f /etc/rc.local ]; then
     echo '#!/bin/sh -e
 
-exit 0' > /etc/rc.local &&
-    chmod +x /etc/rc.local
+exit 0' > /etc/rc.local
 # ensure that there is always a successful exit
 elif ! grep -q '^exit 0$' /etc/rc.local; then
     echo 'exit 0' >> /etc/rc.local
@@ -14,6 +13,7 @@ fi &&
 # run asus-fan-control after boot
 sed 's/^exit 0$/asus-fan-control\nexit 0/' /etc/rc.local > /etc/rc.local.tmp &&
 mv /etc/rc.local.tmp /etc/rc.local &&
+chmod +x /etc/rc.local &&
 
 # try to apply changes immediately
 { asus-fan-control; true; } # not a problem if it fails
