@@ -1,6 +1,6 @@
 # asus-fan-control
 
-[![gim ready](https://img.shields.io/badge/gim-ready-571997.svg)](https://github.com/dominiksalvet/gim)
+[![GitPack](https://img.shields.io/badge/Git-Pack-571997.svg)](https://github.com/dominiksalvet/gitpack)
 [![reuse compliant](https://reuse.software/badge/reuse-compliant.svg)](https://reuse.software/)
 [![standard-readme compliant](https://img.shields.io/badge/readme_style-standard-brightgreen.svg)](https://github.com/RichardLitt/standard-readme)
 
@@ -40,10 +40,10 @@ It appears that this project could work with a **whole range of ASUS notebook mo
 
 ### Instructions
 
-This project is [gim ready](https://github.com/dominiksalvet/gim) **since version 2.0.0**. Install/update it by:
+This project uses [GitPack](https://github.com/dominiksalvet/gitpack). Global installation/update:
 
 ```sh
-sudo gim install github.com/dominiksalvet/asus-fan-control
+sudo gitpack install github.com/dominiksalvet/asus-fan-control
 ```
 
 ## Usage

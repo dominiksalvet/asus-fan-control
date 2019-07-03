@@ -19,10 +19,6 @@ Files: data/default-temps
 Copyright: Copyright 2018 Dominik Salvet
 License: MIT
 
-Files: gim/*
-Copyright: Copyright 2018-2019 Dominik Salvet
-License: MIT
-
 Files: .github/*
 Copyright: Copyright 2019 Dominik Salvet
 License: MIT
