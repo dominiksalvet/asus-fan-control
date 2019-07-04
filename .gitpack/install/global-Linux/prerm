@@ -1,5 +1,12 @@
 #!/bin/sh
 
+#-------------------------------------------------------------------------------
+# Copyright 2019 Dominik Salvet
+# SPDX-License-Identifier: MIT
+# https://github.com/dominiksalvet/asus-fan-control
+#-------------------------------------------------------------------------------
+
+
 # stop running asus-fan-control after boot
 grep -v '^asus-fan-control$' /etc/rc.local > /etc/rc.local.tmp &&
 mv /etc/rc.local.tmp /etc/rc.local &&
