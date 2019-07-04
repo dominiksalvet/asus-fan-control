@@ -36,7 +36,7 @@ It appears that this project could work with a **whole range of ASUS notebook mo
 ### Software requirements
 
 * **acpi_call** kernel module
-  * If your system uses `apt`, it will be installed automatically.
+  * If your system has `apt-get`, it will be installed automatically.
 
 ### Instructions
 
