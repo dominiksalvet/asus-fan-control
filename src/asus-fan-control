@@ -225,10 +225,7 @@ for i in "$@"; do
             # parse temperatures of this parameter
             custom_temps="$(echo "$i" | sed -E -e 's/^-set-temps://')"
 
-            if [ "$custom_temps" = "$(get_device_default_temps)" ]; then # if given temperatures are the same as the default ones
-                # remove custom temperatures configuration file if it exists
-                [ -f "$CONFIG_DIR/custom-temps" ] && rm "$CONFIG_DIR/custom-temps"
-            elif valid_temps "$custom_temps"; then # else if they are valid
+            if valid_temps "$custom_temps"; then # check if given temperatures are valid
                 echo "$custom_temps" > "$CONFIG_DIR/custom-temps" || {
                     echo "$0: Can't create a configuration file with custom temperatures.
 POSSIBLE SOLUTIONS:
