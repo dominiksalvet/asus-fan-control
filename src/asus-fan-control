@@ -162,8 +162,6 @@ get_device_default_temps() {
     if [ -r "$DATA_DIR/default-temps" ]; then
         LOCAL_model="$(dmidecode -s system-product-name)"
         LOCAL_temps="$(grep -m 1 -E -e "$LOCAL_model" "$DATA_DIR/default-temps" | cut -f 1-8 -d ' ' )"
-
-        LOCAL_temps="$(grep -m 1 -E -e "$LOCAL_model" "$DATA_DIR/default-temps" | sed -E -e 's|^'"$LOCAL_model"' ||')"
         if ! valid_temps "$LOCAL_temps"; then
             echo "$0: Missing temperatures for your notebook model or they are invalid. Falling back to the UX430UA temperatures.
 POSSIBLE SOLUTIONS:
