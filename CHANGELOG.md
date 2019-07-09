@@ -11,6 +11,7 @@ The changes not yet present in any release are listed in this section.
 ### Added
 
 * The support for models of which names contain a whitespace character has been added.
+* Support for ASUS VivoBook 15 X512FA ([MartinMyr](https://github.com/MartinMyr)).
 
 ### Changed
 

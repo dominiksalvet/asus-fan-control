@@ -32,6 +32,7 @@ It appears that this project could work with a **whole range of ASUS notebook mo
 * ASUS ROG Strix GL553VD ([Sergio Andrés Ñustes](https://gitlab.com/infinito84))
 * ASUS ZenBook UX410UA ([Fernando Sanz](https://github.com/fsanzdev) + [Petr](https://github.com/xtelcz))
 * ASUS ZenBook Flip UX360UAK ([Aleh Filipovich](https://github.com/afilipovich))
+* ASUS VivoBook 15 X512FA ([MartinMyr](https://github.com/MartinMyr))
 
 ### Software requirements
 
