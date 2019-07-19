@@ -36,7 +36,7 @@ It appears that this project could work with a **whole range of ASUS notebook mo
 
 ### Software requirements
 
-* */etc/rc.local* compatibility
+* **_/etc/rc.local_** compatibility
 * **acpi_call** kernel module
   * If your system has `apt-get`, it will be installed automatically.
 
