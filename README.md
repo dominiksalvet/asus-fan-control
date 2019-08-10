@@ -1,7 +1,7 @@
 # asus-fan-control
 
 [![GitPack](https://img.shields.io/badge/Git-Pack-571997.svg)](https://github.com/dominiksalvet/gitpack)
-[![reuse compliant](https://reuse.software/badge/reuse-compliant.svg)](https://reuse.software/)
+[![reuse compliant](https://reuse.software/badge/reuse-compliant.svg)](https://reuse.software)
 [![standard-readme compliant](https://img.shields.io/badge/readme_style-standard-brightgreen.svg)](https://github.com/RichardLitt/standard-readme)
 
 > Fan control for ASUS devices running Linux.
@@ -90,6 +90,6 @@ See the [*CONTRIBUTING.md*](CONTRIBUTING.md) file for details.
 
 ## License
 
-Licensing policy of this project is compliant with [REUSE Practices](https://reuse.software/practices/2.0/).
+Licensing policy of this project is compliant with [REUSE Specification](https://reuse.software/spec/).
 
-The preferred license is the **MIT License** as stated in the [*LICENSE.txt*](LICENSE.txt) file.
+The preferred license is the **MIT License** as stated in the [*MIT.txt*](LICENSES/MIT.txt) file.
