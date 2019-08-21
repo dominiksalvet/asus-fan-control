@@ -12,7 +12,7 @@ The changes not yet present in any release are listed in this section.
 
 ### Changed
 
-* Meet REUSE Specification – Version 3.0.
+* Meet REUSE Specification - Version 3.0.
 
 ## 2.8.0 (2019-07-09)
 
