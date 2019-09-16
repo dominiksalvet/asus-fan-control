@@ -1,1 +1,1 @@
-Licensing policy of this project is compliant with REUSE Specification.
+Licensing policy of this project is compliant with REUSE Specification 3.0.
