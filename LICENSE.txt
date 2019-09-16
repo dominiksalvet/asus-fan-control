@@ -1,3 +1,1 @@
 Licensing policy of this project is compliant with REUSE Specification.
-
-The preferred license is the MIT License as stated in the LICENSES/MIT.txt file.
