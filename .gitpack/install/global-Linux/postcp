@@ -2,8 +2,7 @@
 
 #-------------------------------------------------------------------------------
 # Copyright 2019 Dominik Salvet
-# SPDX-License-Identifier: MIT
-# https://github.com/dominiksalvet/asus-fan-control
+# github.com/dominiksalvet/asus-fan-control
 #-------------------------------------------------------------------------------
 
 # check whether /etc/rc.local file exists
