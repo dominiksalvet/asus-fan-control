@@ -10,9 +10,18 @@ installed=false &&
 
 # check whether dependencies can be installed automatically
 if command -v apt-get > /dev/null; then
-    # install acpi_call kernel module to make ACPI calls
-    apt-get install -y acpi-call-dkms > /dev/null &&
-    installed=true # acpi_call installed
+    if [ "$OFFLINE_MODE" = true ]; then # check if GitPack is in offline mode
+        if dpkg -l acpi-call-dkms > /dev/null 2>&1; then # check if installed
+            installed=true
+        else
+            echo 'cannot install acpi-call-dkms in offline mode' >&2
+            exit 1
+        fi
+    else
+        # install acpi_call kernel module to make ACPI calls
+        apt-get install -y acpi-call-dkms > /dev/null &&
+        installed=true # acpi_call installed
+    fi
 fi &&
 
 # if dependencies have been installed
