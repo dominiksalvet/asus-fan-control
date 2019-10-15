@@ -107,7 +107,7 @@ valid_temps() {
         if ! echo "$LOCAL_temp" | grep -q -E -e '^[1-9][0-9]?$' || [ "$LOCAL_temp" -le "$LOCAL_previous_temp" ]; then
             return 1
         fi
-        LOCAL_temp_counter=$((LOCAL_temp_counter + 1))
+        LOCAL_temp_counter="$((LOCAL_temp_counter + 1))"
         LOCAL_previous_temp="$LOCAL_temp"
     done
     
@@ -147,9 +147,9 @@ set_acpi_temps() {
     LOCAL_speed_level=0
     for LOCAL_temp in $1; do
         # ACPI call - write
-        echo '\_SB.PCI0.LPCB.EC0.WRAM '$((ACPI_FAN_BASE_ADDR + LOCAL_speed_level))" $LOCAL_temp" > /proc/acpi/call
+        echo '\_SB.PCI0.LPCB.EC0.WRAM '"$((ACPI_FAN_BASE_ADDR + LOCAL_speed_level)) $LOCAL_temp" > /proc/acpi/call
         # next level
-        LOCAL_speed_level=$((LOCAL_speed_level + 1))
+        LOCAL_speed_level="$((LOCAL_speed_level + 1))"
     done
 }
 
@@ -160,14 +160,14 @@ get_device_default_temps() {
         LOCAL_model="$(dmidecode -s system-product-name)"
         LOCAL_temps="$(grep -m 1 -E -e "$LOCAL_model" "$DATA_DIR/default-temps" | cut -f 1-8 -d ' ' )"
         if ! valid_temps "$LOCAL_temps"; then
-            echo "$0: Missing temperatures for your notebook model or they are invalid. Falling back to the UX430UA temperatures.
+            echo "$0: Missing temperatures for your notebook model or they are invalid. Falling back to UX430UA temperatures.
 POSSIBLE SOLUTIONS:
   * Uninstall asus-fan-control and install it again.
   * Contact an asus-fan-control developer." >&2
             LOCAL_temps="$FALLBACK_TEMPS"
         fi
     else
-        echo "$0: Can't access the file with default temperatures for notebook models. Falling back to the UX430UA temperatures.
+        echo "$0: Can't access the file with default temperatures for notebook models. Falling back to UX430UA temperatures.
 POSSIBLE SOLUTIONS:
   * Uninstall asus-fan-control and install it again.
   * Contact an asus-fan-control developer." >&2
@@ -193,13 +193,13 @@ for i in "$@"; do
             acpi_temps=''
             for _ in $FALLBACK_TEMPS; do
                 # ACPI call - read
-                echo '\_SB.PCI0.LPCB.EC0.RRAM '$((ACPI_FAN_BASE_ADDR + speed_level)) > /proc/acpi/call
+                echo '\_SB.PCI0.LPCB.EC0.RRAM '"$((ACPI_FAN_BASE_ADDR + speed_level))" > /proc/acpi/call
                 # get hexadecimal value from ACPI message
                 acpi_temp="$(cut -c1-4 /proc/acpi/call)"
                 # convert it to decimal and add to the list
                 acpi_temps="${acpi_temps}$((acpi_temp)) "
                 # next level
-                speed_level=$((speed_level + 1))
+                speed_level="$((speed_level + 1))"
             done
         
             # show the temperatures and remove the last space

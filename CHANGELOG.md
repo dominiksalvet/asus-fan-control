@@ -15,6 +15,7 @@ The changes not yet present in any release are listed in this section.
 ### Fixed
 
 * Tab completion is no longer able to prevent from launching a terminal emulator.
+* Quote arithmetic expressions to prevent a bad `IFS` value consequences.
 
 ## 2.8.2 (2019-09-17)
 
