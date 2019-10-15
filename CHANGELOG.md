@@ -12,6 +12,10 @@ The changes not yet present in any release are listed in this section.
 
 * Support for GitPack's offline mode has been added.
 
+### Fixed
+
+* Tab completion is no longer able to prevent from launching a terminal emulator.
+
 ## 2.8.2 (2019-09-17)
 
 ### Changed

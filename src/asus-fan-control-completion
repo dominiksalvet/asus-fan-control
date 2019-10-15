@@ -1,25 +1,9 @@
+#!/bin/bash
+
 #-------------------------------------------------------------------------------
 # Copyright 2018 Dominik Salvet
 # github.com/dominiksalvet/asus-fan-control
 #-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-# SOFTWARE DEPENDENCIES
-#-------------------------------------------------------------------------------
-
-# list of required software
-SW_REQUIRED='command [ compgen compopt complete'
-
-# check if some software is missing
-for i in $SW_REQUIRED; do
-    # software is missing if at least one piece of software is missing
-    if ! command -v "$i" > /dev/null; then
-        echo "$0: Required software $i is missing.
-POSSIBLE SOLUTIONS:
-  * Use command 'sudo apt install $i'." >&2
-        exit 1
-    fi
-done
 
 #-------------------------------------------------------------------------------
 # APPLY TAB COMPLETION
