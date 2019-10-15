@@ -81,7 +81,7 @@ sudo asus-fan-control -set-temps:'45 50 55 60 65 70 75 80'
 
 ## Thanks
 
-The very core of this project stands on [Aleh Filipovich](https://github.com/afilipovich)'s observation.
+The very core of this project stands on [Aleh Filipovich](https://github.com/afilipovich)'s [observation](https://github.com/daringer/asus-fan/issues/44#issuecomment-307589414).
 
 ## Contributing
 
