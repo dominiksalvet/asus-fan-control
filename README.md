@@ -89,4 +89,4 @@ See the [*CONTRIBUTING.md*](CONTRIBUTING.md) file for details.
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE.txt).
+This project is licensed under the [MIT License](LICENSE).
