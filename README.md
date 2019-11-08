@@ -7,7 +7,7 @@
 
 In the default setup of some ASUS devices running Linux, the system fan is driven very aggressively. Even when the affected devices are not under any load, the fan keeps running quite loudly and it nearly never turns off.
 
-The described problem can be solved with this project. The project is easy to install.
+The described problem can be solved with this project.
 
 ## Table of Contents
 
