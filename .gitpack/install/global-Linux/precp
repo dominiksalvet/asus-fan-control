@@ -24,7 +24,7 @@ if command -v apt-get > /dev/null; then
 fi &&
 
 # if dependencies have been installed
-if "$installed"; then
+if [ "$installed" = true ]; then
     # load acpi_call at boot
     if [ ! -f /etc/modules ]; then
         echo acpi_call > /etc/modules
