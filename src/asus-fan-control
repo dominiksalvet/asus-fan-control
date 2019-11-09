@@ -16,9 +16,7 @@ SW_REQUIRED='command echo [ grep lsmod head id rm cut mkdir sed dmidecode'
 for i in $SW_REQUIRED; do
     # software is missing if at least one piece of software is missing
     if ! command -v "$i" > /dev/null; then
-        echo "$0: Required software $i is missing.
-POSSIBLE SOLUTIONS:
-  * Use command 'sudo apt install $i'." >&2
+        echo "$0: Required software $i is missing." >&2
         exit 1
     fi
 done
@@ -58,24 +56,22 @@ ACPI_FAN_BASE_ADDR=1335
 # fallback temperatures that are about to be used when no notebook model matches
 FALLBACK_TEMPS='55 60 62 65 68 72 76 80'
 
+#-------------------------------------------------------------------------------
+# FUNCTIONS
+#-------------------------------------------------------------------------------
+
 # DESCRIPTION:
 #   Check if program is able to perform an ACPI call.
 acpi_call_prepare() {
     # check if 'acpi_call' module loaded
     if ! lsmod | grep -q -E -e '^[[:blank:]]*acpi_call[[:blank:]].*$'; then
-        echo "$0: Required module 'acpi_call' is not loaded.
-POSSIBLE SOLUTIONS:
-  * Install program dependencies.
-  * Reboot your device." >&2
+        echo "$0: Required module 'acpi_call' is not loaded." >&2
         return 1
     fi
     
     # check if the interface file for 'acpi_call' module exists
     if [ ! -f /proc/acpi/call ]; then
-        echo "$0: Interface file '/proc/acpi/call' for 'acpi_call' module doesn't exist.
-POSSIBLE SOLUTIONS:
-  * Install program dependencies.
-  * Reboot your device." >&2
+        echo "$0: Interface file '/proc/acpi/call' for 'acpi_call' module doesn't exist." >&2
         return 1
     fi
 
@@ -87,10 +83,7 @@ POSSIBLE SOLUTIONS:
 
     # create configuration directory to prevent copying old files when updating
     mkdir -p "$CONFIG_DIR/" || {
-        echo "$0: Can't create a directory for configuration files.
-POSSIBLE SOLUTIONS:
-  * Free up some storage space.
-  * Contact an asus-fan-control developer." >&2
+        echo "$0: Can't create a directory for configuration files." >&2
         return 1
     }
 }
@@ -125,10 +118,7 @@ get_temps_to_apply() {
         if valid_temps "$LOCAL_custom_temps"; then # if these temperatures are valid
             LOCAL_temps="$LOCAL_custom_temps" # use them
         else # warning about corrupted stored temperatures
-            echo "$0: Stored custom temperatures are invalid, using the model default ones.
-POSSIBLE SOLUTIONS:
-  * Use command 'sudo $0 -set-default-temps'.
-  * Use command 'sudo $0 -set-temps:<numbers>' with valid temperatures." >&2
+            echo "$0: Stored custom temperatures are invalid, using the model default ones." >&2
             LOCAL_temps="$(get_device_default_temps)"
         fi
     else # no custom temperatures set
@@ -160,17 +150,11 @@ get_device_default_temps() {
         LOCAL_model="$(dmidecode -s system-product-name)"
         LOCAL_temps="$(grep -m 1 -E -e "$LOCAL_model" "$DATA_DIR/default-temps" | cut -f 1-8 -d ' ' )"
         if ! valid_temps "$LOCAL_temps"; then
-            echo "$0: Missing temperatures for your notebook model or they are invalid. Falling back to UX430UA temperatures.
-POSSIBLE SOLUTIONS:
-  * Uninstall asus-fan-control and install it again.
-  * Contact an asus-fan-control developer." >&2
+            echo "$0: Missing temperatures for your notebook model or they are invalid. Falling back to UX430UA temperatures." >&2
             LOCAL_temps="$FALLBACK_TEMPS"
         fi
     else
-        echo "$0: Can't access the file with default temperatures for notebook models. Falling back to UX430UA temperatures.
-POSSIBLE SOLUTIONS:
-  * Uninstall asus-fan-control and install it again.
-  * Contact an asus-fan-control developer." >&2
+        echo "$0: Can't access the file with default temperatures for notebook models. Falling back to UX430UA temperatures." >&2
         LOCAL_temps="$FALLBACK_TEMPS"
     fi
 
@@ -224,10 +208,7 @@ for i in "$@"; do
 
             if valid_temps "$custom_temps"; then # check if given temperatures are valid
                 echo "$custom_temps" > "$CONFIG_DIR/custom-temps" || {
-                    echo "$0: Can't create a configuration file with custom temperatures.
-POSSIBLE SOLUTIONS:
-  * Free up some storage space.
-  * Contact an asus-fan-control developer." >&2
+                    echo "$0: Can't create a configuration file with custom temperatures." >&2
                     exit 1
                 }
             else
@@ -251,9 +232,7 @@ POSSIBLE SOLUTIONS:
             exit 0
             ;;
         *)
-            echo "$0: The option '$i' was not recognized.
-POSSIBLE SOLUTIONS:
-  * Use the '$0 -help' command for getting help." >&2
+            echo "$0: The option '$i' was not recognized." >&2
             exit 1
             ;;
     esac
