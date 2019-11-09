@@ -14,8 +14,7 @@ if command -v apt-get > /dev/null; then
         if dpkg -l acpi-call-dkms > /dev/null 2>&1; then # check if installed
             installed=true
         else
-            echo 'cannot install acpi-call-dkms in offline mode' >&2
-            exit 1
+            echo 'cannot install acpi-call-dkms in offline mode' >&2; exit 1
         fi
     else
         # install acpi_call kernel module to make ACPI calls

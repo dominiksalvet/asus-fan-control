@@ -16,8 +16,7 @@ SW_REQUIRED='command echo [ grep lsmod head id rm cut mkdir sed dmidecode'
 for i in $SW_REQUIRED; do
     # software is missing if at least one piece of software is missing
     if ! command -v "$i" > /dev/null; then
-        echo "$0: Required software $i is missing." >&2
-        exit 1
+        echo "$0: Required software $i is missing." >&2; exit 1
     fi
 done
 
@@ -208,33 +207,19 @@ for i in "$@"; do
 
             if valid_temps "$custom_temps"; then # check if given temperatures are valid
                 echo "$custom_temps" > "$CONFIG_DIR/custom-temps" || {
-                    echo "$0: Can't create a configuration file with custom temperatures." >&2
-                    exit 1
+                    echo "$0: Can't create a configuration file with custom temperatures." >&2; exit 1
                 }
             else
-                echo "$0: Entered custom temperatures are invalid, use the valid ones." >&2
-                exit 1
+                echo "$0: Entered custom temperatures are invalid, use the valid ones." >&2; exit 1
             fi
 
             # set temperatures using an ACPI call
             set_acpi_temps "$(get_temps_to_apply)"
             ;;
-        -help)
-            echo "$HELP_MESSAGE"
-            exit 0
-            ;;
-        -about)
-            echo "$ABOUT_MESSAGE"
-            exit 0
-            ;;
-        -version)
-            echo "$VERSION"
-            exit 0
-            ;;
-        *)
-            echo "$0: The option '$i' was not recognized." >&2
-            exit 1
-            ;;
+        -help) echo "$HELP_MESSAGE"; exit ;;
+        -about) echo "$ABOUT_MESSAGE"; exit ;;
+        -version) echo "$VERSION"; exit ;;
+        *) echo "$0: The option '$i' was not recognized." >&2; exit 1 ;;
     esac
 done
 
