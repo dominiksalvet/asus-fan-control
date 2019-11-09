@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 The changes not yet present in any release are listed in this section.
 
+### Changed
+
+* Error messages have been simplified and do not provide possible solutions anymore.
+
 ## 2.9.0 (2019-10-15)
 
 ### Added
