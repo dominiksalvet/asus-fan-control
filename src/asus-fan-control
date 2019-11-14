@@ -13,10 +13,10 @@
 SW_REQUIRED='command echo [ grep lsmod head id rm cut mkdir sed dmidecode'
 
 # check if some software is missing
-for i in $SW_REQUIRED; do
+for sw in $SW_REQUIRED; do
     # software is missing if at least one piece of software is missing
-    if ! command -v "$i" > /dev/null; then
-        echo "$0: Required software $i is missing." >&2; exit 1
+    if ! command -v "$sw" > /dev/null; then
+        echo "$0: Required software $sw is missing." >&2; exit 1
     fi
 done
 
@@ -165,8 +165,8 @@ get_device_default_temps() {
 #-------------------------------------------------------------------------------
 
 # processing each parameter separately
-for i in "$@"; do
-    case "$i" in
+for opt in "$@"; do
+    case "$opt" in
         -get-temps)
             # check if an ACPI call can be performed (includes root check)
             acpi_call_prepare || exit
@@ -203,7 +203,7 @@ for i in "$@"; do
             acpi_call_prepare || exit
 
             # parse temperatures of this parameter
-            custom_temps="$(echo "$i" | sed -E -e 's/^-set-temps://')"
+            custom_temps="$(echo "$opt" | sed -E -e 's/^-set-temps://')"
 
             if valid_temps "$custom_temps"; then # check if given temperatures are valid
                 echo "$custom_temps" > "$CONFIG_DIR/custom-temps" || {
@@ -219,7 +219,7 @@ for i in "$@"; do
         -help) echo "$HELP_MESSAGE"; exit ;;
         -about) echo "$ABOUT_MESSAGE"; exit ;;
         -version) echo "$VERSION"; exit ;;
-        *) echo "$0: The option '$i' was not recognized." >&2; exit 1 ;;
+        *) echo "$0: The option '$opt' was not recognized." >&2; exit 1 ;;
     esac
 done
 
