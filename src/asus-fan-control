@@ -227,6 +227,8 @@ done
 # APPLY CONFIGURATION WHEN NO ARGUMENTS
 #-------------------------------------------------------------------------------
 
+echo "$nonexistent" # just testing GitHub Actions CI
+
 if [ "$#" -eq 0 ]; then # if no arguments provided
     # check if an ACPI call can be performed (includes root check)
     acpi_call_prepare || exit
