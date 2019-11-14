@@ -14,7 +14,4 @@ jobs:
       run: shellcheck src/*
 
     - name: Check GitPack files
-      run: |
-        shellcheck .gitpack/install/global-Linux/precp
-        shellcheck .gitpack/install/global-Linux/postcp
-        shellcheck .gitpack/install/global-Linux/prerm
+      run: shellcheck .gitpack/install/global-Linux/p*
