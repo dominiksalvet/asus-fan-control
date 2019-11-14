@@ -1,0 +1,20 @@
+name: CI
+on: push
+
+jobs:
+  Analysis:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Check shellcheck
+      run: shellcheck --version
+
+    - name: Check source files
+      run: shellcheck src/*
+
+    - name: Check GitPack files
+      run: |
+        shellcheck .gitpack/install/global-Linux/precp
+        shellcheck .gitpack/install/global-Linux/postcp
+        shellcheck .gitpack/install/global-Linux/prerm
