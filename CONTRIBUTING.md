@@ -2,7 +2,7 @@
 
 The development of this project is published on [this website](https://github.com/dominiksalvet/asus-fan-control) and **everyone is welcome to contribute**. Here is described how.
 
-## Testing a new notebook model
+## Testing a new model
 
 If you are about to test an ASUS notebook model that hasn't been tested before, you should know that **none of asus-fan-control authors is responsible for possible damage** that it can cause to your device because the program uses ACPI calls and it modifies data on some addresses. Nevertheless, target addresses should be set to their default values on tested models when rebooting the system.
 
