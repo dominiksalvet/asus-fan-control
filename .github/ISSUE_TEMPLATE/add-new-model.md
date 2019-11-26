@@ -1,8 +1,8 @@
 ---
-name: New notebook model
+name: Add new model
 about: Propose adding support for a new notebook model
 title: ''
-labels: new notebook model
+labels: add new model
 assignees: dominiksalvet
 
 ---
