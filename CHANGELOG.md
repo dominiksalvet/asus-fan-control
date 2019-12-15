@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 The changes not yet present in any release are listed in this section.
 
+## 2.10.0 (2019-12-15)
+
 ### Added
 
 * Support for ASUS ROG G752VL ([Sergey](https://github.com/icegood)).
