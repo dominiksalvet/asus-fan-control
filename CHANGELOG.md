@@ -11,6 +11,7 @@ The changes not yet present in any release are listed in this section.
 ### Added
 
 * Support for ASUS VivoBook 15 X510UA
+* Systemd unit
 
 ## 2.10.0 (2019-12-15)
 
