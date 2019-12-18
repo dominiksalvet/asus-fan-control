@@ -28,12 +28,13 @@ The described problem can be solved with this project.
 
 It appears that this project could work with a **whole range of ASUS notebook models**. However, they first need to be tested to being added to the following list. If you are interested in trying this project with an ASUS notebook model that hasn't been tested yet and adding it to the following list, see the [*CONTRIBUTING.md*](CONTRIBUTING.md) file first. The list of tested notebook models follows:
 
-* ASUS ZenBook UX430UA ([Dominik Salvet](https://github.com/dominiksalvet))
-* ASUS ROG Strix GL553VD ([Sergio Andrés Ñustes](https://gitlab.com/infinito84))
-* ASUS ZenBook UX410UA ([Fernando Sanz](https://github.com/fsanzdev) + [Petr](https://github.com/xtelcz))
-* ASUS ZenBook Flip UX360UAK ([Aleh Filipovich](https://github.com/afilipovich))
-* ASUS VivoBook 15 X512FA ([MartinMyr](https://github.com/MartinMyr))
 * ASUS ROG G752VL ([Sergey](https://github.com/icegood))
+* ASUS ROG Strix GL553VD ([Sergio Andrés Ñustes](https://gitlab.com/infinito84))
+* ASUS VivoBook 15 X510UA ([Alexander Agura](https://github.com/agura-lex))
+* ASUS VivoBook 15 X512FA ([MartinMyr](https://github.com/MartinMyr))
+* ASUS ZenBook Flip UX360UAK ([Aleh Filipovich](https://github.com/afilipovich))
+* ASUS ZenBook UX410UA ([Fernando Sanz](https://github.com/fsanzdev) + [Petr](https://github.com/xtelcz))
+* ASUS ZenBook UX430UA ([Dominik Salvet](https://github.com/dominiksalvet))
 
 ### Software requirements
 
