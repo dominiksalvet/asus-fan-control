@@ -11,7 +11,10 @@ The changes not yet present in any release are listed in this section.
 ### Added
 
 * Support for ASUS VivoBook 15 X510UA ([Alexander Agura](https://github.com/agura-lex)).
-* Systemd unit.
+
+### Changed
+
+* Replaced /etc/rc.local logic with a simple systemd service ([Alexander Agura](https://github.com/agura-lex)).
 
 ## 2.10.0 (2019-12-15)
 
