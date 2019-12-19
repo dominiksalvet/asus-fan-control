@@ -6,7 +6,7 @@
 #-------------------------------------------------------------------------------
 
 # remove possible leftover of asus-fan-control from /etc/rc.local
-if grep -q '^asus-fan-control$' /etc/rc.local &> /dev/null; then
+if grep -q '^asus-fan-control$' /etc/rc.local 2> /dev/null; then
     sed -ie '/^asus-fan-control$/d' /etc/rc.local
 fi
 
