@@ -3,7 +3,7 @@ Description=Fan control for ASUS devices running Linux
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/asus-fan-control
+ExecStart=/usr/local/bin/asus-fan-control
 
 [Install]
 WantedBy=multi-user.target
