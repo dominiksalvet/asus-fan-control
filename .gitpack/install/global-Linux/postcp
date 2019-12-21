@@ -5,11 +5,6 @@
 # github.com/dominiksalvet/asus-fan-control
 #-------------------------------------------------------------------------------
 
-# remove possible leftover of asus-fan-control from /etc/rc.local
-if grep -q '^asus-fan-control$' /etc/rc.local 2> /dev/null; then
-    sed -ie '/^asus-fan-control$/d' /etc/rc.local
-fi
-
 # run asus-fan-control after boot
 systemctl enable asus-fan-control.service
 
