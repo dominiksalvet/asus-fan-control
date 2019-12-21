@@ -14,7 +14,7 @@ The changes not yet present in any release are listed in this section.
 
 ### Changed
 
-* Replaced /etc/rc.local logic with a simple systemd service ([Alexander Agura](https://github.com/agura-lex)).
+* Replaced */etc/rc.local* logic with a simple systemd service.
 
 ## 2.10.0 (2019-12-15)
 
