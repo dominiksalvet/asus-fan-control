@@ -1,5 +1,5 @@
 [Unit]
-Description=Fan control for ASUS devices running Linux
+Description=Fan control for ASUS devices running Linux.
 
 [Service]
 Type=oneshot
