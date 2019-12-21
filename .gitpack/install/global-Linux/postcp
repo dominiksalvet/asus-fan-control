@@ -6,7 +6,7 @@
 #-------------------------------------------------------------------------------
 
 # run asus-fan-control after boot
-systemctl enable asus-fan-control.service
+systemctl enable asus-fan-control.service &&
 
 # try to apply changes immediately
 { asus-fan-control; true; } # not a problem if it fails
