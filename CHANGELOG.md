@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 The changes not yet present in any release are listed in this section.
 
+## 2.11.0 (2019-12-22)
+
 ### Added
 
 * Support for ASUS VivoBook 15 X510UA ([Alexander Agura](https://github.com/agura-lex)).
