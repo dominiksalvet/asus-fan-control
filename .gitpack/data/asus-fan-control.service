@@ -1,0 +1,9 @@
+[Unit]
+Description=Fan control for ASUS devices running Linux.
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/asus-fan-control
+
+[Install]
+WantedBy=multi-user.target
