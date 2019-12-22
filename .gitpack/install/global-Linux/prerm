@@ -7,4 +7,4 @@
 #-------------------------------------------------------------------------------
 
 # stop running asus-fan-control after boot
-systemctl disable asus-fan-control.service
+systemctl -q disable asus-fan-control.service
