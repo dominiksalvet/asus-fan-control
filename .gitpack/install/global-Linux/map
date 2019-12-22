@@ -1,4 +1,4 @@
-data/default-temps /usr/share/asus-fan-control
-data/asus-fan-control.service /etc/systemd/system
 src/asus-fan-control /usr/local/bin
 src/asus-fan-control-completion /etc/bash_completion.d
+data/default-temps /usr/share/asus-fan-control
+.gitpack/data/asus-fan-control.service /etc/systemd/system
