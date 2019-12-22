@@ -1,3 +1,8 @@
+#-------------------------------------------------------------------------------
+# Copyright 2019 Alexander Agura
+# github.com/dominiksalvet/asus-fan-control
+#-------------------------------------------------------------------------------
+
 [Unit]
 Description=Fan control for ASUS devices running Linux.
 
