@@ -43,6 +43,7 @@ It appears that this project could work with a **whole range of ASUS notebook mo
 * **systemd** to start it at boot
 * **acpi_call** kernel module
   * If your system has `apt-get`, it will be installed automatically.
+  * If you're using Arch Linux with a *non-standard* kernel, be sure to have `acpi_call` version for your kernel (`acpi_call-lts` for the LTS kernel and `acpi_call-dkms` for everything else)
 
 ### Instructions
 
