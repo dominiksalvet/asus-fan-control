@@ -44,10 +44,28 @@ It appears that this project could work with a **whole range of ASUS notebook mo
 
 ### Instructions
 
+#### Via GitPack
+
 This project uses [GitPack](https://github.com/dominiksalvet/gitpack). Global installation/update:
 
 ```sh
 sudo gitpack install github.com/dominiksalvet/asus-fan-control
+```
+
+#### From AUR (for Arch-based distros)
+
+If you're using Arch Linux or Arch-based distribution, there's an [AUR package](https://aur.archlinux.org/packages/asus-fan-control) available, just install `asus-fan-control` with your AUR helper of choice or run the following (you should have `base-devel` and `git` installed in order to be able to build AUR packages):
+
+```sh
+git clone https://aur.archlinux.org/asus-fan-control.git
+cd asus-fan-control
+makepkg -si
+```
+
+AUR package doesn't automatically enable starting the service at boot (since Arch packages generally don't do that), to enable it at boot:
+
+```sh
+sudo systemctl enable asus-fan-control
 ```
 
 ## Usage
