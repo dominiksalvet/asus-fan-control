@@ -16,6 +16,8 @@ The described problem can be solved with this project.
   * [Tested notebook models](#tested-notebook-models)
   * [Software requirements](#software-requirements)
   * [Instructions](#instructions)
+    * [Via GitPack](#via-gitpack)
+    * [From AUR (for Arch-based distros)](#from-aur-for-arch-based-distros)
 * [Usage](#usage)
   * [Set up custom fan speed policy](#set-up-custom-fan-speed-policy)
 * [Thanks](#thanks)
