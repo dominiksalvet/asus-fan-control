@@ -28,6 +28,7 @@ The described problem can be solved with this project.
 
 It appears that this project could work with a **whole range of ASUS notebook models**. However, they first need to be tested to being added to the following list. If you are interested in trying this project with an ASUS notebook model that hasn't been tested yet and adding it to the following list, see the [*CONTRIBUTING.md*](CONTRIBUTING.md) file first. The list of tested notebook models follows:
 
+* ASUS ASUSPRO B9440UA ([Florian Zwoch](https://github.com/fzwoch))
 * ASUS ROG G752VL ([Sergey](https://github.com/icegood))
 * ASUS ROG Strix GL553VD ([Sergio Andrés Ñustes](https://gitlab.com/infinito84))
 * ASUS VivoBook 15 X510UA ([Alexander Agura](https://github.com/agura-lex))
