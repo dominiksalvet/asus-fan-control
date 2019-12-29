@@ -58,15 +58,9 @@ sudo gitpack install github.com/dominiksalvet/asus-fan-control
 
 #### From AUR (for Arch-based distros)
 
-If you're using Arch Linux or Arch-based distribution, there's an [AUR package](https://aur.archlinux.org/packages/asus-fan-control) available, just install `asus-fan-control` with your AUR helper of choice or run the following (you should have `base-devel` and `git` installed in order to be able to build AUR packages):
+If you're using Arch Linux or Arch-based distribution, there's an [AUR package](https://aur.archlinux.org/packages/asus-fan-control) available, just [install](https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_packages) `asus-fan-control` from AUR. 
 
-```sh
-git clone https://aur.archlinux.org/asus-fan-control.git
-cd asus-fan-control
-makepkg -si
-```
-
-AUR package doesn't automatically enable starting the service at boot (since Arch packages generally don't do that), to enable it at boot:
+The package doesn't automatically enable starting the service at boot (since Arch packages generally don't do that), to enable it at boot:
 
 ```sh
 sudo systemctl enable asus-fan-control
