@@ -34,7 +34,7 @@ It appears that this project could work with a **whole range of ASUS notebook mo
 * ASUS VivoBook 15 X510UA ([Alexander Agura](https://github.com/agura-lex))
 * ASUS VivoBook 15 X512FA ([MartinMyr](https://github.com/MartinMyr))
 * ASUS ZenBook Flip UX360UAK ([Aleh Filipovich](https://github.com/afilipovich))
-* ASUS ZenBook UX410UA ([Fernando Sanz](https://github.com/fsanzdev) + [Petr](https://github.com/xtelcz))
+* ASUS ZenBook UX410UA ([Fernando Sanz](https://github.com/fsanzdev), [Petr](https://github.com/xtelcz))
 * ASUS ZenBook UX430UA ([Dominik Salvet](https://github.com/dominiksalvet))
 
 ### Software requirements
