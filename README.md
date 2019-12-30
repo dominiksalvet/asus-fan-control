@@ -16,6 +16,8 @@ The described problem can be solved with this project.
   * [Tested notebook models](#tested-notebook-models)
   * [Software requirements](#software-requirements)
   * [Instructions](#instructions)
+    * [Via GitPack](#via-gitpack)
+    * [From AUR (for Arch-based distros)](#from-aur-for-arch-based-distros)
 * [Usage](#usage)
   * [Set up custom fan speed policy](#set-up-custom-fan-speed-policy)
 * [Thanks](#thanks)
@@ -45,10 +47,22 @@ It appears that this project could work with a **whole range of ASUS notebook mo
 
 ### Instructions
 
+#### Via GitPack
+
 This project uses [GitPack](https://github.com/dominiksalvet/gitpack). Global installation/update:
 
 ```sh
 sudo gitpack install github.com/dominiksalvet/asus-fan-control
+```
+
+#### From AUR (for Arch-based distros)
+
+If you're using Arch Linux or Arch-based distribution, there's an [AUR package](https://aur.archlinux.org/packages/asus-fan-control) available, just [install](https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_packages) `asus-fan-control` from AUR. 
+
+The package doesn't automatically enable starting the service at boot (since Arch packages generally don't do that), to enable it at boot:
+
+```sh
+sudo systemctl enable asus-fan-control
 ```
 
 ## Usage
