@@ -4,12 +4,12 @@
 #-------------------------------------------------------------------------------
 
 [Unit]
-Description=Fan control for ASUS devices running Linux.
+Description=Run asus-fan-control after resuming from hibernate.
+After=hibernate.target
 
 [Service]
 Type=oneshot
 ExecStart=/usr/local/bin/asus-fan-control
 
 [Install]
-WantedBy=multi-user.target
-Also=asus-fan-control-resume.service
+WantedBy=hibernate.target
