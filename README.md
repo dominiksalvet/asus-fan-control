@@ -12,18 +12,24 @@ In default, some ASUS laptops running Linux control their system fans inappropri
 * Not running fans under load appropriately
 * Spinning up fans in short performance peaks
 
-This program solves the problems above and even more. It is also very easy to understand as it communicates with hardware exclusively using ACPI calls. Tested models:
+This program solves the problems above and even more. It is also very easy to understand as it communicates with hardware exclusively using ACPI calls. Tested ASUS models with links to their first testers:
 
-* ASUS ASUSPRO B9440UA ([Florian Zwoch](https://github.com/fzwoch))
-* ASUS ROG G752VL ([Sergey](https://github.com/icegood))
-* ASUS ROG Strix GL553VD ([Sergio Andrés Ñustes](https://gitlab.com/infinito84))
-* ASUS VivoBook 15 X510UA ([Alexander Agura](https://github.com/agura-lex))
-* ASUS VivoBook 15 X512FA ([MartinMyr](https://github.com/MartinMyr))
-* ASUS ZenBook Flip UX360UAK ([Aleh Filipovich](https://github.com/afilipovich))
-* ASUS ZenBook UX410UA ([Fernando Sanz](https://github.com/fsanzdev), [Petr](https://github.com/xtelcz))
-* ASUS ZenBook UX430UA ([Dominik Salvet](https://github.com/dominiksalvet))
+| ASUSPRO      | ROG                | VivoBook       | ZenBook            |
+|--------------|--------------------|----------------|--------------------|
+| [B9440UA][1] | [G752VL][2]        | [15 X510UA][4] | [Flip UX360UAK][6] |
+|              | [Strix GL553VD][3] | [15 X512FA][5] | [UX410UA][7]       |
+|              |                    |                | [UX430UA][8]       |
 
-> Your laptop is not in the list yet? Take a look at [*CONTRIBUTING.md*](CONTRIBUTING.md) file and you can test it yourself.
+[1]: https://github.com/fzwoch
+[2]: https://github.com/icegood
+[3]: https://gitlab.com/infinito84
+[4]: https://github.com/agura-lex
+[5]: https://github.com/MartinMyr
+[6]: https://github.com/afilipovich
+[7]: https://github.com/fsanzdev
+[8]: https://github.com/dominiksalvet
+
+> Your laptop is not in the table yet? Take a look at [*CONTRIBUTING.md*](CONTRIBUTING.md) file and you can add it yourself.
 
 ## Table of Contents
 
@@ -77,7 +83,7 @@ The fan speed policy is defined by 8 numbers that represent temperature boundari
 The default asus-fan-control values are `55 60 62 65 68 72 76 80` (UX430UA model), their table representation follows:
 
 | Speed level   | Temperatures (C°) |
-| ------------- | ----------------- |
+|---------------|-------------------|
 | 0 (off)       | 54 and less       |
 | 1             | 55 to 59          |
 | 2             | 60 to 61          |
