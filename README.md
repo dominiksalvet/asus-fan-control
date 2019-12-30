@@ -6,29 +6,13 @@
 
 > Fan control for ASUS devices running Linux.
 
-In the default setup of some ASUS devices running Linux, the system fan is driven very aggressively. Even when the affected devices are not under any load, the fan keeps running quite loudly and it nearly never turns off.
+In default, some ASUS laptops running Linux control their system fans inappropriately. It may vary between individual models, but typical symptoms include:
 
-The described problem can be solved with this project.
+* Running fans even when not under any load
+* Not running fans under load appropriately
+* Spinning up fans in a short performance peak
 
-## Table of Contents
-
-* [Install](#install)
-  * [Tested notebook models](#tested-notebook-models)
-  * [Software requirements](#software-requirements)
-  * [Instructions](#instructions)
-    * [Via GitPack](#via-gitpack)
-    * [From AUR (for Arch-based distros)](#from-aur-for-arch-based-distros)
-* [Usage](#usage)
-  * [Set up custom fan speed policy](#set-up-custom-fan-speed-policy)
-* [Thanks](#thanks)
-* [Contributing](#contributing)
-* [License](#license)
-
-## Install
-
-### Tested notebook models
-
-It appears that this project could work with a **whole range of ASUS notebook models**. However, they first need to be tested to being added to the following list. If you are interested in trying this project with an ASUS notebook model that hasn't been tested yet and adding it to the following list, see the [*CONTRIBUTING.md*](CONTRIBUTING.md) file first. The list of tested notebook models follows:
+This program solves the problems above and even more. It is also very easy to understand as it communicates with hardware exclusively using ACPI calls. Tested models:
 
 * ASUS ASUSPRO B9440UA ([Florian Zwoch](https://github.com/fzwoch))
 * ASUS ROG G752VL ([Sergey](https://github.com/icegood))
@@ -39,27 +23,40 @@ It appears that this project could work with a **whole range of ASUS notebook mo
 * ASUS ZenBook UX410UA ([Fernando Sanz](https://github.com/fsanzdev), [Petr](https://github.com/xtelcz))
 * ASUS ZenBook UX430UA ([Dominik Salvet](https://github.com/dominiksalvet))
 
-### Software requirements
+> Your laptop is not in the list yet? Take a look at [*CONTRIBUTING.md*](CONTRIBUTING.md) file and you can test it yourself.
 
-* **systemd** to start it at boot
-* **acpi_call** kernel module
-  * If your system has `apt-get`, it will be installed automatically.
+## Table of Contents
 
-### Instructions
+* [Install](#install)
+  * [Dependencies](#dependencies)
+  * [Using GitPack](#using-gitpack)
+  * [From AUR](#from-aur)
+* [Usage](#usage)
+  * [Set up custom fan speed policy](#set-up-custom-fan-speed-policy)
+* [Thanks](#thanks)
+* [Contributing](#contributing)
+* [License](#license)
 
-#### Via GitPack
+## Install
 
-This project uses [GitPack](https://github.com/dominiksalvet/gitpack). Global installation/update:
+### Dependencies
+
+* **systemd** suite
+* **acpi_call** kernel module (see below)
+
+### Using GitPack
+
+This project supports [GitPack](https://github.com/dominiksalvet/gitpack). Global installation/update:
 
 ```sh
 sudo gitpack install github.com/dominiksalvet/asus-fan-control
 ```
 
-#### From AUR (for Arch-based distros)
+> If your system has `apt-get`, GitPack will install acpi_call automatically.
 
-If you're using Arch Linux or Arch-based distribution, there's an [AUR package](https://aur.archlinux.org/packages/asus-fan-control) available, just [install](https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_packages) `asus-fan-control` from AUR. 
+### From AUR
 
-The package doesn't automatically enable starting the service at boot (since Arch packages generally don't do that), to enable it at boot:
+If you are using Arch Linux or an Arch-based distribution, there is an [AUR package](https://aur.archlinux.org/packages/asus-fan-control) available. Just [install](https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_packages) asus-fan-control from AUR. Feel free to also enable starting the asus-fan-control at boot:
 
 ```sh
 sudo systemctl enable asus-fan-control
