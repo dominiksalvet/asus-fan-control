@@ -38,7 +38,7 @@ This program solves the problems above and even more. It is also very easy to un
   * [Using GitPack](#using-gitpack)
   * [From AUR](#from-aur)
 * [Usage](#usage)
-  * [Set up custom fan speed policy](#set-up-custom-fan-speed-policy)
+  * [Custom temperatures](#custom-temperatures)
 * [Thanks](#thanks)
 * [Contributing](#contributing)
 * [License](#license)
@@ -70,31 +70,29 @@ sudo systemctl enable asus-fan-control
 
 ## Usage
 
-The program is executed after the installation for the first time. Then, **it is automatically executed whenever necessary** to keep the effect of permanent change. Nevertheless, it is possible to apply changes manually by running it as shown:
+The program should be **executed automatically whenever necessary** to keep the effect of a permanent change. Nevertheless, it is possible to invoke it manually as shown below:
 
 ```sh
 sudo asus-fan-control
 ```
 
-### Set up custom fan speed policy
+### Custom temperatures
 
-The fan speed policy is defined by 8 numbers that represent temperature boundaries in degrees Celsius between individual fan speed levels. These numbers are expected to be increasing as they increase the fan speed level.
+The fan speed policy is defined by 8 increasing numbers representing temperature boundaries in degrees Celsius between individual fan speed levels. E.g., UX430UA's default temperatures are `55 60 62 65 68 72 76 80` as shown:
 
-The default asus-fan-control values are `55 60 62 65 68 72 76 80` (UX430UA model), their table representation follows:
+| Speed level | Temperatures (C°) |
+|-------------|-------------------|
+| 0 (off)     | 54 and less       |
+| 1           | 55 to 59          |
+| 2           | 60 to 61          |
+| 3           | 62 to 64          |
+| 4           | 65 to 67          |
+| 5           | 68 to 71          |
+| 6           | 72 to 75          |
+| 7           | 76 to 79          |
+| 8 (max)     | 80 and more       |
 
-| Speed level   | Temperatures (C°) |
-|---------------|-------------------|
-| 0 (off)       | 54 and less       |
-| 1             | 55 to 59          |
-| 2             | 60 to 61          |
-| 3             | 62 to 64          |
-| 4             | 65 to 67          |
-| 5             | 68 to 71          |
-| 6             | 72 to 75          |
-| 7             | 76 to 79          |
-| 8 (max)       | 80 and more       |
-
-To customize these temperatures, use the program's `-set-temps:<numbers>` flag. For more information, use the `-help` flag. An example how to change the temperatures follows:
+To apply your custom temperatures, use the `-set-temps:<numbers>` flag. For example:
 
 ```sh
 sudo asus-fan-control -set-temps:'45 50 55 60 65 70 75 80'
@@ -106,7 +104,7 @@ The very core of this project stands on [Aleh Filipovich](https://github.com/afi
 
 ## Contributing
 
-See the [*CONTRIBUTING.md*](CONTRIBUTING.md) file for details.
+Do you want to contribute? Do you have any questions? Then the [*CONTRIBUTING.md*](CONTRIBUTING.md) file is here for you.
 
 ## License
 
