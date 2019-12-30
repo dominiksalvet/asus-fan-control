@@ -6,7 +6,7 @@
 
 > Fan control for ASUS devices running Linux.
 
-In default, some ASUS laptops running Linux control their system fans inappropriately. It may vary between individual models, but typical symptoms include:
+In default, some ASUS laptops running Linux control their system fans inappropriately. Typical symptoms include:
 
 * Running fans even when not under any load
 * Not running fans under load appropriately
