@@ -80,17 +80,17 @@ sudo asus-fan-control
 
 The fan speed policy is defined by 8 increasing numbers representing temperature boundaries in degrees Celsius between individual fan speed levels. E.g., UX430UA's default temperatures are `55 60 62 65 68 72 76 80` as shown:
 
-| Speed level | Temperatures (C°) |
-|-------------|-------------------|
-| 0 (off)     | 54 and less       |
-| 1           | 55 to 59          |
-| 2           | 60 to 61          |
-| 3           | 62 to 64          |
-| 4           | 65 to 67          |
-| 5           | 68 to 71          |
-| 6           | 72 to 75          |
-| 7           | 76 to 79          |
-| 8 (max)     | 80 and more       |
+| Speed level | Temperature (C°) |
+|-------------|------------------|
+| 0 (off)     | 54 and less      |
+| 1           | 55 to 59         |
+| 2           | 60 to 61         |
+| 3           | 62 to 64         |
+| 4           | 65 to 67         |
+| 5           | 68 to 71         |
+| 6           | 72 to 75         |
+| 7           | 76 to 79         |
+| 8 (max)     | 80 and more      |
 
 To apply your custom temperatures, use the `-set-temps:<numbers>` flag. For example:
 
