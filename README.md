@@ -12,7 +12,7 @@ In default, some ASUS laptops running Linux control their system fans inappropri
 * Not running fans under load appropriately
 * Spinning up fans in short performance peaks
 
-This program solves the problems above and even more. It is also very easy to understand as it communicates with hardware exclusively using ACPI calls. Tested ASUS models with links to their first testers:
+This program solves the problems above and even more. It is also very easy to understand as it communicates with hardware exclusively using ACPI calls. **Tested ASUS models** with links to their first testers:
 
 | ASUSPRO      | ROG                | VivoBook       | ZenBook            |
 |--------------|--------------------|----------------|--------------------|
