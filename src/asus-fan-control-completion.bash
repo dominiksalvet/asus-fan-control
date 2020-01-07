@@ -1,17 +1,20 @@
 #!/bin/bash
 
 #-------------------------------------------------------------------------------
-# Copyright 2018-2019 Dominik Salvet
+# Copyright 2018-2020 Dominik Salvet
 # github.com/dominiksalvet/asus-fan-control
+#-------------------------------------------------------------------------------
+# DESCRIPTION:
+#   This file implements a prompting tab completion for asus-fan-control in Bash
+#   shells. It is expected to be sourced.
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
-# APPLY TAB COMPLETION
+# COMPLETION GENERATOR
 #-------------------------------------------------------------------------------
 
 # DESCRIPTION:
-#   Prepare a hint consisting of words that can be used from the current part of
-#   word.
+#   Prepares the next word hint based on the current part of the word.
 _asus-fan-control() {
     local WORDS='-get-temps -set-default-temps -set-temps: -help -about -version' &&
 
@@ -24,5 +27,9 @@ _asus-fan-control() {
     fi
 }
 
-# assign a function to be called when TAB complete is required when asus-fan-control is used
+#-------------------------------------------------------------------------------
+# APPLY COMPLETION
+#-------------------------------------------------------------------------------
+
+# register the asus-fan-control completion to the current shell environment
 complete -F _asus-fan-control asus-fan-control
