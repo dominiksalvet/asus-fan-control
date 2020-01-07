@@ -1,8 +1,13 @@
 #!/bin/sh
 
 #-------------------------------------------------------------------------------
-# Copyright 2017-2019 Dominik Salvet
+# Copyright 2017-2020 Dominik Salvet
 # github.com/dominiksalvet/asus-fan-control
+#-------------------------------------------------------------------------------
+# DESCRIPTION:
+#   This is asus-fan-control, fan control for ASUS devices running Linux.
+# PARAMETERS:
+#   All given arguments are processed as asus-fan-control's help describes.
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
