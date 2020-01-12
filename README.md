@@ -70,11 +70,13 @@ sudo systemctl enable asus-fan-control
 
 ## Usage
 
-The program should be **executed automatically whenever necessary** to keep the effect of a permanent change. Nevertheless, it is possible to invoke it manually as shown below:
+The program is **executed automatically whenever necessary** to keep the effect of a permanent change. Nevertheless, it is possible to invoke it manually as shown below:
 
 ```sh
 sudo asus-fan-control
 ```
+
+> It uses custom temperatures if set, otherwise the default temperatures are used.
 
 ### Custom temperatures
 
@@ -92,10 +94,10 @@ The fan speed policy is defined by 8 increasing numbers representing temperature
 | 7           | 76 to 79         |
 | 8 (max)     | 80 and more      |
 
-To apply your custom temperatures, use the `-set-temps:<numbers>` flag. For example:
+To apply your custom temperatures, use the `set-temps` command. For example:
 
 ```sh
-sudo asus-fan-control -set-temps:'45 50 55 60 65 70 75 80'
+sudo asus-fan-control set-temps 45 50 55 60 65 70 75 80
 ```
 
 ## Thanks
