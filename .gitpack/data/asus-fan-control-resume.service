@@ -6,6 +6,7 @@
 [Unit]
 Description=Run asus-fan-control after resuming from hibernate.
 After=hibernate.target
+After=suspend-then-hibernate.target
 
 [Service]
 Type=oneshot
@@ -13,3 +14,4 @@ ExecStart=/usr/local/bin/asus-fan-control
 
 [Install]
 WantedBy=hibernate.target
+WantedBy=suspend-then-hibernate.target
