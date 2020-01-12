@@ -1,15 +1,15 @@
 #-------------------------------------------------------------------------------
-# Copyright 2019 Alexander Agura
+# Copyright 2019-2020 Alexander Agura
 # github.com/dominiksalvet/asus-fan-control
 #-------------------------------------------------------------------------------
 
 [Unit]
 Description=Run asus-fan-control after resuming from hibernate.
-After=hibernate.target
+After=hibernate.target suspend-then-hibernate.target
 
 [Service]
 Type=oneshot
 ExecStart=/usr/local/bin/asus-fan-control
 
 [Install]
-WantedBy=hibernate.target
+WantedBy=hibernate.target suspend-then-hibernate.target
