@@ -76,7 +76,7 @@ The program is **executed automatically whenever necessary** to keep the effect 
 sudo asus-fan-control
 ```
 
-> It uses custom temperatures if set, otherwise the default temperatures are used.
+> It uses custom temperatures if previously set, otherwise the default temperatures are used.
 
 ### Custom temperatures
 
