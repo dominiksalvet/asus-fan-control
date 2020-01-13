@@ -1,15 +1,18 @@
 #-------------------------------------------------------------------------------
-# Copyright 2019 Alexander Agura
+# Copyright 2019-2020 Alexander Agura
 # github.com/dominiksalvet/asus-fan-control
 #-------------------------------------------------------------------------------
 
 [Unit]
 Description=Fan control for ASUS devices running Linux.
+Before=multi-user.target
+
+# Run after hibernate as well
+After=hibernate.target suspend-then-hibernate.target
 
 [Service]
 Type=oneshot
 ExecStart=/usr/local/bin/asus-fan-control
 
 [Install]
-WantedBy=multi-user.target
-Also=asus-fan-control-resume.service
+WantedBy=multi-user.target hibernate.target suspend-then-hibernate.target
