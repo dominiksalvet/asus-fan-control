@@ -6,8 +6,6 @@
 [Unit]
 Description=Fan control for ASUS devices running Linux.
 Before=multi-user.target
-
-# Run after hibernate as well
 After=hibernate.target suspend-then-hibernate.target
 
 [Service]
