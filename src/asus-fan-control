@@ -11,231 +11,70 @@
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
-# SOFTWARE DEPENDENCIES
+# MAIN FUNCTION
 #-------------------------------------------------------------------------------
 
-# list of required software
-SW_REQUIRED='command echo [ grep lsmod head id rm cut mkdir sed dmidecode'
+# DESCRIPTION:
+#   This is the asus-fan-control entry point and it is expected to be executed
+#   first, yet its calling should be at the end of this script.
+# PARAMETERS:
+#   $@ - asus-fan-control arguments
+main() {
+    check_sw_deps &&
+    init_constants &&
+    init_strings &&
 
-# check if some software is missing
-for sw in $SW_REQUIRED; do
-    # software is missing if at least one piece of software is missing
-    if ! command -v "$sw" > /dev/null; then
-        echo "$0: Required software $sw is missing." >&2; exit 1
-    fi
-done
+    # todo: remove
+    echo "$HELP_MESSAGE" &&
+    echo "$ABOUT_MESSAGE"
+}
+
+# DESCRIPTION:
+#   Checks whether all software dependencies are satisfied.
+check_sw_deps() (
+    # a list of required software
+    sw_deps='command echo [ grep lsmod head id rm cut mkdir sed dmidecode'
+
+    # check if any piece of software is missing
+    for sw_dep in $sw_deps; do
+        if ! command -v "$sw_dep" > /dev/null; then
+            echo "missing $sw_dep software" >&2; return 1
+        fi
+    done
+)
 
 #-------------------------------------------------------------------------------
-# DEFINITIONS
+# STATIC INITIALIZATION
 #-------------------------------------------------------------------------------
 
-# the current version of the program
-VERSION=2.12.0
+# DESCRIPTION:
+#   Initializes static constants.
+init_constants() {
+    # the current version of asus-fan-control
+    readonly VERSION=2.12.0
+}
 
-HELP_MESSAGE="USAGE: $0 [OPTION]...
+# DESCRIPTION:
+#   Initializes strings used to display output to end users. Constants must be
+#   already initialized.
+init_strings() {
+    readonly HELP_MESSAGE="USAGE:
+  asus-fan-control [set-temps default | TEMPERATURES]
+  asus-fan-control get-temps | help | about
 
-OPTION:
-  -get-temps            show current temperatures of fan speed levels
-  -set-default-temps    use default temperatures for fan speed levels
-  -set-temps:<numbers>  use custom temperatures for fan speed levels
-  -help                 show this help and exit
-  -about                show information and exit
-  -version              show version and exit"
+COMMAND:
+  set-temps  store and set fan temperatures
+  get-temps  get fan temperatures"
 
-ABOUT_MESSAGE="asus-fan-control $VERSION
+    readonly ABOUT_MESSAGE="asus-fan-control $VERSION
 Fan control for ASUS devices running Linux.
 
 Copyright 2017-2020 Dominik Salvet
 github.com/dominiksalvet/asus-fan-control"
-
-# a directory for storing static data
-DATA_DIR=/usr/share/asus-fan-control
-
-# configuration files directory
-CONFIG_DIR=/etc/asus-fan-control
-
-# the base address for fan speed levels configuration
-ACPI_FAN_BASE_ADDR=1335
-
-# fallback temperatures that are about to be used when no laptop model matches
-FALLBACK_TEMPS='55 60 62 65 68 72 76 80'
-
-#-------------------------------------------------------------------------------
-# FUNCTIONS
-#-------------------------------------------------------------------------------
-
-# DESCRIPTION:
-#   Check if program is able to perform an ACPI call.
-acpi_call_prepare() {
-    # check if 'acpi_call' module loaded
-    if ! lsmod | grep -q -E -e '^[[:blank:]]*acpi_call[[:blank:]].*$'; then
-        echo "$0: Required module 'acpi_call' is not loaded." >&2
-        return 1
-    fi
-    
-    # check if the interface file for 'acpi_call' module exists
-    if [ ! -f /proc/acpi/call ]; then
-        echo "$0: Interface file '/proc/acpi/call' for 'acpi_call' module doesn't exist." >&2
-        return 1
-    fi
-
-    # check if running as root
-    if [ "$(id -u)" -ne 0 ]; then
-        echo "$0: Please run as root." >&2
-        return 1
-    fi
-
-    # create configuration directory to prevent copying old files when updating
-    mkdir -p "$CONFIG_DIR/" || {
-        echo "$0: Can't create a directory for configuration files." >&2
-        return 1
-    }
-}
-
-# DESCRIPTION:
-#   Check if given fan speed level temperatures are valid.
-# PARAMETERS:
-#   $1 - temperatures in degrees Celsius
-valid_temps() {
-    LOCAL_temp_counter=0
-    LOCAL_previous_temp=0
-    for LOCAL_temp in $1; do
-        # fail if parameter is not a number in range 1-99 or has less or equal value to the previous one
-        if ! echo "$LOCAL_temp" | grep -q -E -e '^[1-9][0-9]?$' || [ "$LOCAL_temp" -le "$LOCAL_previous_temp" ]; then
-            return 1
-        fi
-        LOCAL_temp_counter="$((LOCAL_temp_counter + 1))"
-        LOCAL_previous_temp="$LOCAL_temp"
-    done
-    
-    # fail if there is not exactly 8 temperature values
-    if [ "$LOCAL_temp_counter" -ne 8 ]; then
-        return 1
-    fi
-}
-
-# DESCRIPTION:
-#   Return the temperatures that are about to being applied.
-get_temps_to_apply() {
-    if [ -r "$CONFIG_DIR/custom-temps" ]; then # if the file of custom temperatures exists and is readable
-        LOCAL_custom_temps="$(head -n 1 "$CONFIG_DIR/custom-temps")" # get the first line of it
-        if valid_temps "$LOCAL_custom_temps"; then # if these temperatures are valid
-            LOCAL_temps="$LOCAL_custom_temps" # use them
-        else # warning about corrupted stored temperatures
-            echo "$0: Stored custom temperatures are invalid, using the model default ones." >&2
-            LOCAL_temps="$(get_device_default_temps)"
-        fi
-    else # no custom temperatures set
-        LOCAL_temps="$(get_device_default_temps)"
-    fi
-
-    echo "$LOCAL_temps"
-}
-
-# DESCRIPTION:
-#   Write given temperatures to be applied using ACPI calls.
-# PARAMETERS:
-#   $1 - temperatures in degrees Celsius
-set_acpi_temps() {
-    # set each individual fan speed level
-    LOCAL_speed_level=0
-    for LOCAL_temp in $1; do
-        # ACPI call - write
-        echo '\_SB.PCI0.LPCB.EC0.WRAM '"$((ACPI_FAN_BASE_ADDR + LOCAL_speed_level)) $LOCAL_temp" > /proc/acpi/call
-        # next level
-        LOCAL_speed_level="$((LOCAL_speed_level + 1))"
-    done
-}
-
-# DESCRIPTION:
-#   Returns default temperatures for currently used ASUS laptop model.
-get_device_default_temps() {
-    if [ -r "$DATA_DIR/default-temps" ]; then
-        LOCAL_model="$(dmidecode -s system-product-name)"
-        LOCAL_temps="$(grep -m 1 -E -e "$LOCAL_model" "$DATA_DIR/default-temps" | cut -f 1-8 -d ' ' )"
-        if ! valid_temps "$LOCAL_temps"; then
-            echo "$0: Missing temperatures for your laptop model or they are invalid. Falling back to UX430UA temperatures." >&2
-            LOCAL_temps="$FALLBACK_TEMPS"
-        fi
-    else
-        echo "$0: Can't access the file with default temperatures for laptop models. Falling back to UX430UA temperatures." >&2
-        LOCAL_temps="$FALLBACK_TEMPS"
-    fi
-
-    echo "$LOCAL_temps"
 }
 
 #-------------------------------------------------------------------------------
-# PROCESSING PARAMETERS
+# CALL MAIN
 #-------------------------------------------------------------------------------
 
-# processing each parameter separately
-for opt in "$@"; do
-    case "$opt" in
-        -get-temps)
-            # check if an ACPI call can be performed (includes root check)
-            acpi_call_prepare || exit
-
-            # get each individual fan speed level
-            speed_level=0
-            acpi_temps=''
-            for _ in $FALLBACK_TEMPS; do
-                # ACPI call - read
-                echo '\_SB.PCI0.LPCB.EC0.RRAM '"$((ACPI_FAN_BASE_ADDR + speed_level))" > /proc/acpi/call
-                # get hexadecimal value from ACPI message
-                acpi_temp="$(cut -c1-4 /proc/acpi/call)"
-                # convert it to decimal and add to the list
-                acpi_temps="${acpi_temps}$((acpi_temp)) "
-                # next level
-                speed_level="$((speed_level + 1))"
-            done
-        
-            # show the temperatures and remove the last space
-            echo "$acpi_temps" | sed -E -e 's/ $//'
-            ;;
-        -set-default-temps)
-            # check if an ACPI call can be performed (includes root check)
-            acpi_call_prepare || exit
-
-            # remove custom temperatures configuration file if it exists
-            [ -f "$CONFIG_DIR/custom-temps" ] && rm "$CONFIG_DIR/custom-temps"
-
-            # set temperatures using an ACPI call
-            set_acpi_temps "$(get_temps_to_apply)"
-            ;;
-        -set-temps:*)
-            # check if an ACPI call can be performed (includes root check)
-            acpi_call_prepare || exit
-
-            # parse temperatures of this parameter
-            custom_temps="$(echo "$opt" | sed -E -e 's/^-set-temps://')"
-
-            if valid_temps "$custom_temps"; then # check if given temperatures are valid
-                echo "$custom_temps" > "$CONFIG_DIR/custom-temps" || {
-                    echo "$0: Can't create a configuration file with custom temperatures." >&2; exit 1
-                }
-            else
-                echo "$0: Entered custom temperatures are invalid, use the valid ones." >&2; exit 1
-            fi
-
-            # set temperatures using an ACPI call
-            set_acpi_temps "$(get_temps_to_apply)"
-            ;;
-        -help) echo "$HELP_MESSAGE"; exit ;;
-        -about) echo "$ABOUT_MESSAGE"; exit ;;
-        -version) echo "$VERSION"; exit ;;
-        *) echo "$0: The option '$opt' was not recognized." >&2; exit 1 ;;
-    esac
-done
-
-#-------------------------------------------------------------------------------
-# APPLY CONFIGURATION WHEN NO ARGUMENTS
-#-------------------------------------------------------------------------------
-
-if [ "$#" -eq 0 ]; then # if no arguments provided
-    # check if an ACPI call can be performed (includes root check)
-    acpi_call_prepare || exit
-
-    # set temperatures using an ACPI call
-    set_acpi_temps "$(get_temps_to_apply)"
-fi
+main "$@" # call the main function, having all functions above already defined
