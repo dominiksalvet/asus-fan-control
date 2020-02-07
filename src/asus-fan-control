@@ -23,6 +23,8 @@ main() {
     check_sw_deps &&
     init_constants &&
     init_strings &&
+    init_paths &&
+    init_config &&
     process_args "$@" # process all given asus-fan-control arguments
 }
 
@@ -30,7 +32,7 @@ main() {
 #   Checks whether all software dependencies are satisfied.
 check_sw_deps() (
     # a list of required software
-    sw_deps='command echo [ cut'
+    sw_deps='command echo [ cut id'
 
     # check if any piece of software is missing
     for sw_dep in $sw_deps; do
@@ -73,6 +75,23 @@ Copyright 2017-2020 Dominik Salvet
 github.com/dominiksalvet/asus-fan-control"
 }
 
+# DESCRIPTION:
+#   Initializes all asus-fan-control's paths. They must be absolute paths.
+init_paths() {
+    readonly ACPI_CALL_PATH=/proc/acpi/call # ACPI interface file location
+}
+
+# DESCRIPTION:
+#   Initializes asus-fan-control configuration constants.
+init_config() {
+    # general configuration
+    readonly TEMP_COUNT=8 # number of expected temperatures
+
+    # ACPI related
+    readonly ACPI_READ_COMMAND='\_SB.PCI0.LPCB.EC0.RRAM' # read from ACPI method
+    readonly ACPI_BASE_ADDR=1335 # base address for fan configuration
+}
+
 #-------------------------------------------------------------------------------
 # ARGUMENT PROCESSING
 #-------------------------------------------------------------------------------
@@ -82,24 +101,52 @@ github.com/dominiksalvet/asus-fan-control"
 #   operations.
 # PARAMETERS:
 #   $@ - asus-fan-control arguments
-process_args() {
+process_args() (
     case "$1" in # process arguments based on the first argument
-        '') echo 'no argument' ;;
-        set-temps) echo 'set-temps argument' ;;
-        get-temps) echo 'get-temps argument' ;;
+        '') set_temps ;;
+        set-temps) shift && set_temps "$@" ;;
+        get-temps) get_temps ;;
         help) echo "$HELP_MESSAGE" ;;
         about) echo "$ABOUT_MESSAGE" ;;
         *) echo "invalid argument $1" >&2; return 1 ;;
     esac
+)
+
+#-------------------------------------------------------------------------------
+# SET AND GET TEMPERATURES
+#-------------------------------------------------------------------------------
+
+set_temps() {
+    echo TODO
+}
+
+# DESCRIPTION:
+#   Prints applied fan temperatures based on the current environment.
+get_temps() {
+    check_acpi &&
+    get_acpi_temps "$ACPI_BASE_ADDR" "$TEMP_COUNT"
 }
 
 #-------------------------------------------------------------------------------
-# ACPI CALLS
+# ACPI
 #-------------------------------------------------------------------------------
 
 # DESCRIPTION:
-#   Get temperatures using ACPI calls based on a given base address and the
-#   number of the temperatures.
+#   Checks whether it is possible to perform an ACPI call.
+check_acpi() (
+    if [ ! -f "$ACPI_CALL_PATH" ]; then # check if ACPI interface file exists
+        echo "file $ACPI_CALL_PATH does not exist" >&2; return 1
+    fi
+
+    id_out="$(id -u)" && # check if running as root
+    if [ "$id_out" -ne 0 ]; then
+        echo 'root permissions needed' >&2; return 1
+    fi
+)
+
+# DESCRIPTION:
+#   Prints fan temperatures using ACPI calls based on a given base address and
+#   the number of the temperatures.
 # PARAMETERS:
 #   $1 - base address
 #   $2 - number of temperatures
@@ -109,8 +156,8 @@ get_acpi_temps() (
     temp_count=0 # current temperature index
     while [ "$temp_count" -lt "$2" ]; do # read all temperatures
         # perform ACPI call with the current temperature index
-        echo "$TODOREAD $(($1 + temp_count))" > "$TODOCALL" &&
-        temp="$(cut -c 1-4 "$TODOCALL")" && # parse temperature of output
+        echo "$ACPI_READ_COMMAND $(($1 + temp_count))" > "$ACPI_CALL_PATH" &&
+        temp="$(cut -c 1-4 "$ACPI_CALL_PATH")" && # parse temperature of output
         temp="$((temp))" && # convert from hexadecimal to decimal
         temps="${temps}$temp " && # add temperature to list
         temp_count="$((temp_count + 1))" || return # next temperature
@@ -120,7 +167,7 @@ get_acpi_temps() (
 )
 
 # DESCRIPTION:
-#   Set given temperatures using ACPI calls based on a given base address.
+#   Sets given fan temperatures using ACPI calls based on a given base address.
 # PARAMETERS:
 #   $1 - base address
 #   $@ - temperatures
@@ -131,7 +178,7 @@ set_acpi_temps() (
     temp_count=0 && # current temperature index
     for temp in "$@"; do # for each temperature
         # perform ACPI call with the current temperature
-        echo "$TODOWRITE $((base_addr + temp_count)) $temp" > "$TODOCALL" &&
+        echo "$TODOWRITE $((base_addr + temp_count)) $temp" > "$ACPI_CALL_PATH" &&
         temp_count="$((temp_count + 1))" || return # next temperature
     done
 )
