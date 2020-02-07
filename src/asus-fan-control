@@ -80,7 +80,14 @@ github.com/dominiksalvet/asus-fan-control"
 # PARAMETERS:
 #   $@ - asus-fan-control arguments
 process_args() (
-    echo
+    case "$1" in # process arguments based on the first argument
+        '') echo 'no argument' ;;
+        set-temps) echo 'set-temps argument' ;;
+        get-temps) echo 'get-temps argument' ;;
+        help) echo "$HELP_MESSAGE" ;;
+        about) echo "$ABOUT_MESSAGE" ;;
+        *) echo "invalid argument $1" >&2; return 1 ;;
+    esac
 )
 
 #-------------------------------------------------------------------------------
