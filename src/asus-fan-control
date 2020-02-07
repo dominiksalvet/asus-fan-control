@@ -23,17 +23,14 @@ main() {
     check_sw_deps &&
     init_constants &&
     init_strings &&
-
-    # todo: remove
-    echo "$HELP_MESSAGE" &&
-    echo "$ABOUT_MESSAGE"
+    process_args "$@" # process all given asus-fan-control arguments
 }
 
 # DESCRIPTION:
 #   Checks whether all software dependencies are satisfied.
 check_sw_deps() (
     # a list of required software
-    sw_deps='command echo [ grep lsmod head id rm cut mkdir sed dmidecode'
+    sw_deps='command echo [ cut'
 
     # check if any piece of software is missing
     for sw_dep in $sw_deps; do
@@ -72,6 +69,62 @@ Fan control for ASUS devices running Linux.
 Copyright 2017-2020 Dominik Salvet
 github.com/dominiksalvet/asus-fan-control"
 }
+
+#-------------------------------------------------------------------------------
+# ARGUMENT PROCESSING
+#-------------------------------------------------------------------------------
+
+# DESCRIPTION:
+#   Processes given asus-fan-control arguments and performs all associated
+#   operations.
+# PARAMETERS:
+#   $@ - asus-fan-control arguments
+process_args() (
+    echo
+)
+
+#-------------------------------------------------------------------------------
+# ACPI CALLS
+#-------------------------------------------------------------------------------
+
+# DESCRIPTION:
+#   Get temperatures using ACPI calls based on a given base address and the
+#   number of the temperatures.
+# PARAMETERS:
+#   $1 - base address
+#   $2 - number of temperatures
+get_acpi_temps() (
+    temps= # list of read temperatures
+
+    temp_count=0 # current temperature index
+    while [ "$temp_count" -lt "$2" ]; do # read all temperatures
+        # perform ACPI call with the current temperature index
+        echo "$TODOREAD $(($1 + temp_count))" > "$TODOCALL" &&
+        temp="$(cut -c 1-4 "$TODOCALL")" && # parse temperature of output
+        temp="$((temp))" && # convert from hexadecimal to decimal
+        temps="${temps}$temp " && # add temperature to list
+        temp_count="$((temp_count + 1))" || return # next temperature
+    done
+
+    echo "${temps% }" # print read temperatures (omitting the last space)
+)
+
+# DESCRIPTION:
+#   Set given temperatures using ACPI calls based on a given base address.
+# PARAMETERS:
+#   $1 - base address
+#   $@ - temperatures
+set_acpi_temps() (
+    base_addr="$1" # store base address
+    shift && # shift arguments to temperatures
+
+    temp_count=0 && # current temperature index
+    for temp in "$@"; do # for each temperature
+        # perform ACPI call with the current temperature
+        echo "$TODOWRITE $((base_addr + temp_count)) $temp" > "$TODOCALL" &&
+        temp_count="$((temp_count + 1))" || return # next temperature
+    done
+)
 
 #-------------------------------------------------------------------------------
 # CALL MAIN
