@@ -49,6 +49,9 @@ check_sw_deps() (
 init_constants() {
     # the current version of asus-fan-control
     readonly VERSION=2.12.0
+
+    # useful asus-fan-control shortcuts
+    readonly LABEL_DEFAULT=default
 }
 
 # DESCRIPTION:
@@ -56,7 +59,7 @@ init_constants() {
 #   already initialized.
 init_strings() {
     readonly HELP_MESSAGE="USAGE:
-  asus-fan-control [set-temps default | TEMPERATURES]
+  asus-fan-control [set-temps $LABEL_DEFAULT | TEMPERATURES]
   asus-fan-control get-temps | help | about
 
 COMMAND:
@@ -79,7 +82,7 @@ github.com/dominiksalvet/asus-fan-control"
 #   operations.
 # PARAMETERS:
 #   $@ - asus-fan-control arguments
-process_args() (
+process_args() {
     case "$1" in # process arguments based on the first argument
         '') echo 'no argument' ;;
         set-temps) echo 'set-temps argument' ;;
@@ -88,7 +91,7 @@ process_args() (
         about) echo "$ABOUT_MESSAGE" ;;
         *) echo "invalid argument $1" >&2; return 1 ;;
     esac
-)
+}
 
 #-------------------------------------------------------------------------------
 # ACPI CALLS
