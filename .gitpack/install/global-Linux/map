@@ -2,4 +2,3 @@ src/asus-fan-control /usr/local/bin
 src/asus-fan-control-completion.bash /etc/bash_completion.d
 data/models /usr/share/asus-fan-control
 .gitpack/data/asus-fan-control.service /etc/systemd/system
-.gitpack/data/asus-fan-control-resume.service /etc/systemd/system
