@@ -11,7 +11,10 @@ assignees: dominiksalvet
 State installed version of this project and your OS information.
 
 **Temperature configuration**
-Add output of `sudo asus-fan-control -get-temps` command.
+Add output of `sudo asus-fan-control get-temps` command.
 
 **Laptop model name**
 Add output of `sudo dmidecode -s system-product-name` command.
+
+**Additional context**
+Add any specific information about your device if applicable.
