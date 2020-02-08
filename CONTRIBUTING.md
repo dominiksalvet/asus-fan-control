@@ -4,9 +4,10 @@ The development of this project is published on [this website](https://github.co
 
 ## Test a new laptop model
 
-If you are about to test a new laptop model that has not been tested before, you should know that **none of asus-fan-control authors is responsible for possible damage** it can cause to your device as the program uses ACPI calls and it modifies data on some addresses. Nevertheless, target addresses should be set to their default values on tested models when rebooting the system.
+If you are about to test a new laptop model that has not been tested yet, you should know that **none of asus-fan-control authors is responsible for possible damage** it can cause to your device as the program uses ACPI calls and it modifies data on some addresses. Nevertheless, target addresses should be set to their default values on tested models when rebooting the system.
 
-Provided you are aware of the fact stated above and the program is working on your device, try to find the best temperature configuration for your device using the `sudo asus-fan-control -set-temps:<numbers>` command. Then follow the steps described in the [Suggestions](#suggestions) section and add the outputs of `sudo asus-fan-control -get-temps` and `sudo dmidecode -s system-product-name` commands to the issue text. If the issue is approved, your laptop will be added to tested models in [*README.md*](README.md) file and the program will recognize it.
+Provided the program is working on your device, try to find the best temperature configuration for your device using the `sudo asus-fan-control set-temps TEMPERATURES` command. Then follow the steps described in the [Suggestions](#suggestions) section and add the output of `sudo asus-fan-control get-temps` and `sudo dmidecode -s system-product-name` commands to the issue text. In case you had to change the ACPI base address or the number of temperatures, state this fact in the issue as well. If the issue is approved, your laptop will be added to tested models in [*README.md*](README.md) file and the program will recognize it.
+
 
 ## Suggestions
 
