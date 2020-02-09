@@ -11,6 +11,7 @@ The changes not yet present in any release are listed in this section.
 ### Fixed
 
 * Systemd service runs asus-fan-control on resume from hibernate.
+* Systemd service modprobes `acpi_call` prior to running asus-fan-control, */etc/modules* is no longer used.
 
 ## 2.12.0 (2019-12-29)
 
