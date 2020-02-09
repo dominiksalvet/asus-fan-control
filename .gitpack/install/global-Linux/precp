@@ -25,13 +25,6 @@ fi &&
 
 # if dependencies have been installed
 if [ "$installed" = true ]; then
-    # load acpi_call at boot
-    if [ ! -f /etc/modules ]; then
-        echo acpi_call > /etc/modules
-    elif ! grep -q '^acpi_call$' /etc/modules; then
-        echo acpi_call >> /etc/modules
-    fi &&
-
     # load acpi_call immediately
     if command -v modprobe > /dev/null; then
         modprobe acpi_call; true # not a problem if it fails
