@@ -8,10 +8,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 The changes not yet present in any release are listed in this section.
 
+### Changed
+
+* The acpi_call module loading is managed by systemd rather than in */etc/modules*.
+
 ### Fixed
 
 * Systemd service runs asus-fan-control on resume from hibernate.
-* Systemd service modprobes `acpi_call` prior to running asus-fan-control, */etc/modules* is no longer used.
+* The acpi_call module is loaded even after being updated.
 
 ## 2.12.0 (2019-12-29)
 
