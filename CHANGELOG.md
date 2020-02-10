@@ -8,6 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 The changes not yet present in any release are listed in this section.
 
+### Changed
+
+* The whole asus-fan-control API has been changed.
+* The `-help` option has been changed to the `help` command.
+
 ### Fixed
 
 * Systemd service runs asus-fan-control on resume from hibernate.
