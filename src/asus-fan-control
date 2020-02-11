@@ -89,7 +89,7 @@ init_config() {
     readonly ACPI_READ_COMMAND='\_SB.PCI0.LPCB.EC0.RRAM' # read from ACPI
 
     # default configuration
-    readonly DEFAULT_BASE_ADDR=1335 # base address for fan configuration
+    readonly DEFAULT_ADDR=1335 # default base address for fan configuration
     readonly DEFAULT_TEMPS='55 60 62 65 68 72 76 80' # default fan temperatures
 }
 
@@ -130,8 +130,8 @@ set_temps() {
 #   Prints applied fan temperatures based on the current environment.
 get_temps() (
     check_acpi &&
-    temp_count="$(echo "$DEFAULT_TEMPS" | wc -w)" && # number of temperatures
-    get_acpi_temps "$DEFAULT_BASE_ADDR" "$temp_count"
+    temps_count="$(echo "$DEFAULT_TEMPS" | wc -w)" && # number of temperatures
+    get_acpi_temps "$DEFAULT_ADDR" "$temps_count"
 )
 
 #-------------------------------------------------------------------------------
@@ -160,11 +160,11 @@ set_acpi_temps() (
     base_addr="$1" # store base address
     shift && # shift arguments to temperatures
 
-    temp_count=0 && # current temperature index
+    temps_count=0 && # current temperature index
     for temp in "$@"; do # for each temperature
         # write the current temperature to ACPI
-        set_acpi_temp "$((base_addr + temp_count))" "$temp" &&
-        temp_count="$((temp_count + 1))" || return # next temperature
+        set_acpi_temp "$((base_addr + temps_count))" "$temp" &&
+        temps_count="$((temps_count + 1))" || return # next temperature
     done
 )
 
@@ -186,12 +186,12 @@ set_acpi_temp() {
 get_acpi_temps() (
     temps= # list of read temperatures
 
-    temp_count=0 # current temperature index
-    while [ "$temp_count" -lt "$2" ]; do # read all temperatures
+    temps_count=0 # current temperature index
+    while [ "$temps_count" -lt "$2" ]; do # read all temperatures
         # read the temperature of the current index from ACPI
-        temp="$(get_acpi_temp "$(($1 + temp_count))")" &&
+        temp="$(get_acpi_temp "$(($1 + temps_count))")" &&
         temps="${temps}$temp " && # add temperature to list
-        temp_count="$((temp_count + 1))" || return # next temperature
+        temps_count="$((temps_count + 1))" || return # next temperature
     done
 
     echo "${temps% }" # print read temperatures (omitting the last space)
