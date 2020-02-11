@@ -157,13 +157,13 @@ check_acpi() (
 #   $1 - base address
 #   $@ - temperatures
 set_acpi_temps() (
-    base_addr="$1" # store base address
+    addr="$1" # store base address
     shift && # shift arguments to temperatures
 
     temps_count=0 && # current temperature index
     for temp in "$@"; do # for each temperature
         # write the current temperature to ACPI
-        set_acpi_temp "$((base_addr + temps_count))" "$temp" &&
+        set_acpi_temp "$((addr + temps_count))" "$temp" &&
         temps_count="$((temps_count + 1))" || return # next temperature
     done
 )
