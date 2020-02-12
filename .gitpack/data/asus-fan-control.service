@@ -10,7 +10,7 @@ After=hibernate.target suspend-then-hibernate.target
 
 [Service]
 Type=oneshot
-ExecStartPre=-/sbin/modprobe acpi_call
+ExecStartPre=/sbin/modprobe acpi_call
 ExecStart=/usr/local/bin/asus-fan-control
 
 [Install]
