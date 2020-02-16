@@ -32,7 +32,7 @@ main() {
 #   Checks whether used commands are present.
 check_commands() (
     # a list of required commands
-    commands='command echo [ cut id wc dmidecode read'
+    commands='command echo [ cut id wc dmidecode read tr'
 
     for command in $commands; do # check if any command is missing
         if ! command -v "$command" > /dev/null; then
@@ -227,6 +227,8 @@ get_acpi_temp() (
 #   current device model name and default base address and temperatures values.
 get_host_model() (
     host_model_name="$(dmidecode -s system-product-name)" && # detect host
+    # keep only alphanumerical characters
+    host_model_name="$(echo "$host_model_name" | tr -d -c '[:alnum:]')" &&
 
     while IFS= read -r model; do # for each database record
         model_name="$(get_model_name "$model")" || return # extract its name
