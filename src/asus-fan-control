@@ -20,7 +20,7 @@
 # PARAMETERS:
 #   $@ - asus-fan-control arguments
 main() {
-    check_sw_deps &&
+    check_commands &&
     init_constants &&
     init_strings &&
     init_paths &&
@@ -29,15 +29,14 @@ main() {
 }
 
 # DESCRIPTION:
-#   Checks whether all software dependencies are satisfied.
-check_sw_deps() (
-    # a list of required software
-    sw_deps='command echo [ cut id wc dmidecode read'
+#   Checks whether used commands are present.
+check_commands() (
+    # a list of required commands
+    commands='command echo [ cut id wc dmidecode read'
 
-    # check if any piece of software is missing
-    for sw_dep in $sw_deps; do
-        if ! command -v "$sw_dep" > /dev/null; then
-            echo "missing $sw_dep software" >&2; return 1
+    for command in $commands; do # check if any command is missing
+        if ! command -v "$command" > /dev/null; then
+            echo "missing $command command" >&2; return 1
         fi
     done
 )
