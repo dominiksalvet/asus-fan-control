@@ -182,7 +182,7 @@ set_acpi_temps() (
 #   $1 - address
 #   $2 - temperature
 set_acpi_temp() (
-    # ACPI write call (bad arguments may cause the current shell to exit)
+    # ACPI write call (invalid arguments may cause the current shell to exit)
     echo "$ACPI_WRITE_COMMAND ${1:?} ${2:?}" > "$ACPI_CALL_PATH"
 )
 
