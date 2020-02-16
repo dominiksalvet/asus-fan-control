@@ -32,7 +32,7 @@ main() {
 #   Checks whether all software dependencies are satisfied.
 check_sw_deps() (
     # a list of required software
-    sw_deps='command echo [ cut id wc'
+    sw_deps='command echo [ cut id wc dmidecode read'
 
     # check if any piece of software is missing
     for sw_dep in $sw_deps; do
@@ -78,6 +78,7 @@ github.com/dominiksalvet/asus-fan-control"
 # DESCRIPTION:
 #   Initializes all asus-fan-control's paths. They must be absolute paths.
 init_paths() {
+    readonly MODELS_PATH=/usr/share/asus-fan-control/models # models database
     readonly ACPI_CALL_PATH=/proc/acpi/call # ACPI interface file location
 }
 
@@ -130,8 +131,13 @@ set_temps() {
 #   Prints applied fan temperatures based on the current environment.
 get_temps() (
     check_acpi &&
-    temps_count="$(echo "$DEFAULT_TEMPS" | wc -w)" && # number of temperatures
-    get_acpi_temps "$DEFAULT_ADDR" "$temps_count"
+
+    model="$(get_host_model)" && # get database record for current device
+    addr="$(get_model_addr "$model")" && # extract base address
+    temps="$(get_model_temps "$model")" && # extract temperatures
+    temps_count="$(echo "$temps" | wc -w)" && # number of temperatures
+
+    get_acpi_temps "$addr" "$temps_count"
 )
 
 #-------------------------------------------------------------------------------
@@ -173,9 +179,10 @@ set_acpi_temps() (
 # PARAMETERS:
 #   $1 - address
 #   $2 - temperature
-set_acpi_temp() {
-    echo "$ACPI_WRITE_COMMAND $1 $2" > "$ACPI_CALL_PATH" # ACPI write call
-}
+set_acpi_temp() (
+    # ACPI write call (bad arguments may cause the current shell to exit)
+    echo "$ACPI_WRITE_COMMAND ${1:?} ${2:?}" > "$ACPI_CALL_PATH"
+)
 
 # DESCRIPTION:
 #   Prints fan temperatures using ACPI calls based on a given base address and
@@ -202,11 +209,57 @@ get_acpi_temps() (
 # PARAMETERS:
 #   $1 - address
 get_acpi_temp() (
-    echo "$ACPI_READ_COMMAND $1" > "$ACPI_CALL_PATH" && # ACPI read call
+    echo "$ACPI_READ_COMMAND ${1:?}" > "$ACPI_CALL_PATH" && # ACPI read call
     temp="$(cut -c 1-4 "$ACPI_CALL_PATH")" && # parse temperature of the output
     temp="$((temp))" && # convert from hexadecimal to decimal
     echo "$temp" # print the final temperature value
 )
+
+#-------------------------------------------------------------------------------
+# MODELS
+#-------------------------------------------------------------------------------
+
+# DESCRIPTION:
+#   Detects the current device model name and prints its first database record
+#   if it exists. Otherwise, prints a temporary database record based on the
+#   current device model name and default base address and temperatures values.
+get_host_model() (
+    host_model_name="$(dmidecode -s system-product-name)" && # detect host
+
+    while IFS= read -r model; do # for each database record
+        model_name="$(get_model_name "$model")" || return # extract its name
+        if [ "$model_name" = "$host_model_name" ]; then # compare with the host
+            echo "$model"; return # if match, print database record and return
+        fi
+    done < "$MODELS_PATH" &&
+
+    # temporary database record in case the current model is not in the database
+    echo "$host_model_name|$DEFAULT_ADDR|$DEFAULT_TEMPS" # use default values
+)
+
+# DESCRIPTION:
+#   Extracts the model name from a given model record.
+# PARAMETERS:
+#   $1 - model record
+get_model_name() {
+    echo "$1" | cut -f 1 -d '|' -s
+}
+
+# DESCRIPTION:
+#   Extracts the model base address from a given model record.
+# PARAMETERS:
+#   $1 - model record
+get_model_addr() {
+    echo "$1" | cut -f 2 -d '|' -s
+}
+
+# DESCRIPTION:
+#   Extracts the model temperatures from a given model record.
+# PARAMETERS:
+#   $1 - model record
+get_model_temps() {
+    echo "$1" | cut -f 3 -d '|' -s
+}
 
 #-------------------------------------------------------------------------------
 # CALL MAIN
