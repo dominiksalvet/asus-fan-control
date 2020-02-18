@@ -64,7 +64,7 @@ init_strings() {
   asus-fan-control get-temps | help | about
 
 COMMAND:
-  set-temps  store and set fan temperatures
+  set-temps  store and apply fan temperatures
   get-temps  get fan temperatures"
 
     readonly ABOUT_MESSAGE="asus-fan-control $VERSION
@@ -104,7 +104,7 @@ init_config() {
 #   $@ - asus-fan-control arguments
 process_args() {
     if [ "$#" -eq 0 ]; then # if no argument given
-        set_temps # apply stored temperatures
+        set_temps # use stored temperatures
     else
         case "$1" in # process arguments based on the first argument
             set-temps) shift && set_temps "$@" ;;
@@ -126,7 +126,18 @@ process_args() {
 # PARAMETERS:
 #   $@ - temperatures (optional)
 set_temps() {
-    echo TODO
+    check_acpi &&
+
+    model="$(get_host_model)" && # get database record for current device
+    addr="$(get_model_addr "$model")" && # extract base address
+
+    if [ "$#" -eq 0 ]; then # last stored temperatures
+        echo 'TODO: Apply stored temperatures.'
+    elif [ "$1" = "$LABEL_DEFAULT" ]; then # default model temperatures
+        echo 'TODO: Apply default temperatures and store them.'
+    else
+        echo 'TODO: Check given temperatures, apply and store them'
+    fi
 }
 
 # DESCRIPTION:
