@@ -94,7 +94,7 @@ The fan speed policy is defined by usually 8 increasing numbers representing tem
 | 7           | 76 to 79         |
 | 8 (max)     | 80 and more      |
 
-To apply your custom temperatures, use the `set-temps` command. For example:
+To use your custom temperatures, use the `set-temps` command. For example:
 
 ```sh
 sudo asus-fan-control set-temps 45 50 55 60 65 70 75 80
