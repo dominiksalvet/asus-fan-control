@@ -300,11 +300,11 @@ get_acpi_temps() (
     while [ "$temps_count" -lt "$2" ]; do # read all temperatures
         # read the temperature of the current index from ACPI
         temp="$(get_acpi_temp "$(($1 + temps_count))")" &&
-        temps="${temps}$temp " && # add temperature to list
+        temps="$temps $temp" && # add temperature to list
         temps_count="$((temps_count + 1))" || return # next temperature
     done
 
-    echo "${temps% }" # print read temperatures (omitting the last space)
+    echo "${temps# }" # print read temperatures (omitting the first space)
 )
 
 # DESCRIPTION:
