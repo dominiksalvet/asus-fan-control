@@ -93,8 +93,8 @@ init_config() {
     readonly ACPI_READ_COMMAND='\_SB.PCI0.LPCB.EC0.RRAM' # read from ACPI
 
     # default configuration
-    readonly DEFAULT_ADDR=1335 # default base address for fan configuration
-    readonly DEFAULT_TEMPS='55 60 62 65 68 72 76 80' # default fan temperatures
+    readonly FALLBACK_ADDR=1335 # fallback base address for fan configuration
+    readonly FALLBACK_TEMPS='55 60 62 65 68 72 76 80' # fallback temperatures
 }
 
 #-------------------------------------------------------------------------------
@@ -162,7 +162,7 @@ get_host_model() (
     done < "$MODELS_PATH" &&
 
     # temporary database record in case the current model is not in the database
-    echo "$host_model_name|$DEFAULT_ADDR|$DEFAULT_TEMPS" # use default values
+    echo "$host_model_name|$FALLBACK_ADDR|$FALLBACK_TEMPS" # use fallback values
 )
 
 # DESCRIPTION:
