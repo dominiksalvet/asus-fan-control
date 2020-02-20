@@ -106,18 +106,87 @@ init_config() {
 #   operations.
 # PARAMETERS:
 #   $@ - asus-fan-control arguments
-process_args() {
+process_args() (
     if [ "$#" -eq 0 ]; then # if no argument given
-        set_temps # use stored temperatures
+        init_runtime && set_temps # use stored temperatures
     else
         case "$1" in # process arguments based on the first argument
-            set-temps) shift && set_temps "$*" ;;
-            get-temps) get_temps ;;
+            set-temps) shift && init_runtime && set_temps "$*" ;;
+            get-temps) init_runtime && get_temps ;;
             help) echo "$HELP_MESSAGE" ;;
             about) echo "$ABOUT_MESSAGE" ;;
             *) echo "invalid argument $1" >&2; return 1 ;;
         esac
     fi
+)
+
+#-------------------------------------------------------------------------------
+# RUNTIME INITIALIZATION
+#-------------------------------------------------------------------------------
+
+# DESCRIPTION:
+#   Initializes asus-fan-control runtime - checks whether ACPI is available and
+#   initializes information about the current device model.
+init_runtime() {
+    check_acpi && # check whether ACPI is available and accessible
+
+    # this variable name shall not be used outside this function
+    _model="$(get_host_model)" && # get current device model
+    # extract and derive model information
+    MODEL_ADDR="$(get_model_addr "$_model")" &&
+    MODEL_TEMPS="$(get_model_temps "$_model")" &&
+    MODEL_TEMPS_COUNT="$(echo "$MODEL_TEMPS" | wc -w)" &&
+
+    # model information should be exposed as global constants
+    readonly MODEL_ADDR MODEL_TEMPS MODEL_TEMPS_COUNT
+}
+
+#-------------------------------------------------------------------------------
+# MODELS
+#-------------------------------------------------------------------------------
+
+# DESCRIPTION:
+#   Detects the current device model name and prints its first database record
+#   if it exists. Otherwise, prints a temporary database record based on the
+#   current device model name and default base address and temperatures values.
+get_host_model() (
+    host_model_name="$(dmidecode -s system-product-name)" && # detect host
+    # keep only alphanumerical characters
+    host_model_name="$(echo "$host_model_name" | tr -d -c '[:alnum:]')" &&
+
+    while IFS= read -r model; do # for each database record
+        model_name="$(get_model_name "$model")" || return # extract its name
+        if [ "$model_name" = "$host_model_name" ]; then # compare with the host
+            echo "$model"; return # if match, print database record and return
+        fi
+    done < "$MODELS_PATH" &&
+
+    # temporary database record in case the current model is not in the database
+    echo "$host_model_name|$DEFAULT_ADDR|$DEFAULT_TEMPS" # use default values
+)
+
+# DESCRIPTION:
+#   Extracts the model name from a given model record.
+# PARAMETERS:
+#   $1 - model record
+get_model_name() {
+    echo "$1" | cut -f 1 -d '|' -s
+}
+
+# DESCRIPTION:
+#   Extracts the model base address from a given model record.
+# PARAMETERS:
+#   $1 - model record
+get_model_addr() {
+    echo "$1" | cut -f 2 -d '|' -s
+}
+
+# DESCRIPTION:
+#   Extracts the model temperatures from a given model record.
+# PARAMETERS:
+#   $1 - model record
+get_model_temps() {
+    echo "$1" | cut -f 3 -d '|' -s
 }
 
 #-------------------------------------------------------------------------------
@@ -127,65 +196,50 @@ process_args() {
 # DESCRIPTION:
 #   Applies given temperatures (or default ones in case 'default' is delivered)
 #   and store them. If no temperatures are delivered, last stored are applied.
+#   Runtime must be already initialized.
 # PARAMETERS:
 #   $1 - temperatures (optional)
-set_temps() (
-    check_acpi &&
-    model="$(get_host_model)" && # get database record for current device
-
+set_temps() {
     if [ ! "$1" ]; then # last stored temperatures
-        set_stored_temps "$model"
+        set_stored_temps
     elif [ "$1" = "$LABEL_DEFAULT" ]; then # default model temperatures
-        set_default_temps "$model"
-    else
-        set_custom_temps "$model" "$1"
+        set_default_temps
+    else # custom delivered temperatures
+        set_custom_temps "$1"
     fi
-)
+}
 
 # DESCRIPTION:
 #   Applies stored temperatures if they exist. Otherwise, applies default ones
-#   and stores them. Any temperature modifications are based on a given model,
-#   for which they should be applied.
-# PARAMETERS:
-#   $1 - model record
+#   and stores them.
 set_stored_temps() (
     if [ -r "$TEMPS_PATH" ]; then # if stored temperatures exist
-        addr="$(get_model_addr "$1")" && # extract given model base address
         temps="$(cat "$TEMPS_PATH")" && # load temperatures from the file
-        set_acpi_temps "$addr" "$temps" # apply temperatures
+        set_acpi_temps "$MODEL_ADDR" "$temps" # apply temperatures
     else # default temperatures will be used
-        set_default_temps "$1"
+        set_default_temps
     fi
 )
 
 # DESCRIPTION:
-#   Applies default temperatures based on a given model record and store them.
-# PARAMETERS:
-#   $1 - model record
-set_default_temps() (
-    addr="$(get_model_addr "$1")" && # extract base address
-    temps="$(get_model_temps "$1")" && # extract temperatures
-
-    set_acpi_temps "$addr" "$temps" && # apply temperatures
-    store_temps "$temps" # after success, store temperatures
-)
+#   Applies default temperatures and stores them.
+set_default_temps() {
+    set_acpi_temps "$MODEL_ADDR" "$MODEL_TEMPS" && # apply temperatures
+    store_temps "$MODEL_TEMPS" # after success, store temperatures
+}
 
 # DESCRIPTION:
-#   Checks given temperatures, applies them based on a given model record and
-#   store them.
+#   Checks given temperatures, applies them and stores them.
 # PARAMETERS:
-#   $1 - model record
-#   $2 - temperatures
-set_custom_temps() (
-    # check given temperatures whether they are valid for the given model
-    if ! check_temps "$1" "$2"; then
+#   $1 - temperatures
+set_custom_temps() {
+    if ! check_temps "$1"; then # check temperatures whether they are valid
         echo 'invalid custom temperatures' >&2; return 1
     fi
 
-    addr="$(get_model_addr "$1")" && # extract base address
-    set_acpi_temps "$addr" "$2" && # apply temperatures
-    store_temps "$2" # after success, store temperatures
-)
+    set_acpi_temps "$MODEL_ADDR" "$1" && # apply temperatures
+    store_temps "$1" # after success, store temperatures
+}
 
 #-------------------------------------------------------------------------------
 # TEMPERATURES
@@ -200,24 +254,20 @@ store_temps() {
 }
 
 # DESCRIPTION:
-#   Checks whether the second argument represents valid temperatures for a given
-#   device model.
+#   Checks whether a given argument represents valid temperatures.
 # PARAMETERS:
-#   $1 - model record
-#   $2 - any
+#   $1 - any
 check_temps() (
     temps_count=0; previous_temp=0 # prepare initial state
-    for temp in $2; do # for each word in the argument (for each temperature)
+    for temp in $1; do # for each word in the argument (for each temperature)
         check_pos_number "$temp" && # check whether it is a positive number
         test "$temp" -gt "$previous_temp" && # must be greater than previous
         previous_temp="$temp" && # store as previous
         temps_count="$((temps_count + 1))" || return # increase temps count
     done
 
-    # check that temperatures count is matching the given model
-    model_temps="$(get_model_temps "$1")" &&
-    model_temps_count="$(echo "$model_temps" | wc -w)" &&
-    test "$temps_count" -eq "$model_temps_count"
+    # check that temperatures count is matching the current model
+    test "$temps_count" -eq "$MODEL_TEMPS_COUNT"
 )
 
 # DESCRIPTION:
@@ -234,17 +284,10 @@ check_pos_number() {
 #-------------------------------------------------------------------------------
 
 # DESCRIPTION:
-#   Prints applied fan temperatures based on the current environment.
-get_temps() (
-    check_acpi &&
-
-    model="$(get_host_model)" && # get database record for current device
-    addr="$(get_model_addr "$model")" && # extract base address
-    temps="$(get_model_temps "$model")" && # extract temperatures
-    temps_count="$(echo "$temps" | wc -w)" && # number of temperatures
-
-    get_acpi_temps "$addr" "$temps_count" # get real ACPI temperatures
-)
+#   Prints applied fan temperatures. Runtime must be already initialized.
+get_temps() {
+    get_acpi_temps "$MODEL_ADDR" "$MODEL_TEMPS_COUNT" # get ACPI temperatures
+}
 
 #-------------------------------------------------------------------------------
 # ACPI
@@ -317,54 +360,6 @@ get_acpi_temp() (
     temp="$((temp))" && # convert from hexadecimal to decimal
     echo "$temp" # print the final temperature value
 )
-
-#-------------------------------------------------------------------------------
-# MODELS
-#-------------------------------------------------------------------------------
-
-# DESCRIPTION:
-#   Detects the current device model name and prints its first database record
-#   if it exists. Otherwise, prints a temporary database record based on the
-#   current device model name and default base address and temperatures values.
-get_host_model() (
-    host_model_name="$(dmidecode -s system-product-name)" && # detect host
-    # keep only alphanumerical characters
-    host_model_name="$(echo "$host_model_name" | tr -d -c '[:alnum:]')" &&
-
-    while IFS= read -r model; do # for each database record
-        model_name="$(get_model_name "$model")" || return # extract its name
-        if [ "$model_name" = "$host_model_name" ]; then # compare with the host
-            echo "$model"; return # if match, print database record and return
-        fi
-    done < "$MODELS_PATH" &&
-
-    # temporary database record in case the current model is not in the database
-    echo "$host_model_name|$DEFAULT_ADDR|$DEFAULT_TEMPS" # use default values
-)
-
-# DESCRIPTION:
-#   Extracts the model name from a given model record.
-# PARAMETERS:
-#   $1 - model record
-get_model_name() {
-    echo "$1" | cut -f 1 -d '|' -s
-}
-
-# DESCRIPTION:
-#   Extracts the model base address from a given model record.
-# PARAMETERS:
-#   $1 - model record
-get_model_addr() {
-    echo "$1" | cut -f 2 -d '|' -s
-}
-
-# DESCRIPTION:
-#   Extracts the model temperatures from a given model record.
-# PARAMETERS:
-#   $1 - model record
-get_model_temps() {
-    echo "$1" | cut -f 3 -d '|' -s
-}
 
 #-------------------------------------------------------------------------------
 # CALL MAIN
