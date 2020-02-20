@@ -32,7 +32,7 @@ main() {
 #   Checks whether used commands are present.
 check_commands() (
     # a list of required commands
-    commands='command echo [ cut id wc dmidecode read tr'
+    commands='command echo [ cut id wc dmidecode read tr cat test'
 
     for command in $commands; do # check if any command is missing
         if ! command -v "$command" > /dev/null; then
@@ -64,7 +64,7 @@ init_strings() {
   asus-fan-control get-temps | help | about
 
 COMMAND:
-  set-temps  store and apply fan temperatures
+  set-temps  apply and store fan temperatures
   get-temps  get fan temperatures"
 
     readonly ABOUT_MESSAGE="asus-fan-control $VERSION
@@ -77,7 +77,11 @@ github.com/dominiksalvet/asus-fan-control"
 # DESCRIPTION:
 #   Initializes all asus-fan-control's paths. They must be absolute paths.
 init_paths() {
+    # asus-fan-control paths
     readonly MODELS_PATH=/usr/share/asus-fan-control/models # models database
+    readonly TEMPS_PATH=/etc/asus-fan-control/temps # stored temperatures
+
+    # ACPI related
     readonly ACPI_CALL_PATH=/proc/acpi/call # ACPI interface file location
 }
 
@@ -107,7 +111,7 @@ process_args() {
         set_temps # use stored temperatures
     else
         case "$1" in # process arguments based on the first argument
-            set-temps) shift && set_temps "$@" ;;
+            set-temps) shift && set_temps "$*" ;;
             get-temps) get_temps ;;
             help) echo "$HELP_MESSAGE" ;;
             about) echo "$ABOUT_MESSAGE" ;;
@@ -117,28 +121,117 @@ process_args() {
 }
 
 #-------------------------------------------------------------------------------
-# SET AND GET TEMPERATURES
+# SET TEMPERATURES
 #-------------------------------------------------------------------------------
 
 # DESCRIPTION:
 #   Applies given temperatures (or default ones in case 'default' is delivered)
 #   and store them. If no temperatures are delivered, last stored are applied.
 # PARAMETERS:
-#   $@ - temperatures (optional)
-set_temps() {
+#   $1 - temperatures (optional)
+set_temps() (
     check_acpi &&
-
     model="$(get_host_model)" && # get database record for current device
-    addr="$(get_model_addr "$model")" && # extract base address
 
-    if [ "$#" -eq 0 ]; then # last stored temperatures
-        echo 'TODO: Apply stored temperatures.'
+    if [ ! "$1" ]; then # last stored temperatures
+        set_stored_temps "$model"
     elif [ "$1" = "$LABEL_DEFAULT" ]; then # default model temperatures
-        echo 'TODO: Apply default temperatures and store them.'
+        set_default_temps "$model"
     else
-        echo 'TODO: Check given temperatures, apply and store them'
+        set_custom_temps "$model" "$1"
     fi
+)
+
+# DESCRIPTION:
+#   Applies stored temperatures if they exist. Otherwise, applies default ones
+#   and stores them. Any temperature modifications are based on a given model,
+#   for which they should be applied.
+# PARAMETERS:
+#   $1 - model record
+set_stored_temps() (
+    if [ -r "$TEMPS_PATH" ]; then # if stored temperatures exist
+        addr="$(get_model_addr "$1")" && # extract given model base address
+        temps="$(cat "$TEMPS_PATH")" && # load temperatures from the file
+        set_acpi_temps "$addr" "$temps" # apply temperatures
+    else # default temperatures will be used
+        set_default_temps "$1"
+    fi
+)
+
+# DESCRIPTION:
+#   Applies default temperatures based on a given model record and store them.
+# PARAMETERS:
+#   $1 - model record
+set_default_temps() (
+    addr="$(get_model_addr "$1")" && # extract base address
+    temps="$(get_model_temps "$1")" && # extract temperatures
+
+    set_acpi_temps "$addr" "$temps" && # apply temperatures
+    store_temps "$temps" # after success, store temperatures
+)
+
+# DESCRIPTION:
+#   Checks given temperatures, applies them based on a given model record and
+#   store them.
+# PARAMETERS:
+#   $1 - model record
+#   $2 - temperatures
+set_custom_temps() (
+    # check given temperatures whether they are valid for the given model
+    if ! check_temps "$1" "$2"; then
+        echo 'invalid custom temperatures' >&2; return 1
+    fi
+
+    addr="$(get_model_addr "$1")" && # extract base address
+    set_acpi_temps "$addr" "$2" && # apply temperatures
+    store_temps "$2" # after success, store temperatures
+)
+
+#-------------------------------------------------------------------------------
+# TEMPERATURES
+#-------------------------------------------------------------------------------
+
+# DESCRIPTION:
+#   Stores given temperatures into the temps file for later use.
+# PARAMETERS:
+#   $1 - temperatures
+store_temps() {
+    echo "$1" > "$TEMPS_PATH"
 }
+
+# DESCRIPTION:
+#   Checks whether the second argument represents valid temperatures for a given
+#   device model.
+# PARAMETERS:
+#   $1 - model record
+#   $2 - any
+check_temps() (
+    temps_count=0; previous_temp=0 # prepare initial state
+    for temp in $2; do # for each word in the argument (for each temperature)
+        check_pos_number "$temp" && # check whether it is a positive number
+        test "$temp" -gt "$previous_temp" && # must be greater than previous
+        previous_temp="$temp" && # store as previous
+        temps_count="$((temps_count + 1))" || return # increase temps count
+    done
+
+    # check that temperatures count is matching the given model
+    model_temps="$(get_model_temps "$1")" &&
+    model_temps_count="$(echo "$model_temps" | wc -w)" &&
+    test "$temps_count" -eq "$model_temps_count"
+)
+
+# DESCRIPTION:
+#   Checks whether a given argument is a positive number.
+# PARAMETERS:
+#   $1 - any
+check_pos_number() {
+    test "$1" -eq "$1" 2>/dev/null && # true only for integer arguments
+    test "$1" -ge 0 # the number must be positive
+}
+
+#-------------------------------------------------------------------------------
+# GET TEMPERATURES
+#-------------------------------------------------------------------------------
 
 # DESCRIPTION:
 #   Prints applied fan temperatures based on the current environment.
@@ -150,7 +243,7 @@ get_temps() (
     temps="$(get_model_temps "$model")" && # extract temperatures
     temps_count="$(echo "$temps" | wc -w)" && # number of temperatures
 
-    get_acpi_temps "$addr" "$temps_count"
+    get_acpi_temps "$addr" "$temps_count" # get real ACPI temperatures
 )
 
 #-------------------------------------------------------------------------------
@@ -174,15 +267,12 @@ check_acpi() (
 #   Sets given fan temperatures using ACPI calls based on a given base address.
 # PARAMETERS:
 #   $1 - base address
-#   $@ - temperatures
+#   $2 - temperatures
 set_acpi_temps() (
-    addr="$1" # store base address
-    shift && # shift arguments to temperatures
-
-    temps_count=0 && # current temperature index
-    for temp in "$@"; do # for each temperature
+    temps_count=0 # current temperature index
+    for temp in $2; do # for each temperature
         # write the current temperature to ACPI
-        set_acpi_temp "$((addr + temps_count))" "$temp" &&
+        set_acpi_temp "$(($1 + temps_count))" "$temp" &&
         temps_count="$((temps_count + 1))" || return # next temperature
     done
 )
