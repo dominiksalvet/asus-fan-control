@@ -12,10 +12,12 @@ The changes not yet present in any release are listed in this section.
 
 * The whole asus-fan-control API has been remastered.
 * The `-help` option has been changed to the `help` command.
+* The acpi_call module loading is managed by systemd rather than in */etc/modules*.
 
 ### Fixed
 
 * Systemd service runs asus-fan-control on resume from hibernate.
+* The acpi_call module is loaded even after being updated.
 
 ## 2.12.0 (2019-12-29)
 
