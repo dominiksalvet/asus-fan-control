@@ -50,9 +50,6 @@ check_commands() (
 init_constants() {
     # the current version of asus-fan-control
     readonly VERSION=2.12.0
-
-    # useful asus-fan-control shortcuts
-    readonly LABEL_DEFAULT=default
 }
 
 # DESCRIPTION:
@@ -60,7 +57,7 @@ init_constants() {
 #   already initialized.
 init_strings() {
     readonly HELP_MESSAGE="USAGE:
-  asus-fan-control [set-temps $LABEL_DEFAULT | TEMPERATURES]
+  asus-fan-control [set-temps default | TEMPERATURES]
   asus-fan-control get-temps | help | about
 
 COMMAND:
@@ -202,7 +199,7 @@ get_model_temps() {
 set_temps() {
     if [ ! "$1" ]; then # last stored temperatures
         set_stored_temps
-    elif [ "$1" = "$LABEL_DEFAULT" ]; then # default model temperatures
+    elif [ "$1" = default ]; then # default model temperatures
         set_default_temps
     else # custom delivered temperatures
         set_custom_temps "$1"
