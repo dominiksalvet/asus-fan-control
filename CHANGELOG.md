@@ -10,6 +10,8 @@ The changes not yet present in any release are listed in this section.
 
 ### Changed
 
+* The whole asus-fan-control API has been remastered.
+* The `-help` option has been changed to the `help` command.
 * The acpi_call module loading is managed by systemd rather than in */etc/modules*.
 
 ### Fixed
