@@ -2,7 +2,7 @@
 
 #-------------------------------------------------------------------------------
 # Copyright 2020 Dominik Salvet
-# github.com/dominiksalvet/gitpack
+# github.com/dominiksalvet/asus-fan-control
 #-------------------------------------------------------------------------------
 # DESCRIPTION:
 #   Checks whether all given shell script files meet a basic code style defined
