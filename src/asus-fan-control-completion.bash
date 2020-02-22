@@ -16,14 +16,16 @@
 # DESCRIPTION:
 #   Prepares the next word hint based on the current part of the word.
 _asus-fan-control() {
-    local WORDS='-get-temps -set-default-temps -set-temps: -help -about -version' &&
+    local -r FIRST_WORDS='set-temps get-temps model-info help about' &&
+    local first_word="${COMP_WORDS[1]}" &&
+    local cur_word="${COMP_WORDS[COMP_CWORD]}" && # the current part of the word
 
-    # generate hint from available asus-fan-control's action
-    mapfile -t COMPREPLY < <(compgen -W "$WORDS" -- "${COMP_WORDS[COMP_CWORD]}") &&
-
-    # if there is only '-set-temps:', do not print an extra space
-    if [ "${#COMPREPLY[@]}" -eq 1 ] && [ "${COMPREPLY[0]}" = '-set-temps:' ]; then
-        compopt -o nospace
+    if [ "$COMP_CWORD" -eq 1 ]; then # commands
+        # prepare hints based on given arguments
+        mapfile -t COMPREPLY < <(compgen -W "$FIRST_WORDS" -- "$cur_word")
+    # provide hint for default temperatures while setting temperatures
+    elif [ "$COMP_CWORD" -eq 2 ] && [ "$first_word" = set-temps ]; then
+        mapfile -t COMPREPLY < <(compgen -W default -- "$cur_word")
     fi
 }
 
