@@ -60,13 +60,14 @@ init_constants() {
 #   Initializes strings used to display output to end users. Constants must be
 #   already initialized.
 init_strings() {
-    readonly HELP_MESSAGE="USAGE:
+    readonly HELP_MESSAGE='USAGE:
   asus-fan-control [set-temps default | TEMPERATURES]
-  asus-fan-control get-temps | help | about
+  asus-fan-control get-temps | info | help | about
 
 COMMAND:
   set-temps  apply and store fan temperatures
-  get-temps  get fan temperatures"
+  get-temps  get fan temperatures
+  info       show device information'
 
     readonly ABOUT_MESSAGE="asus-fan-control $VERSION
 Fan control for ASUS devices running Linux.
@@ -109,12 +110,22 @@ process_args() (
         case "$1" in # process arguments based on the first argument
             set-temps) shift && init_runtime && set_temps "$*" ;;
             get-temps) init_runtime && get_temps ;;
+            info) init_runtime && info ;;
             help) echo "$HELP_MESSAGE" ;;
             about) echo "$ABOUT_MESSAGE" ;;
             *) echo "invalid argument $1" >&2; return 1 ;;
         esac
     fi
 )
+
+# DESCRIPTION:
+#   Prints all obtained information about the current device.
+info() {
+    echo "model $MODEL_NAME" &&
+    echo "address $MODEL_ADDR" &&
+    echo "temperatures $MODEL_TEMPS" &&
+    echo "tested $MODEL_TESTED"
+}
 
 #-------------------------------------------------------------------------------
 # RUNTIME INITIALIZATION
@@ -129,12 +140,14 @@ init_runtime() {
     # this variable name shall not be used outside this function
     _model="$(get_host_model)" && # get current device model
     # extract and derive model information
+    MODEL_NAME="$(get_model_name "$_model")" &&
     MODEL_ADDR="$(get_model_addr "$_model")" &&
     MODEL_TEMPS="$(get_model_temps "$_model")" &&
     MODEL_TEMPS_COUNT="$(echo "$MODEL_TEMPS" | wc -w)" &&
+    MODEL_TESTED="$(get_model_tested "$_model")" &&
 
     # model information should be exposed as global constants
-    readonly MODEL_ADDR MODEL_TEMPS MODEL_TEMPS_COUNT
+    readonly MODEL_NAME MODEL_ADDR MODEL_TEMPS MODEL_TEMPS_COUNT MODEL_TESTED
 }
 
 #-------------------------------------------------------------------------------
@@ -142,23 +155,29 @@ init_runtime() {
 #-------------------------------------------------------------------------------
 
 # DESCRIPTION:
-#   Detects the current device model name and prints its first database record
-#   if it exists. Otherwise, prints a temporary database record based on the
-#   current device model name and default base address and temperatures values.
+#   Detects the current device model and prints its first database record if it
+#   exists. Otherwise, prints a made up database record based on fallback
+#   constants. The database record is extended by the information about the
+#   model presence in the models database.
 get_host_model() (
-    host_model_name="$(dmidecode -s system-product-name)" && # detect host
-    # keep only alphanumerical characters
-    host_model_name="$(echo "$host_model_name" | tr -d -c '[:alnum:]')" &&
+    host_model_name="$(get_host_model_name)" && # automatically detect host
 
     while IFS= read -r model; do # for each database record
         model_name="$(get_model_name "$model")" || return # extract its name
         if [ "$model_name" = "$host_model_name" ]; then # compare with the host
-            echo "$model"; return # if match, print database record and return
+            echo "$model|true"; return # if match, print the record and return
         fi
     done < "$MODELS_PATH" &&
 
-    # temporary database record in case the current model is not in the database
-    echo "$host_model_name|$FALLBACK_ADDR|$FALLBACK_TEMPS" # use fallback values
+    echo "$host_model_name|$FALLBACK_ADDR|$FALLBACK_TEMPS|false" # fallback
+)
+
+# DESCRIPION:
+#   Prints the current device model name while keeping only alphanumerical
+#   characters.
+get_host_model_name() (
+    model_name="$(dmidecode -s system-product-name)" && # detect host
+    echo "$model_name" | tr -d -c '[:alnum:]' # keep alphanumerical characters
 )
 
 # DESCRIPTION:
@@ -183,6 +202,14 @@ get_model_addr() {
 #   $1 - model record
 get_model_temps() {
     echo "$1" | cut -f 3 -d '|' -s
+}
+
+# DESCRIPTION:
+#   Prints whether the device model of a given model record was tested.
+# PARAMETERS:
+#   $1 - model record
+get_model_tested() {
+    echo "$1" | cut -f 4 -d '|' -s
 }
 
 #-------------------------------------------------------------------------------

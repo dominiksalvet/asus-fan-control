@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 The changes not yet present in any release are listed in this section.
 
+### Added
+
+* The `info` command showing current model information has been added.
+
 ### Changed
 
 * The whole asus-fan-control API has been remastered.
