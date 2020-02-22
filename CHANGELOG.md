@@ -10,6 +10,8 @@ The changes not yet present in any release are listed in this section.
 
 ### Added
 
+* Added support for different ACPI base addresses among supported models.
+* Added support for different number of temperatures among supported models.
 * The `model-info` command showing current device model information has been added.
 
 ### Changed
