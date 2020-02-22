@@ -1,6 +1,6 @@
 # Contributing
 
-The development of this project is published on [this website](https://github.com/dominiksalvet/asus-fan-control) and **everyone is welcome to contribute**. Here is described how.
+The development of asus-fan-control is published on [this website](https://github.com/dominiksalvet/asus-fan-control) and **everyone is welcome to contribute**. Here is described how.
 
 ## Test a new laptop model
 

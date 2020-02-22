@@ -12,7 +12,7 @@ In default, some ASUS laptops running Linux control their system fans inappropri
 * Not running fans under load appropriately
 * Spinning up fans in short performance peaks
 
-This program solves the problems above and even more. It is also very easy to understand as it communicates with hardware exclusively using ACPI calls. **Tested ASUS models** with links to their first testers:
+Asus-fan-control solves the problems above and even more. It is also very easy to understand as it communicates with hardware exclusively using ACPI calls. **Tested ASUS models** with links to their first testers:
 
 | ASUSPRO      | ROG                | VivoBook       | ZenBook            |
 |--------------|--------------------|----------------|--------------------|
@@ -52,7 +52,7 @@ This program solves the problems above and even more. It is also very easy to un
 
 ### Using GitPack
 
-This project supports [GitPack](https://github.com/dominiksalvet/gitpack). Global installation/update:
+Asus-fan-control supports [GitPack](https://github.com/dominiksalvet/gitpack). Global installation/update:
 
 ```sh
 sudo gitpack install github.com/dominiksalvet/asus-fan-control
@@ -102,7 +102,7 @@ sudo asus-fan-control set-temps 45 50 55 60 65 70 75 80
 
 ## Thanks
 
-The very core of this project stands on [Aleh Filipovich](https://github.com/afilipovich)'s [observation](https://github.com/daringer/asus-fan/issues/44#issuecomment-307589414).
+The very core of asus-fan-control stands on [Aleh Filipovich](https://github.com/afilipovich)'s [observation](https://github.com/daringer/asus-fan/issues/44#issuecomment-307589414).
 
 ## Contributing
 
@@ -110,4 +110,4 @@ Do you want to contribute? Do you have any questions? Then the [*CONTRIBUTING.md
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+Asus-fan-control is licensed under the [MIT License](LICENSE).
