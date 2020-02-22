@@ -1,11 +1,10 @@
 ---
 name: Question
 about: Ask a question about asus-fan-control
-title: ''
+title: <question>
 labels: question
 assignees: dominiksalvet
-
 ---
 
-**Question**
-Ask an asus-fan-control related question.
+**Additional context**
+Add any additional context to the question.
