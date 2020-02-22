@@ -4,7 +4,6 @@ about: Propose adding support for a new laptop model
 title: ''
 labels: add new model
 assignees: dominiksalvet
-
 ---
 
 **Environment**
