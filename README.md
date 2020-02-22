@@ -29,7 +29,7 @@ This program solves the problems above and even more. It is also very easy to un
 [7]: https://github.com/fsanzdev
 [8]: https://github.com/dominiksalvet
 
-> Your laptop is not in the table yet? Take a look at [*CONTRIBUTING.md*](CONTRIBUTING.md) file and you can add it yourself.
+> Your laptop is not in the table yet? Take a look at [*CONTRIBUTING.md*](CONTRIBUTING.md) file and you can easily add it yourself.
 
 ## Table of Contents
 
@@ -80,7 +80,7 @@ sudo asus-fan-control
 
 ### Custom temperatures
 
-The fan speed policy is defined by usually 8 increasing numbers representing temperature boundaries in degrees Celsius between individual fan speed levels. E.g., UX430UA's default temperatures are `55 60 62 65 68 72 76 80` as shown:
+The fan speed policy is usually defined by 8 increasing numbers representing temperature boundaries in degrees Celsius between individual fan speed levels. E.g., UX430UA's default temperatures are `55 60 62 65 68 72 76 80` as shown:
 
 | Speed level | Temperature (C°) |
 |-------------|------------------|
