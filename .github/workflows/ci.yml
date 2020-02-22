@@ -16,8 +16,13 @@ jobs:
     - name: Check shellcheck
       run: shellcheck --version
 
+    - name: Check CI scripts
+      run: shellcheck .github/scripts/*
+
     - name: Check source files
-      run: shellcheck src/*
+      run: |
+        shellcheck src/*
+        .github/scripts/stylecheck src/*
 
     - name: Check GitPack files
       run: shellcheck .gitpack/install/global-Linux/p*
