@@ -12,7 +12,7 @@ If your device works out of the box, try to find suitable temperatures using `su
 
 ### Advanced configuration
 
-If your device does not work out of the box, advanced configuration may be required. You need to find or better, know, the ACPI base address for fan configuration and the number of temperatures of your device. You should be able to set temperatures using `sudo FALLBACK_ADDR=<addr> FALLBACK_TEMPS=<temps> asus-fan-control set-temps default` in this case. Try to find suitable temperatures and continue as stated in the [Suggestions and questions](#suggestions-and-questions) section.
+If your device does not work out of the box, advanced configuration may be required. You need to find or better, know, the ACPI base address for fan configuration and the number of temperatures of your device. You should be able to set temperatures using `sudo FALLBACK_ADDR=<addr> FALLBACK_TEMPS='<temps>' asus-fan-control set-temps default` in this case. Try to find suitable temperatures and continue as stated in the [Suggestions and questions](#suggestions-and-questions) section.
 
 > Keep in mind that until the support for your model is added, you have to use the `FALLBACK` environment variables for any asus-fan-control invocation with root permissions.
 
