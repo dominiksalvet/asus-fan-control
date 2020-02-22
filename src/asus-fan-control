@@ -62,12 +62,12 @@ init_constants() {
 init_strings() {
     readonly HELP_MESSAGE='USAGE:
   asus-fan-control [set-temps default | TEMPERATURES]
-  asus-fan-control get-temps | info | help | about
+  asus-fan-control get-temps | model-info | help | about
 
 COMMAND:
-  set-temps  apply and store fan temperatures
-  get-temps  get fan temperatures
-  info       show device information'
+  set-temps   apply and store fan temperatures
+  get-temps   get fan temperatures
+  model-info  show device model information'
 
     readonly ABOUT_MESSAGE="asus-fan-control $VERSION
 Fan control for ASUS devices running Linux.
@@ -111,7 +111,7 @@ process_args() (
         case "$1" in # process arguments based on the first argument
             set-temps) shift && init_runtime && set_temps "$*" ;;
             get-temps) init_runtime && get_temps ;;
-            info) init_runtime && info ;;
+            model-info) init_runtime && model_info ;;
             help) echo "$HELP_MESSAGE" ;;
             about) echo "$ABOUT_MESSAGE" ;;
             *) echo "invalid argument $1" >&2; return 1 ;;
@@ -120,9 +120,9 @@ process_args() (
 )
 
 # DESCRIPTION:
-#   Prints all obtained information about the current device.
-info() {
-    echo "model $MODEL_NAME" &&
+#   Prints all obtained information about the current device model.
+model_info() {
+    echo "name $MODEL_NAME" &&
     echo "address $MODEL_ADDR" &&
     echo "temperatures $MODEL_TEMPS" &&
     echo "tested $MODEL_TESTED"

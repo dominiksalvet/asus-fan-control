@@ -10,7 +10,7 @@ The changes not yet present in any release are listed in this section.
 
 ### Added
 
-* The `info` command showing current model information has been added.
+* The `model-info` command showing current device model information has been added.
 
 ### Changed
 
