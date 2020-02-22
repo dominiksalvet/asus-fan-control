@@ -1,5 +1,5 @@
 #-------------------------------------------------------------------------------
-# Copyright 2019 Dominik Salvet
+# Copyright 2019-2020 Dominik Salvet
 # github.com/dominiksalvet/asus-fan-control
 #-------------------------------------------------------------------------------
 
@@ -10,7 +10,8 @@ jobs:
   Analysis:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - name: Checkout commit
+      uses: actions/checkout@v2
 
     - name: Check shellcheck
       run: shellcheck --version
