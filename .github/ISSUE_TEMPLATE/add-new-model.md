@@ -9,11 +9,14 @@ assignees: dominiksalvet
 **Environment**
 State asus-fan-control version and OS information.
 
-**Temperature configuration**
-Add output of `sudo asus-fan-control get-temps` command.
+**Basic configuration**
+If only temperatures were configured, add output of:
+* `sudo asus-fan-control get-temps`
+* `sudo asus-fan-control model-info`
 
-**Laptop model name**
-Add output of `sudo dmidecode -s system-product-name` command.
+**Advanced configuration**
+If advanced configuration was used, add output of:
+* `sudo FALLBACK_ADDR=<addr> FALLBACK_TEMPS=<temps> asus-fan-control model-info`
 
 **Additional context**
 Add any additional context.

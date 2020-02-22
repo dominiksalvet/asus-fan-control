@@ -2,11 +2,19 @@
 
 The development of asus-fan-control is published on [this website](https://github.com/dominiksalvet/asus-fan-control) and **everyone is welcome to contribute**.
 
-## Test a new laptop model
+## Test a new laptop
 
-If you are about to test a new laptop model that has not been tested yet, you should know that **none of asus-fan-control authors is responsible for possible damage** it can cause to your device as the program uses ACPI calls and it modifies data on some addresses. Nevertheless, target addresses should be set to their default values on tested models when rebooting the system.
+If you want to test a new laptop, you should know that **none of asus-fan-control authors is responsible for possible damage** it can cause. Nevertheless, even in case of any problems, uninstalling asus-fan-control and reboot the system should help.
 
-Provided the program is working on your device, try to find the best temperature configuration for your device using the `sudo asus-fan-control set-temps TEMPERATURES` command. Then follow the steps described in the [Suggestions](#suggestions) section and add the output of `sudo asus-fan-control get-temps` and `sudo dmidecode -s system-product-name` commands to the issue text. In case you had to change the ACPI base address or the number of temperatures, state this fact in the issue as well. If the issue is approved, your laptop will be added to tested models in [*README.md*](README.md) file and the program will recognize it.
+### Basic configuration
+
+If your device works out of the box, try to find suitable temperatures using `sudo asus-fan-control set-temps <temps>` and continue as stated in the [Suggestions and questions](#suggestions-and-questions) section.
+
+### Advanced configuration
+
+If your device does not work out of the box, advanced configuration may be required. You need to find or better, know, the ACPI base address for fan configuration and the number of temperatures of your device. You should be able to set temperatures using `sudo FALLBACK_ADDR=<addr> FALLBACK_TEMPS=<temps> asus-fan-control set-temps default` in this case. Try to find suitable temperatures and continue as stated in the [Suggestions and questions](#suggestions-and-questions) section.
+
+> Keep in mind that until the support for your model is added, you have to use the `FALLBACK` environment variables for any asus-fan-control invocation with root permissions.
 
 ## Suggestions and questions
 
