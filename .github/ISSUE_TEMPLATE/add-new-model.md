@@ -1,7 +1,7 @@
 ---
 name: Add new model
 about: Propose adding support for a new laptop model
-title: ''
+title: Add support for MODEL
 labels: add new model
 assignees: dominiksalvet
 ---
