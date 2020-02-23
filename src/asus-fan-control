@@ -206,7 +206,7 @@ get_model_temps() {
 }
 
 # DESCRIPTION:
-#   Prints whether the device model of a given model record was tested.
+#   Prints whether the device model of a given extended model record was tested.
 # PARAMETERS:
 #   $1 - model record
 get_model_tested() {
