@@ -8,13 +8,19 @@ If you want to test a new laptop, you should know that **none of asus-fan-contro
 
 ### Basic configuration
 
-If your device works out of the box, try to find suitable temperatures using `sudo asus-fan-control set-temps <temps>` and continue as stated in the [Suggestions and questions](#suggestions-and-questions) section.
+If your device works out of the box, try to find suitable temperatures using `sudo asus-fan-control set-temps <temps>` command and continue as stated in the [Suggestions and questions](#suggestions-and-questions) section.
 
 ### Advanced configuration
 
-If your device does not work out of the box, advanced configuration may be required. You need to find or better, know, the ACPI base address for fan configuration and the number of temperatures of your device. You should be able to set temperatures using `sudo FALLBACK_ADDR=<addr> FALLBACK_TEMPS='<temps>' asus-fan-control set-temps default` in this case. Try to find suitable temperatures and continue as stated in the [Suggestions and questions](#suggestions-and-questions) section.
+If your device does not work out of the box, do not despair. It is most likely caused by a different base ACPI fan address of your device. So you need to know or find your ACPI address. For this purpose, [afc-scout](https://github.com/dominiksalvet/afc-scout) has been created and it should significantly help you. Once you have the ACPI address, you will be able to set temperatures using the following command:
 
-> Keep in mind that until the support for your model is added, you have to use the `FALLBACK` environment variables for any asus-fan-control invocation with root permissions.
+```
+sudo FALLBACK_ADDR=<addr> FALLBACK_TEMPS='<temps>' asus-fan-control set-temps default
+```
+
+> Keep in mind that until the support for your model is added, you have to use the `FALLBACK` environment variables for any asus-fan-control invocation with root permissions. Then, you will be able to use asus-fan-control normally.
+
+Once it works, try to find suitable temperatures and continue as stated in the [Suggestions and questions](#suggestions-and-questions) section.
 
 ## Suggestions and questions
 
