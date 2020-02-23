@@ -12,7 +12,7 @@ If your device works out of the box, try to find suitable temperatures using `su
 
 ### Advanced configuration
 
-If your device does not work out of the box, do not despair. It is most likely caused by a different base ACPI fan address of your device. So you need to know or find your ACPI address. For this purpose, [afc-scout](https://github.com/dominiksalvet/afc-scout) has been created and it should significantly help you. Once you have the ACPI address, you will be able to set temperatures using the following command:
+If your device does not work out of the box, do not despair. It is most likely caused by a different base ACPI fan address of your device. So you need to find your ACPI address. For this purpose, [afc-scout](https://github.com/dominiksalvet/afc-scout) has been created and it should significantly help you. Once you have the ACPI address, you will be able to set temperatures using the following command:
 
 ```
 sudo FALLBACK_ADDR=<addr> FALLBACK_TEMPS='<temps>' asus-fan-control set-temps default
