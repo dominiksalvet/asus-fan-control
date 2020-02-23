@@ -14,11 +14,11 @@ In default, some ASUS laptops running Linux control their system fans inappropri
 
 Asus-fan-control solves the problems above and even more. It is also very easy to understand as it communicates with hardware exclusively using ACPI calls. **Tested ASUS models** with links to their first testers:
 
-| ASUSPRO      | ROG                | VivoBook       | ZenBook            |
-|--------------|--------------------|----------------|--------------------|
-| [B9440UA][1] | [G752VL][2]        | [15 X510UA][4] | [Flip UX360UAK][6] |
-|              | [Strix GL553VD][3] | [15 X512FA][5] | [UX410UA][7]       |
-|              |                    |                | [UX430UA][8]       |
+| ASUSPRO      | ROG          | VivoBook       | ZenBook            |
+|--------------|--------------|----------------|--------------------|
+| [B9440UA][1] | [G752VL][2]  | [15 X510UA][4] | [Flip UX360UAK][6] |
+|              | [GL553VD][3] | [15 X512FA][5] | [UX410UA][7]       |
+|              |              |                | [UX430UA][8]       |
 
 [1]: https://github.com/fzwoch
 [2]: https://github.com/icegood
