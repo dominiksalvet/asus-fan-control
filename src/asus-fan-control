@@ -285,7 +285,7 @@ check_temps() (
     temps_count=0; previous_temp=0 # prepare initial state
     for temp in $1; do # for each word in the argument (for each temperature)
         check_pos_number "$temp" && # check whether it is a positive number
-        test "$temp" -gt "$previous_temp" && # must be greater than previous
+        test "$temp" -ge "$previous_temp" && # must not be less than previous
         previous_temp="$temp" && # store as previous
         temps_count="$((temps_count + 1))" || return # increase temps count
     done
