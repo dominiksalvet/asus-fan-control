@@ -12,6 +12,10 @@ The changes not yet present in any release are listed in this section.
 
 * Neighboring temperatures may be equal in `set-temps` command.
 
+### Fixed
+
+* The *temps* file is created after its parent directory exists.
+
 ## 3.0.0 (2020-02-22)
 
 ### Added

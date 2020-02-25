@@ -32,7 +32,7 @@ main() {
 #   Checks whether used commands are present.
 check_commands() (
     # a list of required commands
-    commands='command echo [ cut id wc dmidecode read tr cat test'
+    commands='command echo [ cut id wc dmidecode read tr cat test mkdir'
 
     for command in $commands; do # check if any command is missing
         if ! command -v "$command" > /dev/null; then
@@ -79,9 +79,13 @@ github.com/dominiksalvet/asus-fan-control"
 # DESCRIPTION:
 #   Initializes all asus-fan-control's paths. They must be absolute paths.
 init_paths() {
-    # asus-fan-control paths
-    readonly MODELS_PATH=/usr/share/asus-fan-control/models # models database
-    readonly TEMPS_PATH=/etc/asus-fan-control/temps # stored temperatures
+    # base asus-fan-control directories (respect FHS)
+    readonly DATA_DIR=/usr/share/asus-fan-control # base data directory
+    readonly CONFIG_DIR=/etc/asus-fan-control # base configuration directory
+
+    # derived asus-fan-control file paths
+    readonly MODELS_PATH="$DATA_DIR"/models # models database
+    readonly TEMPS_PATH="$CONFIG_DIR"/temps # stored temperatures
 
     # ACPI related
     readonly ACPI_CALL_PATH=/proc/acpi/call # ACPI interface file location
@@ -274,7 +278,8 @@ set_custom_temps() {
 # PARAMETERS:
 #   $1 - temperatures
 store_temps() {
-    echo "$1" > "$TEMPS_PATH"
+    mkdir -p "$CONFIG_DIR"/ && # create the configuration directory
+    echo "$1" > "$TEMPS_PATH" # store the temperatures into a file
 }
 
 # DESCRIPTION:
