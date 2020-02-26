@@ -29,17 +29,12 @@ main() {
 }
 
 # DESCRIPTION:
-#   Checks whether used commands are present.
-check_commands() (
-    # a list of required commands
-    commands='command echo [ cut id wc dmidecode read tr cat test mkdir'
-
-    for command in $commands; do # check if any command is missing
-        if ! command -v "$command" > /dev/null; then
-            echo "missing $command command" >&2; return 1
-        fi
-    done
-)
+#   Checks whether optional commands are present.
+check_commands() {
+    if ! command -v dmidecode > /dev/null; then # check only dmidecode
+        echo 'missing dmidecode command' >&2; return 1
+    fi
+}
 
 #-------------------------------------------------------------------------------
 # STATIC INITIALIZATION

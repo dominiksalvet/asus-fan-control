@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 The changes not yet present in any release are listed in this section.
 
+### Changed
+
+* Only optional commands are checked for their existence before execution.
+
 ## 3.1.0 (2020-02-25)
 
 ### Changed
