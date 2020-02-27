@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #-------------------------------------------------------------------------------
-# Copyright 2019 Dominik Salvet
+# Copyright 2019-2020 Dominik Salvet
 # Copyright 2019 Alexander Agura
 # github.com/dominiksalvet/asus-fan-control
 #-------------------------------------------------------------------------------
@@ -10,4 +10,6 @@
 systemctl -q enable asus-fan-control.service &&
 
 # try to apply changes immediately
-{ asus-fan-control; true; } # not a problem if it fails
+if ! asus-fan-control; then
+    echo 'failed to apply changes immediately' >&2 # do not return fail, though
+fi
