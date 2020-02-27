@@ -91,7 +91,7 @@ init_paths() {
 init_config() {
     # set fallback model attributes respecting the environment
     readonly FALLBACK_ADDR="${FALLBACK_ADDR:-1335}" # base fan control address
-    readonly FALLBACK_TEMPS="${FALLBACK_TEMPS:-'55 60 62 65 68 72 76 80'}"
+    readonly FALLBACK_TEMPS="${FALLBACK_TEMPS:-55 60 62 65 68 72 76 80}"
 }
 
 #-------------------------------------------------------------------------------
