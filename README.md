@@ -18,6 +18,7 @@ Asus-fan-control solves the problems above and even more. It is also very easy t
 |--------------|--------------|----------------|--------------------|
 | [B9440UA][1] | [G752VL][2]  | [15 X510UA][4] | [Flip UX360UAK][6] |
 |              | [GL553VD][3] | [15 X512FA][5] | [UX410UA][7]       |
+|              |              |                | [UX410UQ][9]       |
 |              |              |                | [UX430UA][8]       |
 
 [1]: https://github.com/fzwoch
@@ -28,6 +29,7 @@ Asus-fan-control solves the problems above and even more. It is also very easy t
 [6]: https://github.com/afilipovich
 [7]: https://github.com/fsanzdev
 [8]: https://github.com/dominiksalvet
+[9]: https://github.com/gobenavides
 
 > Your laptop is not in the table yet? Take a look at [*CONTRIBUTING.md*](CONTRIBUTING.md) file and you can easily add it yourself.
 
