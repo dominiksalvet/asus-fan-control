@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 The changes not yet present in any release are listed in this section.
 
+### Changed
+
+* The dmidecode tool is installed automatically on systems with APT.
+
 ### Fixed
 
 * Stop setting `FALLBACK_TEMPS` default value with apostrophes.

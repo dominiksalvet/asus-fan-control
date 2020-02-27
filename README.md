@@ -50,7 +50,8 @@ Asus-fan-control solves the problems above and even more. It is also very easy t
 ### Dependencies
 
 * **systemd** suite
-* **acpi_call** kernel module (see below)
+* **acpi_call** module (see below)
+* **dmidecode** tool (see below)
 
 ### Using GitPack
 
@@ -60,7 +61,7 @@ Asus-fan-control supports [GitPack](https://github.com/dominiksalvet/gitpack). G
 sudo gitpack install github.com/dominiksalvet/asus-fan-control
 ```
 
-> If your system has `apt-get`, GitPack will install acpi_call automatically.
+> If your system has APT, GitPack will install acpi_call and dmidecode automatically.
 
 ### From AUR
 

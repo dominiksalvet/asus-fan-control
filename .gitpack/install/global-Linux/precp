@@ -1,33 +1,36 @@
 #!/bin/sh
 
 #-------------------------------------------------------------------------------
-# Copyright 2019 Dominik Salvet
+# Copyright 2019-2020 Dominik Salvet
 # Copyright 2020 Alexander Agura
 # github.com/dominiksalvet/asus-fan-control
 #-------------------------------------------------------------------------------
 
-# dependencies are not installed by default
-installed=false &&
+# default commands state
+apt_get_present=false
+dpkg_present=false
+# mark callable commands as present
+if command -v apt-get > /dev/null; then apt_get_present=true; fi
+if command -v dpkg > /dev/null; then dpkg_present=true; fi
 
-# check whether dependencies can be installed automatically
-if command -v apt-get > /dev/null; then
-    if [ "$OFFLINE_MODE" = true ]; then # check if GitPack is in offline mode
-        if dpkg -l acpi-call-dkms > /dev/null 2>&1; then # check if installed
-            installed=true
-        else
-            echo 'cannot install acpi-call-dkms in offline mode' >&2; exit 1
+# install dmidecode
+if [ "$OFFLINE_MODE" = true ]; then
+    if [ "$dpkg_present" = true ]; then
+        if ! dpkg -l dmidecode > /dev/null 2>&1; then
+            echo 'cannot install dmidecode in offline mode' >&2; exit 1
         fi
-    else
-        # install acpi_call kernel module to make ACPI calls
-        apt-get install -y acpi-call-dkms > /dev/null &&
-        installed=true # acpi_call installed
     fi
+elif [ "$apt_get_present" = true ]; then
+    apt-get install -y dmidecode > /dev/null
 fi &&
 
-# if dependencies have been installed
-if [ "$installed" = true ]; then
-    # load acpi_call immediately
-    if command -v modprobe > /dev/null; then
-        modprobe acpi_call; true # not a problem if it fails
+# install acpi-call-dkms
+if [ "$OFFLINE_MODE" = true ]; then
+    if [ "$dpkg_present" = true ]; then
+        if ! dpkg -l acpi-call-dkms > /dev/null 2>&1; then
+            echo 'cannot install acpi-call-dkms in offline mode' >&2; exit 1
+        fi
     fi
+elif [ "$apt_get_present" = true ]; then
+    apt-get install -y acpi-call-dkms > /dev/null
 fi
