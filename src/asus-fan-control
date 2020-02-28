@@ -119,19 +119,6 @@ process_args() (
 )
 
 # DESCRIPTION:
-#   Prints all obtained information about the current device model.
-model_info() {
-    echo "name $MODEL_NAME" &&
-    echo "address $MODEL_ADDR" &&
-    echo "temperatures $MODEL_TEMPS" &&
-    echo "tested $MODEL_TESTED"
-}
-
-#-------------------------------------------------------------------------------
-# RUNTIME INITIALIZATION
-#-------------------------------------------------------------------------------
-
-# DESCRIPTION:
 #   Initializes asus-fan-control runtime - checks whether ACPI is available and
 #   initializes information about the current device model.
 init_runtime() {
@@ -148,6 +135,15 @@ init_runtime() {
 
     # model information should be exposed as global constants
     readonly MODEL_NAME MODEL_ADDR MODEL_TEMPS MODEL_TEMPS_COUNT MODEL_TESTED
+}
+
+# DESCRIPTION:
+#   Prints all obtained information about the current device model.
+model_info() {
+    echo "name $MODEL_NAME" &&
+    echo "address $MODEL_ADDR" &&
+    echo "temperatures $MODEL_TEMPS" &&
+    echo "tested $MODEL_TESTED"
 }
 
 #-------------------------------------------------------------------------------
@@ -264,10 +260,6 @@ set_custom_temps() {
     store_temps "$1" # after success, store temperatures
 }
 
-#-------------------------------------------------------------------------------
-# TEMPERATURES
-#-------------------------------------------------------------------------------
-
 # DESCRIPTION:
 #   Stores given temperatures into the temps file for later use.
 # PARAMETERS:
@@ -276,6 +268,20 @@ store_temps() {
     mkdir -p "$CONFIG_DIR"/ && # create the configuration directory
     echo "$1" > "$TEMPS_PATH" # store the temperatures into a file
 }
+
+#-------------------------------------------------------------------------------
+# GET TEMPERATURES
+#-------------------------------------------------------------------------------
+
+# DESCRIPTION:
+#   Prints applied fan temperatures. Runtime must be already initialized.
+get_temps() {
+    get_acpi_temps "$MODEL_ADDR" "$MODEL_TEMPS_COUNT" # get ACPI temperatures
+}
+
+#-------------------------------------------------------------------------------
+# TEMPERATURES
+#-------------------------------------------------------------------------------
 
 # DESCRIPTION:
 #   Checks whether a given argument represents valid temperatures.
@@ -301,16 +307,6 @@ check_temps() (
 check_pos_number() {
     test "$1" -eq "$1" 2>/dev/null && # true only for integer arguments
     test "$1" -ge 0 # the number must be positive
-}
-
-#-------------------------------------------------------------------------------
-# GET TEMPERATURES
-#-------------------------------------------------------------------------------
-
-# DESCRIPTION:
-#   Prints applied fan temperatures. Runtime must be already initialized.
-get_temps() {
-    get_acpi_temps "$MODEL_ADDR" "$MODEL_TEMPS_COUNT" # get ACPI temperatures
 }
 
 #-------------------------------------------------------------------------------
