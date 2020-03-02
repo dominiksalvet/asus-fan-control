@@ -11,6 +11,7 @@ The changes not yet present in any release are listed in this section.
 ### Changed
 
 * The dmidecode tool is installed automatically on systems with APT.
+* Addresses and temperatures from all sources are checked before being used.
 
 ### Fixed
 

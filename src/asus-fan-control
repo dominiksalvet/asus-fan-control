@@ -119,11 +119,32 @@ process_args() (
 )
 
 # DESCRIPTION:
-#   Initializes asus-fan-control runtime - checks whether ACPI is available and
-#   initializes information about the current device model.
+#   Prints obtained information about the current device model.
+model_info() {
+    echo "name $MODEL_NAME" &&
+    echo "address $MODEL_ADDR" &&
+    echo "temperatures $MODEL_TEMPS" &&
+    echo "tested $MODEL_TESTED"
+}
+
+#-------------------------------------------------------------------------------
+# RUNTIME INITIALIZATION
+#-------------------------------------------------------------------------------
+
+# DESCRIPTION:
+#   Initializes asus-fan-control runtime - it checks whether ACPI is available,
+#   prepares information about the current device model and checks whether this
+#   information is valid.
 init_runtime() {
     check_acpi && # check whether ACPI is available and accessible
+    init_model && # get information about current device
+    check_model # check whether obtained information looks valid
+}
 
+# DESCRIPTION:
+#   Initializes information about the current device model. Also considers
+#   current environment variables.
+init_model() {
     # this variable name shall not be used outside this function
     _model="$(get_host_model)" && # get current device model
     # extract and derive model information
@@ -138,13 +159,37 @@ init_runtime() {
 }
 
 # DESCRIPTION:
-#   Prints all obtained information about the current device model.
-model_info() {
-    echo "name $MODEL_NAME" &&
-    echo "address $MODEL_ADDR" &&
-    echo "temperatures $MODEL_TEMPS" &&
-    echo "tested $MODEL_TESTED"
+#   Checks whether current device information, which may be affected by current
+#   environment, is valid.
+check_model() {
+    if ! [ "$MODEL_ADDR" -ge 0 ] 2>/dev/null; then # check base ACPI fan address
+        echo "invalid model address $MODEL_ADDR" >&2; return 1
+    fi
+
+    if ! [ "$MODEL_TEMPS_COUNT" -gt 0 ] 2>/dev/null; then # check temps count
+        echo "invalid model temperatures count $MODEL_TEMPS_COUNT" >&2; return 1
+    fi
+
+    if ! check_temps "$MODEL_TEMPS"; then # check temperatures
+        echo "invalid model temperatures $MODEL_TEMPS" >&2; return 1
+    fi
 }
+
+# DESCRIPTION:
+#   Checks whether a given argument represents valid temperatures.
+# PARAMETERS:
+#   $1 - any
+check_temps() (
+    temps_count=0; previous_temp=0 # prepare initial state
+    for temp in $1; do # for each word in the argument (for each temperature)
+        test "$temp" -ge "$previous_temp" 2>/dev/null && # must not be less
+        previous_temp="$temp" && # store as previous
+        temps_count="$((temps_count + 1))" || return # increase temps count
+    done
+
+    # check that temperatures count is matching the current model
+    test "$temps_count" -eq "$MODEL_TEMPS_COUNT"
+)
 
 #-------------------------------------------------------------------------------
 # MODELS
@@ -229,15 +274,20 @@ set_temps() {
 }
 
 # DESCRIPTION:
-#   Applies stored temperatures if they exist. Otherwise, applies default ones
-#   and stores them.
+#   If stored temperatures exist, checks them and applies them. Otherwise,
+#   applies default ones and stores them.
 set_stored_temps() (
-    if [ -r "$TEMPS_PATH" ]; then # if stored temperatures exist
-        temps="$(cat "$TEMPS_PATH")" && # load temperatures from the file
-        set_acpi_temps "$MODEL_ADDR" "$temps" # apply temperatures
-    else # default temperatures will be used
-        set_default_temps
+    if ! [ -r "$TEMPS_PATH" ]; then # if stored temperatures do not exist
+        set_default_temps; return # use default temperatures and return early
     fi
+
+    # otherwise, there are stored temperatures
+    temps="$(cat "$TEMPS_PATH")" || return # load temperatures from the file
+    if ! check_temps "$temps"; then # check them
+        echo "invalid stored temperatures $temps" >&2; return 1
+    fi
+
+    set_acpi_temps "$MODEL_ADDR" "$temps" # apply temperatures
 )
 
 # DESCRIPTION:
@@ -253,7 +303,7 @@ set_default_temps() {
 #   $1 - temperatures
 set_custom_temps() {
     if ! check_temps "$1"; then # check temperatures whether they are valid
-        echo 'invalid custom temperatures' >&2; return 1
+        echo "invalid custom temperatures $1" >&2; return 1
     fi
 
     set_acpi_temps "$MODEL_ADDR" "$1" && # apply temperatures
@@ -277,36 +327,6 @@ store_temps() {
 #   Prints applied fan temperatures. Runtime must be already initialized.
 get_temps() {
     get_acpi_temps "$MODEL_ADDR" "$MODEL_TEMPS_COUNT" # get ACPI temperatures
-}
-
-#-------------------------------------------------------------------------------
-# TEMPERATURES
-#-------------------------------------------------------------------------------
-
-# DESCRIPTION:
-#   Checks whether a given argument represents valid temperatures.
-# PARAMETERS:
-#   $1 - any
-check_temps() (
-    temps_count=0; previous_temp=0 # prepare initial state
-    for temp in $1; do # for each word in the argument (for each temperature)
-        check_pos_number "$temp" && # check whether it is a positive number
-        test "$temp" -ge "$previous_temp" && # must not be less than previous
-        previous_temp="$temp" && # store as previous
-        temps_count="$((temps_count + 1))" || return # increase temps count
-    done
-
-    # check that temperatures count is matching the current model
-    test "$temps_count" -eq "$MODEL_TEMPS_COUNT"
-)
-
-# DESCRIPTION:
-#   Checks whether a given argument is a positive number.
-# PARAMETERS:
-#   $1 - any
-check_pos_number() {
-    test "$1" -eq "$1" 2>/dev/null && # true only for integer arguments
-    test "$1" -ge 0 # the number must be positive
 }
 
 #-------------------------------------------------------------------------------
