@@ -264,7 +264,7 @@ get_model_tested() {
 # PARAMETERS:
 #   $1 - temperatures (optional)
 set_temps() {
-    if [ ! "$1" ]; then # last stored temperatures
+    if ! [ "$1" ]; then # last stored temperatures
         set_stored_temps
     elif [ "$1" = default ]; then # default model temperatures
         set_default_temps
@@ -336,7 +336,7 @@ get_temps() {
 # DESCRIPTION:
 #   Checks whether it is possible to perform an ACPI call.
 check_acpi() (
-    if [ ! -f "$ACPI_CALL_PATH" ]; then # check if ACPI interface file exists
+    if ! [ -f "$ACPI_CALL_PATH" ]; then # check if ACPI interface file exists
         echo "file $ACPI_CALL_PATH does not exist" >&2; return 1
     fi
 
