@@ -4,7 +4,7 @@ The development of asus-fan-control is published on [this website](https://githu
 
 ## Test a new laptop
 
-If you want to test a new laptop and be declared its first tester, you should know that **none of asus-fan-control authors is responsible for possible damage** it can cause. Nevertheless, even in case of any problems, uninstalling asus-fan-control and reboot the system should help.
+If you want to test a new laptop and be declared its first tester, you should know that **none of asus-fan-control authors is responsible for possible damage** it can cause. Nevertheless, even in case of any problems, uninstalling asus-fan-control and rebooting the system should help.
 
 ### Basic configuration
 
