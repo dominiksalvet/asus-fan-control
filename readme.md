@@ -31,7 +31,7 @@ Asus-fan-control solves the problems above and even more. It is also very easy t
 [8]: https://github.com/dominiksalvet
 [9]: https://github.com/gobenavides
 
-> Your laptop is not in the table yet? Take a look at [*CONTRIBUTING.md*](CONTRIBUTING.md) file and you can easily add it yourself.
+> Your laptop is not in the table yet? Take a look at [*contributing.md*](contributing.md) file and you can easily add it yourself.
 
 ## Table of Contents
 
@@ -109,8 +109,8 @@ The very core of asus-fan-control stands on [Aleh Filipovich](https://github.com
 
 ## Contributing
 
-Do you want to contribute? Do you have any questions? Then the [*CONTRIBUTING.md*](CONTRIBUTING.md) file is here for you.
+Do you want to contribute? Do you have any questions? Then the [*contributing.md*](contributing.md) file is here for you.
 
 ## License
 
-Asus-fan-control is licensed under the [MIT License](LICENSE).
+Asus-fan-control is licensed under the [MIT License](license).
