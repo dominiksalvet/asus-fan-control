@@ -2,9 +2,9 @@
 
 The development of asus-fan-control is published on [this website](https://github.com/dominiksalvet/asus-fan-control) and **everyone is welcome to contribute**.
 
-## Test a new laptop
+## Test a new device
 
-If you want to test a new laptop and be declared its first tester, you should know that **none of asus-fan-control authors is responsible for possible damage** it can cause. Nevertheless, even in case of any problems, uninstalling asus-fan-control and rebooting the system should help.
+If you want to test a new device and be declared its first tester, you should know that **none of asus-fan-control authors is responsible for possible damage** it can cause. Nevertheless, even in case of any problems, uninstalling asus-fan-control and rebooting the system should help.
 
 ### Basic configuration
 
@@ -18,7 +18,7 @@ If your device does not work out of the box, do not despair. It is most likely c
 sudo FALLBACK_ADDR=<addr> FALLBACK_TEMPS='<temps>' asus-fan-control set-temps default
 ```
 
-> Keep in mind that until the support for your model is added, you have to use the `FALLBACK` environment variables for any asus-fan-control invocation with root permissions. Then, you will be able to use asus-fan-control normally.
+> Keep in mind that until the support for your device is added, you have to use the `FALLBACK` environment variables for any asus-fan-control invocation with root permissions. Then, you will be able to use asus-fan-control normally.
 
 Once it works, try to find suitable temperatures and continue as stated in the [Suggestions and questions](#suggestions-and-questions) section.
 

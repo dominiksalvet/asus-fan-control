@@ -1,8 +1,8 @@
 ---
-name: Add new model
+name: Add new device
 about: Propose adding support for a new device
-title: Add support for <model>
-labels: add new model
+title: Add support for <device>
+labels: add new device
 assignees: dominiksalvet
 ---
 
