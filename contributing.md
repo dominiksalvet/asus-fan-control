@@ -2,7 +2,7 @@
 
 The development of asus-fan-control is published on [this website](https://github.com/dominiksalvet/asus-fan-control) and **everyone is welcome to contribute**.
 
-## Test a new device
+## Add new device
 
 If you want to test a new device and be declared its first tester, you should know that **none of asus-fan-control authors is responsible for possible damage** it can cause. Nevertheless, even in case of any problems, uninstalling asus-fan-control and rebooting the system should help.
 
