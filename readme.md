@@ -19,7 +19,7 @@ Asus-fan-control solves the problems above and even more. It is also very easy t
 | [B9440UA][1] | [G752VL][2]    | [15 X510UA][4] | [Flip UX360UAK][6] |
 |              | [GL553VD][3]   | [15 X512FA][5] | [UX410UA][7]       |
 |              | [GL502VSK][10] |                | [UX410UQ][9]       |
-|              |                |                | [UX430UA][8]       |
+|              | [GL553VE][11]  |                | [UX430UA][8]       |
 
 [1]: https://github.com/fzwoch
 [2]: https://github.com/icegood
@@ -31,6 +31,7 @@ Asus-fan-control solves the problems above and even more. It is also very easy t
 [8]: https://github.com/dominiksalvet
 [9]: https://github.com/gobenavides
 [10]: https://github.com/Mikarox
+[11]: https://github.com/arruor
 
 > Your device is not in the table yet? Take a look at [*contributing.md*](contributing.md) file and you can easily add it yourself.
 

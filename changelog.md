@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 The changes not yet present in any release are listed in this section.
 
+### Added
+
+* Support for ROG GL553VE ([Dimitar "Arruor" Nikov](https://github.com/arruor)).
+
 ## 3.4.0 (2020-03-12)
 
 ### Added
