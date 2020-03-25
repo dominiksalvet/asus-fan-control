@@ -11,6 +11,7 @@ The changes not yet present in any release are listed in this section.
 ### Added
 
 * Support for ROG GL553VE ([Dimitar "Arruor" Nikov](https://github.com/arruor)).
+* Support for ASUS FX553VD ([Greifent](https://github.com/Greifent)).
 
 ## 3.4.0 (2020-03-12)
 
