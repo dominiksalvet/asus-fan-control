@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 The changes not yet present in any release are listed in this section.
 
+### Added
+
+* Support for ASUS VivoBook S15 S530UA ([nigelwarning](https://github.com/nigelwarning)).
+
 ## 3.5.0 (2020-03-25)
 
 ### Added
