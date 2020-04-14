@@ -1,5 +1,5 @@
-# original author
+# default
 * @dominiksalvet
 
-# systemd, AUR package
-.gitpack/data/asus-fan-control.service @agura-lex
+# systemd
+*.service @agura-lex
