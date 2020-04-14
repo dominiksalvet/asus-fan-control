@@ -45,7 +45,6 @@ Asus-fan-control solves the problems above and even more. It is also very easy t
   * [From AUR](#from-aur)
 * [Usage](#usage)
   * [Custom temperatures](#custom-temperatures)
-* [Thanks](#thanks)
 * [Contributing](#contributing)
 * [License](#license)
 
@@ -106,10 +105,6 @@ To use your custom temperatures, use the `set-temps` command. For example:
 ```sh
 sudo asus-fan-control set-temps 45 50 55 60 65 70 75 80
 ```
-
-## Thanks
-
-The very core of asus-fan-control stands on [Aleh Filipovich](https://github.com/afilipovich)'s [observation](https://github.com/daringer/asus-fan/issues/44#issuecomment-307589414).
 
 ## Contributing
 
