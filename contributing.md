@@ -40,3 +40,7 @@ If you want to contribute directly, it may be a good idea to [create an issue](h
 5. Make sure your changes are consistent with used conventions.
 6. Push all your changes to the branch.
 7. Submit a [new pull request](https://github.com/dominiksalvet/asus-fan-control/pulls) to the master branch.
+
+## Wiki
+
+In case you are interested in creating wiki content, feel free to take a look at our [community-driven asus-fan-control wiki](https://github.com/dominiksalvet/asus-fan-control/wiki). It is open to the public and everyone can contribute as they wish.
