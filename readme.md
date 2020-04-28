@@ -46,6 +46,7 @@ Asus-fan-control solves the problems above and even more. It is also very easy t
   * [From AUR](#from-aur)
 * [Usage](#usage)
   * [Custom temperatures](#custom-temperatures)
+  * [GUI](#gui)
 * [Contributing](#contributing)
 * [License](#license)
 
@@ -106,6 +107,10 @@ To use your custom temperatures, use the `set-temps` command. For example:
 ```sh
 sudo asus-fan-control set-temps 45 50 55 60 65 70 75 80
 ```
+
+### GUI
+
+Did you know that asus-fan-control has a **graphical user interface** extension? Feel free to visit [afc-gui](https://github.com/Greifent/afc-gui) for more details.
 
 ## Contributing
 
