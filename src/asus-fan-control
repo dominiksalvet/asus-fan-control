@@ -105,10 +105,10 @@ init_config() {
 #   $@ - asus-fan-control arguments
 process_args() (
     if [ "$#" -eq 0 ]; then # if no argument given
-        init_runtime && set_temps # use stored temperatures
+        init_runtime && set_stored_temps # use stored temperatures
     else
         case "$1" in # process arguments based on the first argument
-            set-temps) shift && init_runtime && set_temps "$*" ;;
+            set-temps) init_runtime && shift && set_temps "$*" ;;
             get-temps) init_runtime && get_temps ;;
             model-info) init_runtime && model_info ;;
             help) echo "$HELP_MESSAGE" ;;
@@ -258,24 +258,8 @@ get_model_tested() {
 #-------------------------------------------------------------------------------
 
 # DESCRIPTION:
-#   Applies given temperatures (or default ones in case 'default' is delivered)
-#   and store them. If no temperatures are delivered, last stored are applied.
-#   Runtime must be already initialized.
-# PARAMETERS:
-#   $1 - temperatures (optional)
-set_temps() {
-    if ! [ "$1" ]; then # last stored temperatures
-        set_stored_temps
-    elif [ "$1" = default ]; then # default model temperatures
-        set_default_temps
-    else # custom delivered temperatures
-        set_custom_temps "$1"
-    fi
-}
-
-# DESCRIPTION:
 #   If stored temperatures exist, checks them and applies them. Otherwise,
-#   applies default ones and stores them.
+#   applies default ones and stores them. Runtime must be already initialized.
 set_stored_temps() (
     if ! [ -r "$TEMPS_PATH" ]; then # if stored temperatures do not exist
         set_default_temps; return # use default temperatures and return early
@@ -289,6 +273,23 @@ set_stored_temps() (
 
     set_acpi_temps "$MODEL_ADDR" "$temps" # apply temperatures
 )
+
+# DESCRIPTION:
+#   Applies given temperatures (or default ones in case 'default' is delivered)
+#   and store them. Runtime must be already initialized.
+# PARAMETERS:
+#   $1 - temperatures
+set_temps() {
+    if ! [ "$1" ]; then # if no temperatures provided
+        echo 'no temperatures for setting provided' >&2; return 1
+    fi
+
+    if [ "$1" = default ]; then # default model temperatures
+        set_default_temps
+    else # custom delivered temperatures
+        set_custom_temps "$1"
+    fi
+}
 
 # DESCRIPTION:
 #   Applies default temperatures and stores them.
