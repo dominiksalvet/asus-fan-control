@@ -8,7 +8,7 @@ If you want to test a new device and be declared its first tester, you should kn
 
 ### Basic configuration
 
-If your device works out of the box, try to find suitable temperatures using `sudo asus-fan-control set-temps <temps>` command and continue as stated in the [Suggestions and questions](#suggestions-and-questions) section.
+If your device works out of the box, try to find suitable temperatures using `sudo asus-fan-control set-temps <temps>` command and continue as stated in the [Suggestions](#suggestions) section.
 
 ### Advanced configuration
 
@@ -20,11 +20,11 @@ sudo FALLBACK_ADDR=<addr> FALLBACK_TEMPS='<temps>' asus-fan-control set-temps de
 
 > Keep in mind that until the support for your device is added, you have to use the `FALLBACK` environment variables for any asus-fan-control invocation with root permissions. Then, you will be able to use asus-fan-control normally.
 
-Once it works, try to find suitable temperatures and continue as stated in the [Suggestions and questions](#suggestions-and-questions) section.
+Once it works, try to find suitable temperatures and continue as stated in the [Suggestions](#suggestions) section.
 
-## Suggestions and questions
+## Suggestions
 
-If you have any suggestions or questions about asus-fan-control, follow these steps:
+If you have any suggestions or bug reports for asus-fan-control, follow these steps:
 
 1. Make sure the same is not already reported in [issues](https://github.com/dominiksalvet/asus-fan-control/issues).
 2. Open a [new issue](https://github.com/dominiksalvet/asus-fan-control/issues/new/choose).
