@@ -90,7 +90,7 @@ init_paths() {
 #   Initializes asus-fan-control configuration constants.
 init_config() {
     # set fallback model attributes respecting the environment
-    readonly FALLBACK_ADDR="${FALLBACK_ADDR:-1335}" # base fan control address
+    readonly FALLBACK_ADDRS="${FALLBACK_ADDRS:-1335}" # fan control addresses
     readonly FALLBACK_TEMPS="${FALLBACK_TEMPS:-55 60 62 65 68 72 76 80}"
 }
 
@@ -122,7 +122,7 @@ process_args() (
 #   Prints obtained information about the current device model.
 model_info() {
     echo "name $MODEL_NAME" &&
-    echo "address $MODEL_ADDR" &&
+    echo "addresses $MODEL_ADDRS" &&
     echo "temperatures $MODEL_TEMPS" &&
     echo "tested $MODEL_TESTED"
 }
@@ -149,22 +149,24 @@ init_model() {
     _model="$(get_host_model)" && # get current device model
     # extract and derive model information
     MODEL_NAME="$(get_model_name "$_model")" &&
-    MODEL_ADDR="$(get_model_addr "$_model")" &&
+    MODEL_ADDRS="$(get_model_addrs "$_model")" &&
     MODEL_TEMPS="$(get_model_temps "$_model")" &&
     MODEL_TEMPS_COUNT="$(echo "$MODEL_TEMPS" | wc -w)" &&
     MODEL_TESTED="$(get_model_tested "$_model")" &&
 
     # model information should be exposed as global constants
-    readonly MODEL_NAME MODEL_ADDR MODEL_TEMPS MODEL_TEMPS_COUNT MODEL_TESTED
+    readonly MODEL_NAME MODEL_ADDRS MODEL_TEMPS MODEL_TEMPS_COUNT MODEL_TESTED
 }
 
 # DESCRIPTION:
 #   Checks whether current device information, which may be affected by current
 #   environment, is valid.
-check_model() {
-    if ! [ "$MODEL_ADDR" -ge 0 ] 2>/dev/null; then # check base ACPI fan address
-        echo "invalid model address $MODEL_ADDR" >&2; return 1
-    fi
+check_model() (
+    for addr in $MODEL_ADDRS; do # check base ACPI fan addresses
+        if ! [ "$addr" -ge 0 ] 2>/dev/null; then # check each address
+            echo "invalid model addresses $MODEL_ADDRS" >&2; return 1
+        fi
+    done
 
     if ! [ "$MODEL_TEMPS_COUNT" -gt 0 ] 2>/dev/null; then # check temps count
         echo "invalid model temperatures count $MODEL_TEMPS_COUNT" >&2; return 1
@@ -173,7 +175,7 @@ check_model() {
     if ! check_temps "$MODEL_TEMPS"; then # check temperatures
         echo "invalid model temperatures $MODEL_TEMPS" >&2; return 1
     fi
-}
+)
 
 # DESCRIPTION:
 #   Checks whether a given argument represents valid temperatures.
@@ -210,10 +212,10 @@ get_host_model() (
         fi
     done < "$MODELS_PATH" &&
 
-    echo "$host_model_name|$FALLBACK_ADDR|$FALLBACK_TEMPS|false" # fallback
+    echo "$host_model_name|$FALLBACK_ADDRS|$FALLBACK_TEMPS|false" # fallback
 )
 
-# DESCRIPION:
+# DESCRIPTION:
 #   Prints the current device model name while keeping only alphanumerical
 #   characters.
 get_host_model_name() (
@@ -230,10 +232,10 @@ get_model_name() {
 }
 
 # DESCRIPTION:
-#   Extracts the model base address from a given model record.
+#   Extracts the model base addresses from a given model record.
 # PARAMETERS:
 #   $1 - model record
-get_model_addr() {
+get_model_addrs() {
     echo "$1" | cut -f 2 -d '|' -s
 }
 
@@ -271,7 +273,7 @@ set_stored_temps() (
         echo "invalid stored temperatures $temps" >&2; return 1
     fi
 
-    set_acpi_temps "$MODEL_ADDR" "$temps" # apply temperatures
+    write_temps "$MODEL_ADDRS" "$temps" # apply temperatures
 )
 
 # DESCRIPTION:
@@ -294,7 +296,7 @@ set_temps() {
 # DESCRIPTION:
 #   Applies default temperatures and stores them.
 set_default_temps() {
-    set_acpi_temps "$MODEL_ADDR" "$MODEL_TEMPS" && # apply temperatures
+    write_temps "$MODEL_ADDRS" "$MODEL_TEMPS" && # apply temperatures
     store_temps "$MODEL_TEMPS" # after success, store temperatures
 }
 
@@ -307,7 +309,7 @@ set_custom_temps() {
         echo "invalid custom temperatures $1" >&2; return 1
     fi
 
-    set_acpi_temps "$MODEL_ADDR" "$1" && # apply temperatures
+    write_temps "$MODEL_ADDRS" "$1" && # apply temperatures
     store_temps "$1" # after success, store temperatures
 }
 
@@ -326,9 +328,51 @@ store_temps() {
 
 # DESCRIPTION:
 #   Prints applied fan temperatures. Runtime must be already initialized.
-get_temps() {
-    get_acpi_temps "$MODEL_ADDR" "$MODEL_TEMPS_COUNT" # get ACPI temperatures
-}
+get_temps() (
+    # get the first model address the same way temperatures are iterated
+    for model_addr in $MODEL_ADDRS; do break; done && # break immediately
+    read_temps "$model_addr" "$MODEL_TEMPS_COUNT" # get ACPI temperatures
+)
+
+#-------------------------------------------------------------------------------
+# WRITE AND READ TEMPERATURES
+#-------------------------------------------------------------------------------
+
+# DESCRIPTION:
+#   Sets given fan temperatures using ACPI calls based on given base addresses.
+# PARAMETERS:
+#   $1 - base addresses
+#   $2 - temperatures
+write_temps() (
+    for addr in $1; do # for each base address
+        temps_count=0 # current temperature index
+        for temp in $2; do # for each temperature
+            # write the current temperature to ACPI
+            write_acpi_temp "$((addr + temps_count))" "$temp" &&
+            temps_count="$((temps_count + 1))" || return # next temperature
+        done
+    done
+)
+
+# DESCRIPTION:
+#   Prints fan temperatures using ACPI calls based on a given base address and
+#   the number of the temperatures.
+# PARAMETERS:
+#   $1 - base address
+#   $2 - number of temperatures
+read_temps() (
+    temps= # list of read temperatures
+
+    temps_count=0 # current temperature index
+    while [ "$temps_count" -lt "$2" ]; do # read all temperatures
+        # read the temperature of the current index from ACPI
+        temp="$(read_acpi_temp "$(($1 + temps_count))")" &&
+        temps="$temps $temp" && # add temperature to list
+        temps_count="$((temps_count + 1))" || return # next temperature
+    done
+
+    echo "${temps# }" # print read temperatures (omitting the first space)
+)
 
 #-------------------------------------------------------------------------------
 # ACPI
@@ -348,54 +392,20 @@ check_acpi() (
 )
 
 # DESCRIPTION:
-#   Sets given fan temperatures using ACPI calls based on a given base address.
-# PARAMETERS:
-#   $1 - base address
-#   $2 - temperatures
-set_acpi_temps() (
-    temps_count=0 # current temperature index
-    for temp in $2; do # for each temperature
-        # write the current temperature to ACPI
-        set_acpi_temp "$(($1 + temps_count))" "$temp" &&
-        temps_count="$((temps_count + 1))" || return # next temperature
-    done
-)
-
-# DESCRIPTION:
-#   Sets a given ACPI address to a given temperature value.
+#   Writes a given temperature value to a given ACPI address.
 # PARAMETERS:
 #   $1 - address
 #   $2 - temperature
-set_acpi_temp() (
+write_acpi_temp() (
     # ACPI write call (invalid arguments may cause the current shell to exit)
     echo "$ACPI_WRITE_COMMAND ${1:?} ${2:?}" > "$ACPI_CALL_PATH"
-)
-
-# DESCRIPTION:
-#   Prints fan temperatures using ACPI calls based on a given base address and
-#   the number of the temperatures.
-# PARAMETERS:
-#   $1 - base address
-#   $2 - number of temperatures
-get_acpi_temps() (
-    temps= # list of read temperatures
-
-    temps_count=0 # current temperature index
-    while [ "$temps_count" -lt "$2" ]; do # read all temperatures
-        # read the temperature of the current index from ACPI
-        temp="$(get_acpi_temp "$(($1 + temps_count))")" &&
-        temps="$temps $temp" && # add temperature to list
-        temps_count="$((temps_count + 1))" || return # next temperature
-    done
-
-    echo "${temps# }" # print read temperatures (omitting the first space)
 )
 
 # DESCRIPTION:
 #   Prints a temperature value of a given ACPI address in a decimal form.
 # PARAMETERS:
 #   $1 - address
-get_acpi_temp() (
+read_acpi_temp() (
     echo "$ACPI_READ_COMMAND ${1:?}" > "$ACPI_CALL_PATH" && # ACPI read call
     temp="$(cut -c 1-4 "$ACPI_CALL_PATH")" && # parse temperature of the output
     temp="$((temp))" && # convert from hexadecimal to decimal

@@ -11,6 +11,7 @@ The changes not yet present in any release are listed in this section.
 ### Added
 
 * Support for ASUS VivoBook Pro 15 N580VD ([AntonisK](https://github.com/AntonisKl)).
+* The support for dual fan devices has been added.
 
 ### Fixed
 
