@@ -16,7 +16,7 @@ If only temperatures were configured, add output of:
 
 **Advanced configuration**
 If advanced configuration was used, add output of:
-* `sudo FALLBACK_ADDR=<addr> FALLBACK_TEMPS='<temps>' asus-fan-control model-info`
+* `sudo FALLBACK_ADDRS='<addrs>' FALLBACK_TEMPS='<temps>' asus-fan-control model-info`
 
 **Additional context**
 Add any additional context.
