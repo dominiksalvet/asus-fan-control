@@ -14,12 +14,12 @@ In default, some ASUS devices running Linux control their system fans inappropri
 
 Asus-fan-control solves the problems above and even more. It is also very easy to understand as it communicates with hardware exclusively using ACPI calls. **Tested devices** with links to their first testers:
 
-| ASUS          | ASUS VivoBook       | ASUS ZenBook       | ASUS TUF Gaming | ASUSPRO      | ROG            |
-|---------------|---------------------|--------------------|-----------------|--------------|----------------|
-| [FX553VD][12] | [15 X510UA][4]      | [Flip UX360UAK][6] | [FX505][15]     | [B9440UA][1] | [G752VL][2]    |
-|               | [15 X512FA][5]      | [UX410UA][7]       |                 |              | [GL553VD][3]   |
-|               | [S15 S530UA][13]    | [UX410UQ][9]       |                 |              | [GL502VSK][10] |
-|               | [Pro 15 N580VD][14] | [UX430UA][8]       |                 |              | [GL553VE][11]  |
+| ASUS          | ASUS TUF Gaming | ASUS VivoBook       | ASUS ZenBook       | ASUSPRO      | ROG            |
+|---------------|-----------------|---------------------|--------------------|--------------|----------------|
+| [FX553VD][12] | [FX505][15]     | [15 X510UA][4]      | [Flip UX360UAK][6] | [B9440UA][1] | [G752VL][2]    |
+|               |                 | [15 X512FA][5]      | [UX410UA][7]       |              | [GL502VSK][10] |
+|               |                 | [Pro 15 N580VD][14] | [UX410UQ][9]       |              | [GL553VD][3]   |
+|               |                 | [S15 S530UA][13]    | [UX430UA][8]       |              | [GL553VE][11]  |
 
 [1]: https://github.com/fzwoch
 [2]: https://github.com/icegood
