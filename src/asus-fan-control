@@ -90,7 +90,7 @@ init_paths() {
 #   Initializes asus-fan-control configuration constants.
 init_config() {
     # set fallback model attributes respecting the environment
-    readonly FALLBACK_ADDRS="${FALLBACK_ADDRS:-1335}" # fan control addresses
+    readonly FALLBACK_ADDRS="${FALLBACK_ADDRS:-1335}" # base ACPI fan addresses
     readonly FALLBACK_TEMPS="${FALLBACK_TEMPS:-55 60 62 65 68 72 76 80}"
 }
 

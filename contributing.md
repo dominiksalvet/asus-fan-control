@@ -12,7 +12,7 @@ If everything works after the installation, try to find suitable temperatures us
 
 ### Advanced configuration
 
-If something does not work after the installation, do not despair. Whether it does not work at all or not all fans are controlled, it is most likely caused by different ACPI fan addresses of your device. Please visit [afc-scout](https://github.com/dominiksalvet/afc-scout) to find your ACPI addresses. Once you have the addresses, you will be able to set temperatures using the following command:
+If something does not work after the installation, do not despair. Whether it does not work at all or not all fans are controlled, it is most likely caused by different base ACPI fan addresses of your device. Please visit [afc-scout](https://github.com/dominiksalvet/afc-scout) to find your base addresses. Once you have the addresses, you will be able to set temperatures using the following command:
 
 ```
 sudo FALLBACK_ADDRS='<addrs>' FALLBACK_TEMPS='<temps>' asus-fan-control set-temps default
