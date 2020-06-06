@@ -79,6 +79,7 @@ mkdir -p /tmp/asus-fan-control/ && cd /tmp/asus-fan-control/ &&
 git clone https://aur.archlinux.org/asus-fan-control.git . &&
 sudo makepkg -si
 ```
+
 It may be a good idea to also enable running asus-fan-control automatically:
 
 ```sh
