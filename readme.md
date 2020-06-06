@@ -12,7 +12,7 @@ In default, some ASUS devices running Linux control their system fans inappropri
 * Not running fans under load appropriately
 * Spinning up fans in short performance peaks
 
-Asus-fan-control solves the problems above and even more. It is also very easy to understand as it communicates with hardware exclusively using ACPI calls. **Tested devices** with links to their first testers:
+Asus-fan-control solves the problems above and even more. **Tested devices** with links to their first testers:
 
 | ASUS          | ASUS TUF Gaming | ASUS VivoBook       | ASUS ZenBook       | ASUSPRO      | ROG            |
 |---------------|-----------------|---------------------|--------------------|--------------|----------------|
