@@ -2,7 +2,7 @@
 
 The development of asus-fan-control is published on [this website](https://github.com/dominiksalvet/asus-fan-control) and **everyone is welcome to contribute**.
 
-## Add new device
+## Add New Device
 
 If you want to test a new device and be declared its first tester, you should know that **none of asus-fan-control authors is responsible for possible damage** it can cause. Nevertheless, even in case of any problems, uninstalling asus-fan-control and rebooting the system should help.
 
@@ -27,9 +27,9 @@ Once it works, try to find suitable temperatures and continue as stated in the [
 If you have any suggestions or bug reports for asus-fan-control, follow these steps:
 
 1. Make sure the same is not already reported in [issues](https://github.com/dominiksalvet/asus-fan-control/issues).
-2. Open a [new issue](https://github.com/dominiksalvet/asus-fan-control/issues/new/choose).
+2. Open a [new issue](https://github.com/dominiksalvet/asus-fan-control/issues/new/choose). Choose an appropriate issue type.
 
-## Pull requests
+## Pull Requests
 
 If you want to contribute directly, it may be a good idea to [create an issue](https://github.com/dominiksalvet/asus-fan-control/issues/new/choose) first to discuss it. Then follow the steps:
 
