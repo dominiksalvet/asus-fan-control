@@ -37,7 +37,7 @@ Asus-fan-control solves the problems above and even more. **Tested devices** wit
 [14]: https://github.com/AntonisKl
 [15]: https://github.com/Rakesh-rules
 
-> Your device is not in the table yet? Take a look at [*contributing.md*](contributing.md) file and you can easily add it yourself.
+> Your device is not in the table yet? Take a look at [contributing.md](contributing.md) file and you can easily add it yourself.
 
 ## Table of Contents
 
@@ -116,11 +116,11 @@ Did you know that asus-fan-control has a **graphical user interface** extension?
 
 ## Questions
 
-If you have any questions, you can find out how to get them answered in [*support.md*](support.md) file.
+If you have any questions, you can find out how to get them answered in [support.md](support.md) file.
 
 ## Contributing
 
-Do you want to contribute somehow? Then [*contributing.md*](contributing.md) file is here for you.
+Do you want to contribute somehow? Then [contributing.md](contributing.md) file is here for you.
 
 ## License
 
