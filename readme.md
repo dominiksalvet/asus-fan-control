@@ -46,7 +46,7 @@ Asus-fan-control solves the problems above and even more. **Tested devices** wit
   * [Using GitPack](#using-gitpack)
   * [From AUR](#from-aur)
 * [Usage](#usage)
-  * [Custom temperatures](#custom-temperatures)
+  * [Custom Temperatures](#custom-temperatures)
   * [GUI](#gui)
 * [Questions](#questions)
 * [Contributing](#contributing)
@@ -88,7 +88,7 @@ sudo asus-fan-control
 
 > It uses custom temperatures if previously set, otherwise the default temperatures are used.
 
-### Custom temperatures
+### Custom Temperatures
 
 The fan speed policy is usually defined by 8 increasing numbers representing temperature boundaries in degrees Celsius between individual fan speed levels. E.g., UX430UA's default temperatures are `55 60 62 65 68 72 76 80` as shown:
 

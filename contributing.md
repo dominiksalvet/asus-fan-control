@@ -6,11 +6,11 @@ The development of asus-fan-control is published on [this website](https://githu
 
 If you want to test a new device and be declared its first tester, you should know that **none of asus-fan-control authors is responsible for possible damage** it can cause. Nevertheless, even in case of any problems, uninstalling asus-fan-control and rebooting the system should help.
 
-### Basic configuration
+### Basic Configuration
 
 If everything works after the installation, try to find suitable temperatures using `sudo asus-fan-control set-temps <temps>` command and continue as stated in the [Suggestions](#suggestions) section.
 
-### Advanced configuration
+### Advanced Configuration
 
 If something does not work after the installation, do not despair. Whether it does not work at all or not all fans are controlled, it is most likely caused by different base ACPI fan addresses of your device. Please visit [afc-scout](https://github.com/dominiksalvet/afc-scout) to find your base addresses. Once you have the addresses, you will be able to set temperatures using the following command:
 
