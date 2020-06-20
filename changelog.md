@@ -42,7 +42,7 @@ The changes not yet present in any release are listed in this section.
 
 ### Added
 
-* Support for ASUS ROG GL502VS ([Marco Antonio Aguayo](https://github.com/Mikarox)).
+* Support for ASUS ROG GL502VSK ([Marco Antonio Aguayo](https://github.com/Mikarox)).
 
 ## 3.3.0 (2020-03-02)
 
