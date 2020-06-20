@@ -12,7 +12,7 @@ The changes not yet present in any release are listed in this section.
 
 ### Added
 
-* Support for ASUS TUF Gaming FX505 ([Rakesh](https://github.com/Rakesh-rules)).
+* Support for ASUS TUF Gaming FX505GM ([Rakesh](https://github.com/Rakesh-rules)).
 
 ## 3.7.0 (2020-05-01)
 
@@ -42,7 +42,7 @@ The changes not yet present in any release are listed in this section.
 
 ### Added
 
-* Support for ASUS ROG GL502VSK ([Marco Antonio Aguayo](https://github.com/Mikarox)).
+* Support for ASUS ROG GL502VS ([Marco Antonio Aguayo](https://github.com/Mikarox)).
 
 ## 3.3.0 (2020-03-02)
 
