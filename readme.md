@@ -16,7 +16,7 @@ Asus-fan-control solves the problems above and even more. **Tested devices** wit
 
 | ASUS          | ASUS TUF Gaming | ASUS VivoBook       | ASUS ZenBook       | ASUSPRO      | ROG            |
 |---------------|-----------------|---------------------|--------------------|--------------|----------------|
-| [FX553VD][12] | [FX505][15]     | [15 X510UA][4]      | [Flip UX360UAK][6] | [B9440UA][1] | [G752VL][2]    |
+| [FX553VD][12] | [FX505GM][15]   | [15 X510UA][4]      | [Flip UX360UAK][6] | [B9440UA][1] | [G752VL][2]    |
 |               |                 | [15 X512FA][5]      | [UX410UA][7]       |              | [GL502VSK][10] |
 |               |                 | [Pro 15 N580VD][14] | [UX410UQ][9]       |              | [GL553VD][3]   |
 |               |                 | [S15 S530UA][13]    | [UX430UA][8]       |              | [GL553VE][11]  |
@@ -37,7 +37,7 @@ Asus-fan-control solves the problems above and even more. **Tested devices** wit
 [14]: https://github.com/AntonisKl
 [15]: https://github.com/Rakesh-rules
 
-> Your device is not in the table yet? Take a look at [*contributing.md*](contributing.md) file and you can easily add it yourself.
+> Your device is not in the table yet? Take a look at [contributing.md](contributing.md) file and you can easily add it yourself.
 
 ## Table of Contents
 
@@ -46,7 +46,7 @@ Asus-fan-control solves the problems above and even more. **Tested devices** wit
   * [Using GitPack](#using-gitpack)
   * [From AUR](#from-aur)
 * [Usage](#usage)
-  * [Custom temperatures](#custom-temperatures)
+  * [Custom Temperatures](#custom-temperatures)
   * [GUI](#gui)
 * [Questions](#questions)
 * [Contributing](#contributing)
@@ -96,7 +96,7 @@ sudo asus-fan-control
 
 > It uses custom temperatures if previously set, otherwise the default temperatures are used.
 
-### Custom temperatures
+### Custom Temperatures
 
 The fan speed policy is usually defined by 8 increasing numbers representing temperature boundaries in degrees Celsius between individual fan speed levels. E.g., UX430UA's default temperatures are `55 60 62 65 68 72 76 80` as shown:
 
@@ -124,11 +124,11 @@ Did you know that asus-fan-control has a **graphical user interface** extension?
 
 ## Questions
 
-If you have any questions, you can find out how to get them answered in [*support.md*](support.md) file.
+If you have any questions, you can find out how to get them answered in [support.md](support.md) file.
 
 ## Contributing
 
-Do you want to contribute somehow? Then [*contributing.md*](contributing.md) file is here for you.
+Do you want to contribute somehow? Then [contributing.md](contributing.md) file is here for you.
 
 ## License
 
