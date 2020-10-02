@@ -8,6 +8,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 The changes not yet present in any release are listed in this section.
 
+### Changed
+
+* The clarity of temperatures in `model-info` output has been improved.
+
+### Fixed
+
+* ACPI call errors now include the whole error output.
+
 ## 3.8.0 (2020-05-02)
 
 ### Added
