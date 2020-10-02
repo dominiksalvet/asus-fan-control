@@ -123,7 +123,7 @@ process_args() (
 model_info() {
     echo "name $MODEL_NAME" &&
     echo "addresses $MODEL_ADDRS" &&
-    echo "temperatures $MODEL_TEMPS" &&
+    echo "default-temps $MODEL_TEMPS" &&
     echo "tested $MODEL_TESTED"
 }
 
