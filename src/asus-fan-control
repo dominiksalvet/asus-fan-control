@@ -392,18 +392,6 @@ check_acpi() (
 )
 
 # DESCRIPTION:
-#   Reads and prints the previous ACPI call result, fails on detected errors.
-get_acpi_result() (
-    result="$(cat "$ACPI_CALL_PATH")" &&
-
-    if echo "$result" | grep -qi error; then
-        echo "acpi call failed with '$result'" >&2; return 1
-    else
-        echo "$result"
-    fi
-)
-
-# DESCRIPTION:
 #   Writes a given temperature value to a given ACPI address.
 # PARAMETERS:
 #   $1 - address
@@ -424,6 +412,18 @@ read_acpi_temp() (
     temp="$(echo "$temp" | cut -c 1-4)" && # parse temperature of the output
     temp="$((temp))" && # convert from hexadecimal to decimal
     echo "$temp" # print the final temperature value
+)
+
+# DESCRIPTION:
+#   Reads and prints the previous ACPI call result, fails on detected errors.
+get_acpi_result() (
+    result="$(cat "$ACPI_CALL_PATH")" &&
+
+    if echo "$result" | grep -qi error; then
+        echo "acpi call failed with '$result'" >&2; return 1
+    else
+        echo "$result"
+    fi
 )
 
 #-------------------------------------------------------------------------------
