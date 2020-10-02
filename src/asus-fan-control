@@ -392,13 +392,26 @@ check_acpi() (
 )
 
 # DESCRIPTION:
+#   Reads and prints the previous ACPI call result, fails on detected errors.
+get_acpi_result() (
+    result="$(cat "$ACPI_CALL_PATH")" &&
+
+    if echo "$result" | grep -qi error; then
+        echo "acpi call failed with '$result'" >&2; return 1
+    else
+        echo "$result"
+    fi
+)
+
+# DESCRIPTION:
 #   Writes a given temperature value to a given ACPI address.
 # PARAMETERS:
 #   $1 - address
 #   $2 - temperature
 write_acpi_temp() (
     # ACPI write call (invalid arguments may cause the current shell to exit)
-    echo "$ACPI_WRITE_COMMAND ${1:?} ${2:?}" > "$ACPI_CALL_PATH"
+    echo "$ACPI_WRITE_COMMAND ${1:?} ${2:?}" > "$ACPI_CALL_PATH" &&
+    get_acpi_result > /dev/null # only check whether write was successful
 )
 
 # DESCRIPTION:
@@ -407,7 +420,8 @@ write_acpi_temp() (
 #   $1 - address
 read_acpi_temp() (
     echo "$ACPI_READ_COMMAND ${1:?}" > "$ACPI_CALL_PATH" && # ACPI read call
-    temp="$(cut -c 1-4 "$ACPI_CALL_PATH")" && # parse temperature of the output
+    temp="$(get_acpi_result)" && # retrieve the ACPI call result
+    temp="$(echo "$temp" | cut -c 1-4)" && # parse temperature of the output
     temp="$((temp))" && # convert from hexadecimal to decimal
     echo "$temp" # print the final temperature value
 )
