@@ -2,7 +2,7 @@
 
 #-------------------------------------------------------------------------------
 # Copyright 2017-2020 Dominik Salvet
-# github.com/dominiksalvet/asus-fan-control
+# https://github.com/dominiksalvet/asus-fan-control
 #-------------------------------------------------------------------------------
 # DESCRIPTION:
 #   This is asus-fan-control, fan control for ASUS devices running Linux.
@@ -68,7 +68,7 @@ COMMAND:
 Fan control for ASUS devices running Linux.
 
 Copyright 2017-2020 Dominik Salvet
-github.com/dominiksalvet/asus-fan-control"
+https://github.com/dominiksalvet/asus-fan-control"
 }
 
 # DESCRIPTION:

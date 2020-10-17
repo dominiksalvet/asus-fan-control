@@ -2,7 +2,7 @@
 
 #-------------------------------------------------------------------------------
 # Copyright 2018-2020 Dominik Salvet
-# github.com/dominiksalvet/asus-fan-control
+# https://github.com/dominiksalvet/asus-fan-control
 #-------------------------------------------------------------------------------
 # DESCRIPTION:
 #   This file implements a prompting tab completion for asus-fan-control in Bash
