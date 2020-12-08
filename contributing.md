@@ -24,7 +24,7 @@ Once it works, try to find suitable temperatures and continue as stated in the [
 
 ### It Does Not Work
 
-Unfortunately, asus-fan-control might not work on some devices even after trying the above. If that is your case, creating an issue most likely will not result in adding the support for your device into asus-fan-control immediately but you may create a good place for gathering people with the same device. Eventually, that may end up with a community contribution or recommendation to other tools that work. If you decide to go this way, follow the steps in the [Suggestions](#suggestions) section.
+Unfortunately, asus-fan-control might not work on some devices even after trying the above. If that is your case, creating an issue most likely will not result in adding the support for your device into asus-fan-control immediately but it may create a good place for gathering people with the same device. Eventually, that may end up with a community contribution or recommendation to other tools that work. If you decide to go this way, follow the steps in the [Suggestions](#suggestions) section.
 
 ## Suggestions
 
