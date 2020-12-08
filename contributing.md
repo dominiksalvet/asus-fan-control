@@ -8,11 +8,11 @@ If you want to test a new device and be declared its first tester, you should kn
 
 ### Basic Configuration
 
-If everything works after the installation, try to find suitable temperatures using `sudo asus-fan-control set-temps <temps>` command and continue as stated in the [Suggestions](#suggestions) section.
+If everything works after the installation (you can use custom temperatures and they affect your fan speed), try to find suitable temperatures for your device using `sudo asus-fan-control set-temps <temps>` command and continue as stated in the [Suggestions](#suggestions) section.
 
 ### Advanced Configuration
 
-If something does not work after the installation, do not despair. Whether it does not work at all or not all fans are controlled, it is most likely caused by different base ACPI fan addresses of your device. Please visit [afc-scout](https://github.com/dominiksalvet/afc-scout) to find your base addresses. Once you have the addresses, you will be able to set temperatures using the following command:
+If something does not work after the installation, do not despair. Whether it does not work at all or not all fans are controlled, it might be caused by different base ACPI fan addresses of your device. Please visit [afc-scout](https://github.com/dominiksalvet/afc-scout) to find your base addresses. Once you have the addresses, you will be able to set temperatures using the following command:
 
 ```
 sudo FALLBACK_ADDRS='<addrs>' FALLBACK_TEMPS='<temps>' asus-fan-control set-temps default
@@ -21,6 +21,10 @@ sudo FALLBACK_ADDRS='<addrs>' FALLBACK_TEMPS='<temps>' asus-fan-control set-temp
 > Keep in mind that until the support for your device is added, you have to use the `FALLBACK` environment variables for any asus-fan-control invocation with root permissions. Then, you will be able to use asus-fan-control normally.
 
 Once it works, try to find suitable temperatures and continue as stated in the [Suggestions](#suggestions) section.
+
+### It Does Not Work
+
+Unfortunately, asus-fan-control might not work on some devices even after trying the above. If that is your case, creating an issue most likely will not result in adding the support for your device into asus-fan-control immediately but you may create a good place for gathering people with the same device. Eventually, that may end up with a community contribution or recommendation to other tools that work.
 
 ## Suggestions
 
