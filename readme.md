@@ -51,9 +51,7 @@ Asus-fan-control solves the problems above and even more. **Tested devices** wit
 * [Usage](#usage)
   * [Custom Temperatures](#custom-temperatures)
   * [GUI](#gui)
-* [Questions](#questions)
-* [Contributing](#contributing)
-* [License](#license)
+* [Useful Resources](#useful-resources)
 
 ## Install
 
@@ -125,14 +123,8 @@ sudo asus-fan-control set-temps 45 50 55 60 65 70 75 80
 
 Did you know that asus-fan-control has a **graphical user interface** extension? Feel free to visit [afc-gui](https://github.com/Greifent/afc-gui) for more details.
 
-## Questions
+## Useful Resources
 
-If you have any questions, you can find out how to get them answered in [support.md](support.md) file.
-
-## Contributing
-
-Do you want to contribute somehow? Then [contributing.md](contributing.md) file is here for you.
-
-## License
-
-Asus-fan-control is licensed under the [MIT License](license).
+* [support.md](support.md) – questions, answers, help
+* [contributing.md](contributing.md) – how to get involve
+* [license](license) – author and license
