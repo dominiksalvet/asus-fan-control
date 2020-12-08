@@ -4,6 +4,7 @@ about: Propose adding support for a new device
 title: Add support for <device>
 labels: add new device
 assignees: dominiksalvet
+
 ---
 
 **Environment**
@@ -17,6 +18,9 @@ If only temperatures were configured, add output of:
 **Advanced configuration**
 If advanced configuration was used, add output of:
 * `sudo FALLBACK_ADDRS='<addrs>' FALLBACK_TEMPS='<temps>' asus-fan-control model-info`
+
+**It does not work**
+If neither configuration was working for your device, community involvement is required. Please provide some information so the community can build on something.
 
 **Additional context**
 Add any additional context.

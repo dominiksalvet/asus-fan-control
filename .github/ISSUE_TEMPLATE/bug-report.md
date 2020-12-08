@@ -4,6 +4,7 @@ about: Create a report to improve asus-fan-control
 title: ''
 labels: bug
 assignees: dominiksalvet
+
 ---
 
 **Environment**

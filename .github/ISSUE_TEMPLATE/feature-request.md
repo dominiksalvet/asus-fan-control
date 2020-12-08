@@ -4,6 +4,7 @@ about: Suggest an idea for asus-fan-control
 title: ''
 labels: enhancement
 assignees: dominiksalvet
+
 ---
 
 **Description**
