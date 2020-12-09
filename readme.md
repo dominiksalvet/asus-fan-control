@@ -89,7 +89,7 @@ sudo systemctl enable asus-fan-control
 
 ## Usage
 
-Asus-fan-control is **executed automatically whenever necessary** to keep the effect of a permanent change. Nevertheless, it is possible to invoke it manually as shown below:
+Asus-fan-control does not run in the background (i.e., it is not a daemon process). It is **executed automatically whenever necessary** (e.g., on OS boot) to keep the effect of a permanent change. Nevertheless, it is possible to invoke it manually as shown below:
 
 ```sh
 sudo asus-fan-control
