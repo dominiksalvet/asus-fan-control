@@ -121,7 +121,7 @@ sudo asus-fan-control set-temps 45 50 55 60 65 70 75 80
 
 ### GUI
 
-Did you know that asus-fan-control has a **graphical user interface** extension? Feel free to visit [afc-gui](https://github.com/Greifent/afc-gui) for more details.
+Did you know that asus-fan-control has a **graphical user interface** extension? Visit [afc-gui](https://github.com/Greifent/afc-gui) for more details.
 
 ## Useful Resources
 
