@@ -71,13 +71,13 @@ Copyright 2017-2020 Dominik Salvet
 https://github.com/dominiksalvet/asus-fan-control"
 
     readonly CONTRIBUTE_MESSAGE='
- Hello, I am are very happy you have chosen to try out asus-fan-control (AFC).
- AFC is an open-source project and without community contributions there would
- not be so many devices tested. It appears you have an untested device and so
- if AFC works on it, please consider letting the AFC developers know this fact
- on the official AFC GitHub. Then, your device will be recognized as tested,
- which may significantly help people with the same device. See contributing.md
- file for more details. Thank you.
+  Hello, I am very happy you have chosen to try out asus-fan-control (AFC).
+  AFC is an open-source project and without community contributions there
+  would not be so many devices tested. It appears you have an untested device
+  and so if AFC works on it, please consider letting the AFC developers know
+  this fact on the official AFC GitHub. Then, your device will be recognized
+  as tested, which may significantly help people with the same device. See the
+  contributing.md file for more details. Thank you.
                                               - Dominik Salvet, the AFC author
 '
 }
