@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 The changes not yet present in any release are listed in this section.
 
+### Changed
+
+* If the device is untested, `model-info` will print a call for contribution to stderr.
+
 ## 3.9.0 (2020-10-24)
 
 ### Added
