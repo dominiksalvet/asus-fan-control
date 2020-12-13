@@ -11,6 +11,7 @@ The changes not yet present in any release are listed in this section.
 ### Added
 
 * If the device is untested, `model-info` will print a call for contribution to stderr.
+* Support for ASUS X507UF ([hexa](https://github.com/vaibhav-hexa)).
 
 ## 3.9.0 (2020-10-24)
 
