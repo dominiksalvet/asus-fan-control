@@ -11,7 +11,7 @@ assignees: dominiksalvet
 State asus-fan-control version and OS information.
 
 **Basic configuration**
-If only temperatures were configured, add output of:
+If only temperatures were set and they worked, add output of:
 * `sudo asus-fan-control get-temps` (new default temperatures for your device)
 * `sudo asus-fan-control model-info`
 
