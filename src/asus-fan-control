@@ -432,7 +432,7 @@ read_acpi_temp() (
 # DESCRIPTION:
 #   Reads and prints the previous ACPI call result, fails on detected errors.
 get_acpi_result() (
-    result="$(cat "$ACPI_CALL_PATH")" &&
+    result="$(tr -d '\0' < "$ACPI_CALL_PATH")" &&
 
     if echo "$result" | grep -qi error; then
         echo "acpi call failed with '$result'" >&2; return 1
