@@ -7,10 +7,10 @@
 #-------------------------------------------------------------------------------
 
 echo 'disabling systemd service'
-systemctl -q disable asus-fan-control.service
+systemctl -q disable afc.service
 
 echo 'removing files'
 rm -f /usr/local/bin/asus-fan-control \
-      /etc/bash_completion.d/asus-fan-control-completion.bash \
+      /etc/bash_completion.d/afc-completion \
       /usr/share/asus-fan-control/models \
-      /etc/systemd/system/asus-fan-control.service
+      /etc/systemd/system/afc.service

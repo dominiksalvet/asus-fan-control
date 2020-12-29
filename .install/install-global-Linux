@@ -19,12 +19,12 @@ mkdir -p /usr/local/bin/ \
          /usr/share/asus-fan-control/ \
          /etc/systemd/system/ &&
 cp src/asus-fan-control /usr/local/bin/ &&
-cp src/asus-fan-control-completion.bash /etc/bash_completion.d/ &&
-cp data/models /usr/share/asus-fan-control/ &&
-cp .install/asus-fan-control.service /etc/systemd/system/ || exit
+cp src/bash/afc-completion /etc/bash_completion.d/ &&
+cp src/data/models /usr/share/asus-fan-control/ &&
+cp .install/afc.service /etc/systemd/system/ || exit
 
 echo 'enabling systemd service'
-systemctl -q enable asus-fan-control.service # may fail
+systemctl -q enable afc.service # may fail
 
 echo 'loading acpi_call module first time'
 modprobe acpi_call # may fail
