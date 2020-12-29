@@ -19,5 +19,7 @@ jobs:
     - name: Check source files
       run: shellcheck src/*
 
-    - name: Check GitPack files
-      run: shellcheck .gitpack/install/global-Linux/p*
+    - name: Check install files
+      run: |
+        shellcheck .install/install-global-Linux
+        shellcheck .install/uninstall-global-Linux

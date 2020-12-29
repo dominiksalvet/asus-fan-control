@@ -1,0 +1,35 @@
+#!/bin/sh
+
+#-------------------------------------------------------------------------------
+# Copyright 2019-2020 Dominik Salvet
+# Copyright 2019-2020 Alexander Agura
+# https://github.com/dominiksalvet/asus-fan-control
+#-------------------------------------------------------------------------------
+
+if command -v apt-get > /dev/null; then
+    echo 'installing dmidecode package'
+    apt-get install -y dmidecode > /dev/null &&
+    echo 'installing acpi-call-dkms package' &&
+    apt-get install -y acpi-call-dkms > /dev/null
+fi &&
+
+echo 'copying files' &&
+mkdir -p /usr/local/bin/ \
+         /etc/bash_completion.d/ \
+         /usr/share/asus-fan-control/ \
+         /etc/systemd/system/ &&
+cp src/asus-fan-control /usr/local/bin/ &&
+cp src/asus-fan-control-completion.bash /etc/bash_completion.d/ &&
+cp data/models /usr/share/asus-fan-control/ &&
+cp .install/asus-fan-control.service /etc/systemd/system/ || exit
+
+echo 'enabling systemd service'
+systemctl -q enable asus-fan-control.service # may fail
+
+echo 'loading acpi_call module first time'
+modprobe acpi_call # may fail
+
+echo 'applying fan speed changes'
+if ! /usr/local/bin/asus-fan-control; then # may not be in PATH
+    echo 'failed to apply changes now; reboot may help'
+fi # always succeed as a whole
