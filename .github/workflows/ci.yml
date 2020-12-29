@@ -17,7 +17,9 @@ jobs:
       run: shellcheck --version
 
     - name: Check source files
-      run: shellcheck src/*
+      run: |
+        shellcheck src/asus-fan-control
+        shellcheck src/bash/afc-completion
 
     - name: Check install files
       run: |

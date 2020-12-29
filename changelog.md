@@ -15,7 +15,7 @@ The changes not yet present in any release are listed in this section.
 
 ### Changed
 
-* Adapt to new GitPack 1.0.0 methodology.
+* Adapt to new GitPack 1.0.0 installation format.
 
 ## 3.9.0 (2020-10-24)
 
