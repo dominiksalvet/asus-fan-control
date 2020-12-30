@@ -17,6 +17,10 @@ The changes not yet present in any release are listed in this section.
 
 * Adapt to new GitPack 1.0.0 installation format.
 
+### Fixed
+
+* Fixed `ignored null byte in input` warning occurring on some systems.
+
 ## 3.9.0 (2020-10-24)
 
 ### Added
