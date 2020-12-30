@@ -1,10 +1,11 @@
 #-------------------------------------------------------------------------------
 # Copyright 2019-2020 Alexander Agura
+# Copyright 2020 Dominik Salvet
 # https://github.com/dominiksalvet/asus-fan-control
 #-------------------------------------------------------------------------------
 
 [Unit]
-Description=Fan control for ASUS devices running Linux.
+Description=Executes asus-fan-control whenever necessary.
 Before=multi-user.target
 After=hibernate.target suspend-then-hibernate.target
 
