@@ -20,7 +20,7 @@ If advanced configuration was used, add output of:
 * `sudo FALLBACK_ADDRS='<addrs>' FALLBACK_TEMPS='<temps>' asus-fan-control model-info`
 
 **It does not work**
-If neither configuration was working for your device, community involvement is required. Please provide some information so the community can build on something.
+If neither configuration was working for your device, community involvement is required. Please provide some information so the community can build on something. Why does asus-fan-control not work? What have you tried?
 
 **Additional context**
 Add any additional context.
