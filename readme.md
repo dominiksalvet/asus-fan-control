@@ -126,5 +126,5 @@ Did you know that asus-fan-control has a **graphical user interface** extension?
 ## Useful Resources
 
 * [support.md](support.md) – questions, answers, help
-* [contributing.md](contributing.md) – how to get involve
-* [license](license) – author and license
+* [contributing.md](contributing.md) – get involved, suggestions, bug reports
+* [license](license) – author, license text
