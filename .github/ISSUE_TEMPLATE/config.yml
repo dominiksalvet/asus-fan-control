@@ -1,0 +1,9 @@
+#-------------------------------------------------------------------------------
+# Copyright 2020 Dominik Salvet
+# https://github.com/dominiksalvet/asus-fan-control
+#-------------------------------------------------------------------------------
+
+contact_links:
+  - name: Discussions
+    url: https://github.com/dominiksalvet/asus-fan-control/discussions
+    about: Please ask and answer questions here.
