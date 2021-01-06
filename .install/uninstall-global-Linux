@@ -13,4 +13,7 @@ echo 'removing files'
 rm -f /usr/local/bin/asus-fan-control \
       /etc/bash_completion.d/afc-completion \
       /usr/share/asus-fan-control/models \
-      /etc/systemd/system/afc.service
+      /etc/systemd/system/afc.service &&
+
+# remove also AFC directory if possible
+{ rmdir /usr/share/asus-fan-control/ 2>/dev/null; true; }

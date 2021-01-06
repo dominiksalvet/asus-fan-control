@@ -30,6 +30,6 @@ echo 'loading acpi_call module first time'
 modprobe acpi_call # may fail
 
 echo 'applying fan speed changes'
-if ! /usr/local/bin/asus-fan-control; then # may not be in PATH
+if ! /usr/local/bin/asus-fan-control; then # AFC may not be in PATH yet
     echo 'failed to apply changes now; reboot may help'
 fi # optional execution always succeeds
