@@ -1,13 +1,13 @@
 #!/bin/sh
 
 #-------------------------------------------------------------------------------
-# Copyright 2019-2020 Dominik Salvet
+# Copyright 2019-2021 Dominik Salvet
 # Copyright 2019-2020 Alexander Agura
 # https://github.com/dominiksalvet/asus-fan-control
 #-------------------------------------------------------------------------------
 
 if command -v apt-get > /dev/null; then
-    echo 'installing dmidecode package'
+    echo 'installing dmidecode package' &&
     apt-get install -y dmidecode > /dev/null &&
     echo 'installing acpi-call-dkms package' &&
     apt-get install -y acpi-call-dkms > /dev/null
@@ -23,13 +23,15 @@ cp src/bash/afc-completion /etc/bash_completion.d/ &&
 cp src/data/models /usr/share/asus-fan-control/ &&
 cp .install/afc.service /etc/systemd/system/ || exit
 
-echo 'enabling systemd service'
+echo 'enabling systemd service' &&
 systemctl -q enable afc.service # may fail
 
-echo 'loading acpi_call module first time'
+echo 'loading acpi_call module first time' &&
 modprobe acpi_call # may fail
 
-echo 'applying fan speed changes'
+echo 'applying fan speed changes' &&
 if ! /usr/local/bin/asus-fan-control; then # AFC may not be in PATH yet
     echo 'failed to apply changes now; reboot may help'
-fi # optional execution always succeeds
+fi
+
+true # optional execution always succeeds

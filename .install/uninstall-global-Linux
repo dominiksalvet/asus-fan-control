@@ -1,15 +1,15 @@
 #!/bin/sh
 
 #-------------------------------------------------------------------------------
-# Copyright 2019-2020 Dominik Salvet
+# Copyright 2019-2021 Dominik Salvet
 # Copyright 2019 Alexander Agura
 # https://github.com/dominiksalvet/asus-fan-control
 #-------------------------------------------------------------------------------
 
-echo 'disabling systemd service'
+echo 'disabling systemd service' &&
 systemctl -q disable afc.service
 
-echo 'removing files'
+echo 'removing files' &&
 rm -f /usr/local/bin/asus-fan-control \
       /etc/bash_completion.d/afc-completion \
       /usr/share/asus-fan-control/models \
