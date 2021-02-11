@@ -1,3 +1,7 @@
+**If you have GitPack 0.7.0 and lower, please visit [this discussion](https://github.com/dominiksalvet/gitpack/discussions/10).**
+
+---
+
 # asus-fan-control
 
 [![CI status](https://github.com/dominiksalvet/asus-fan-control/workflows/CI/badge.svg)](https://github.com/dominiksalvet/asus-fan-control/actions)
