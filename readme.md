@@ -18,10 +18,10 @@ Asus-fan-control solves the problems above and even more. **Tested devices** wit
 | ASUS          | ASUS TUF Gaming | ASUS VivoBook       | ASUS ZenBook       | ASUSPRO      | ROG            |
 |---------------|-----------------|---------------------|--------------------|--------------|----------------|
 | [FX553VD][12] | [FX505GM][15]   | [15 X510UA][4]      | [Flip UX360UAK][6] | [B9440UA][1] | [G752VL][2]    |
-| [X507UF][17]  |                 | [15 X512FA][5]      | [UX410UA][7]       |              | [GL502VSK][10] |
-|               |                 | [15 X542UF][16]     | [UX410UQ][9]       |              | [GL553VD][3]   |
-|               |                 | [Pro 15 N580VD][14] | [UX430UA][8]       |              | [GL553VE][11]  |
-|               |                 | [S15 S530UA][13]    |                    |              |                |
+| [X507UF][17]  |                 | [15 X512FA][5]      | [UX310UA][18]      |              | [GL502VSK][10] |
+|               |                 | [15 X542UF][16]     | [UX410UA][7]       |              | [GL553VD][3]   |
+|               |                 | [Pro 15 N580VD][14] | [UX410UQ][9]       |              | [GL553VE][11]  |
+|               |                 | [S15 S530UA][13]    | [UX430UA][8]       |              |                |
 
 [1]: https://github.com/fzwoch
 [2]: https://github.com/icegood
@@ -40,6 +40,7 @@ Asus-fan-control solves the problems above and even more. **Tested devices** wit
 [15]: https://github.com/Rakesh-rules
 [16]: https://github.com/FadeMind
 [17]: https://github.com/vaibhav-hexa
+[18]: https://github.com/theamarin
 
 > Your device is not in the table yet? Take a look at [contributing.md](contributing.md) file and you can easily add it yourself.
 
