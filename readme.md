@@ -86,7 +86,7 @@ sudo makepkg -si
 It may be a good idea to also enable running asus-fan-control automatically:
 
 ```sh
-sudo systemctl enable asus-fan-control
+sudo systemctl enable afc
 ```
 
 ## Usage
