@@ -83,7 +83,7 @@ git clone https://aur.archlinux.org/asus-fan-control.git . &&
 sudo makepkg -si
 ```
 
-It may be a good idea to also enable running asus-fan-control automatically:
+For AUR installations, enable running asus-fan-control automatically:
 
 ```sh
 sudo systemctl enable afc
