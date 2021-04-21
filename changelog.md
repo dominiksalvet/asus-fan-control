@@ -11,6 +11,7 @@ The changes not yet present in any release are listed in this section.
 ### Added
 
 * Support for ASUS ZenBook UX310UA ([theamarin](https://github.com/theamarin)).
+* Support for ASUS ROG GL702VSK ([bonezinger](https://github.com/bonezinger)).
 
 ## 3.10.0 (2021-02-11)
 
