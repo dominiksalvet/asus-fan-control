@@ -15,13 +15,14 @@ In default, some ASUS devices running Linux control their system fans inappropri
 
 Asus-fan-control solves the problems above and even more. **Tested devices** with links to their first testers:
 
-| ASUS          | ASUS TUF Gaming | ASUS VivoBook       | ASUS ZenBook       | ASUSPRO      | ROG            |
-|---------------|-----------------|---------------------|--------------------|--------------|----------------|
-| [FX553VD][12] | [FX505GM][15]   | [15 X510UA][4]      | [Flip UX360UAK][6] | [B9440UA][1] | [G752VL][2]    |
-| [X507UF][17]  |                 | [15 X512FA][5]      | [UX310UA][18]      |              | [GL502VSK][10] |
-|               |                 | [15 X542UF][16]     | [UX410UA][7]       |              | [GL553VD][3]   |
-|               |                 | [Pro 15 N580VD][14] | [UX410UQ][9]       |              | [GL553VE][11]  |
-|               |                 | [S15 S530UA][13]    | [UX430UA][8]       |              | [GL702VSK][19] |
+| ASUS VivoBook | ASUS ZenBook  | ASUS ROG       | Others                        |
+|---------------|---------------|----------------|-------------------------------|
+| [N580VD][14]  | [UX310UA][18] | [G752VL][2]    | [ASUS FX553VD][12]            |
+| [S530UA][13]  | [UX360UAK][6] | [GL502VSK][10] | [ASUS TUF Gaming FX505GM][15] |
+| [X507UF][17]  | [UX410UA][7]  | [GL553VD][3]   | [ASUSPRO B9440UA][1]          |
+| [X510UA][4]   | [UX410UQ][9]  | [GL553VE][11]  |                               |
+| [X512FA][5]   | [UX430UA][8]  | [GL702VSK][19] |                               |
+| [X542UF][16]  |               |                |                               |
 
 [1]: https://github.com/fzwoch
 [2]: https://github.com/icegood
