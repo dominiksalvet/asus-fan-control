@@ -12,6 +12,10 @@ The changes not yet present in any release are listed in this section.
 
 * Support for ASUS ZenBook UX430UN ([Kristian Klausen](https://github.com/klausenbusk)).
 
+### Changed
+
+* The dmidecode tool is no longer used for determining the model name.
+
 ## 3.11.0 (2021-04-21)
 
 ### Added

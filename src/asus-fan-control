@@ -20,20 +20,11 @@
 # PARAMETERS:
 #   $@ - asus-fan-control arguments
 main() {
-    check_commands &&
     init_constants &&
     init_strings &&
     init_paths &&
     init_config &&
     process_args "$@" # process all given asus-fan-control arguments
-}
-
-# DESCRIPTION:
-#   Checks whether optional commands are present.
-check_commands() {
-    if ! command -v dmidecode > /dev/null; then # check only dmidecode
-        echo 'missing dmidecode command' >&2; return 1
-    fi
 }
 
 #-------------------------------------------------------------------------------
@@ -95,6 +86,9 @@ init_paths() {
 
     # ACPI related
     readonly ACPI_CALL_PATH=/proc/acpi/call # ACPI interface file location
+
+    # device information
+    readonly MODEL_NAME_PATH=/sys/class/dmi/id/product_name # model name
 }
 
 # DESCRIPTION:
@@ -234,7 +228,7 @@ get_host_model() (
 #   Prints the current device model name while keeping only alphanumerical
 #   characters.
 get_host_model_name() (
-    model_name="$(dmidecode -s system-product-name)" && # detect host
+    model_name="$(cat "$MODEL_NAME_PATH")" && # detect host
     echo "$model_name" | tr -d -c '[:alnum:]' # keep alphanumerical characters
 )
 

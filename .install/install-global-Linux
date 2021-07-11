@@ -7,8 +7,6 @@
 #-------------------------------------------------------------------------------
 
 if command -v apt-get > /dev/null; then
-    echo 'installing dmidecode package' &&
-    apt-get install -y dmidecode > /dev/null &&
     echo 'installing acpi-call-dkms package' &&
     apt-get install -y acpi-call-dkms > /dev/null
 fi &&
