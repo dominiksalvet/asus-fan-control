@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 The changes not yet present in any release are listed in this section.
 
+## 3.12.0 (2021-07-11)
+
 ### Added
 
 * Support for ASUS ZenBook UX430UN ([Kristian Klausen](https://github.com/klausenbusk)).
