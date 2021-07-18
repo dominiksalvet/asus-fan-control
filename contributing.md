@@ -6,6 +6,8 @@ The development of asus-fan-control is published on [this website](https://githu
 
 If you want to test a new device and be declared its first tester, you should know that **none of asus-fan-control authors is responsible for possible damage** it can cause. Nevertheless, even in case of any problems, uninstalling asus-fan-control and rebooting the system should help.
 
+> Based on long-term observation, devices with AMD processors do not work with asus-fan-control, unfortunately.
+
 ### Basic Configuration
 
 If everything works after the installation (you can use custom temperatures and they affect your fan speed), try to find suitable temperatures for your device using `sudo asus-fan-control set-temps <temps>` command and continue as stated in the [Suggestions](#suggestions) section.
