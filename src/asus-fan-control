@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #-------------------------------------------------------------------------------
-# Copyright 2017-2021 Dominik Salvet
+# Copyright 2017-2022 Dominik Salvet
 # https://github.com/dominiksalvet/asus-fan-control
 #-------------------------------------------------------------------------------
 # DESCRIPTION:
@@ -56,9 +56,9 @@ COMMAND:
   model-info  show device model information'
 
     readonly ABOUT_MESSAGE="asus-fan-control $VERSION
-Fan control for ASUS devices running Linux.
+Fan control for ASUS devices running Linux
 
-Copyright 2017-2021 Dominik Salvet
+Copyright 2017-2022 Dominik Salvet
 https://github.com/dominiksalvet/asus-fan-control"
 
     readonly CONTRIBUTE_MESSAGE='
