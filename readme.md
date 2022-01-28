@@ -43,7 +43,13 @@ AFC solves the problems above and even more. **Tested devices** with links to th
 [19]: https://github.com/bonezinger
 [20]: https://github.com/klausenbusk
 
-> Your device is not in the table yet? Take a look at [contributing.md](contributing.md) file and you can easily add it yourself.
+> **ProTip!** Your device is not in the table? Take a look at [contributing.md](contributing.md) file and you can easily add it.
+>
+> Compatibility notes:
+>
+> * Devices with AMD processors do not work with AFC
+> * Devices with the 7th gen Intel processors work well
+> * Other devices may vary
 
 ## Table of Contents
 
