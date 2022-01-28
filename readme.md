@@ -1,4 +1,4 @@
-# asus-fan-control
+# asus-fan-control (AFC)
 
 [![CI status](https://github.com/dominiksalvet/asus-fan-control/workflows/CI/badge.svg)](https://github.com/dominiksalvet/asus-fan-control/actions)
 [![GitPack](https://img.shields.io/badge/-GitPack-571997)](https://github.com/topics/gitpack)
@@ -11,7 +11,7 @@ In default, some ASUS devices running Linux control their system fans inappropri
 * Not running fans under load appropriately
 * Spinning up fans in short performance peaks
 
-Asus-fan-control solves the problems above and even more. **Tested devices** with links to their first testers:
+AFC solves the problems above and even more. **Tested devices** with links to their first testers:
 
 | ASUS VivoBook | ASUS ZenBook  | ASUS ROG       | Others        |
 |---------------|---------------|----------------|---------------|
@@ -65,7 +65,7 @@ Asus-fan-control solves the problems above and even more. **Tested devices** wit
 
 ### Using GitPack
 
-Asus-fan-control supports [GitPack](https://github.com/dominiksalvet/gitpack). Global installation/update:
+AFC supports [GitPack](https://github.com/dominiksalvet/gitpack). Global installation/update:
 
 ```sh
 sudo gitpack install github.com/dominiksalvet/asus-fan-control
@@ -83,7 +83,7 @@ git clone https://aur.archlinux.org/asus-fan-control.git . &&
 sudo makepkg -si
 ```
 
-For AUR installations, enable running asus-fan-control automatically:
+For AUR installations, enable running AFC automatically:
 
 ```sh
 sudo systemctl enable afc
@@ -91,7 +91,7 @@ sudo systemctl enable afc
 
 ## Usage
 
-Asus-fan-control does not run in the background (i.e., it is not a daemon process). It is **executed automatically whenever necessary** (e.g., on OS boots) to keep the effect of a permanent change. It is also possible to invoke it manually as shown below:
+AFC does not run in the background (i.e., it is not a daemon process). It is **executed automatically whenever necessary** (e.g., on OS boots) to keep the effect of a permanent change. It is also possible to invoke it manually as shown below:
 
 ```sh
 sudo asus-fan-control
@@ -123,7 +123,7 @@ sudo asus-fan-control set-temps 45 50 55 60 65 70 75 80
 
 ### GUI
 
-Did you know that asus-fan-control has a **graphical user interface** extension? Visit [afc-gui](https://github.com/Greifent/afc-gui) for more details.
+Did you know that AFC has a **graphical user interface** extension? Visit [afc-gui](https://github.com/Greifent/afc-gui) for more details.
 
 ## Useful Resources
 

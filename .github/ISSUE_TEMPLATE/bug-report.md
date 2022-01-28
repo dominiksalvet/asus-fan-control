@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Create a report to improve asus-fan-control
+about: Create a report to improve AFC
 title: ''
 labels: bug
 assignees: dominiksalvet
@@ -8,7 +8,7 @@ assignees: dominiksalvet
 ---
 
 **Environment**
-State asus-fan-control version and OS information.
+State AFC version and OS information.
 
 **Description**
 Describe the bug.

@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an idea for asus-fan-control
+about: Suggest an idea for AFC
 title: ''
 labels: enhancement
 assignees: dominiksalvet
