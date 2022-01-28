@@ -8,7 +8,7 @@ assignees: dominiksalvet
 ---
 
 **Environment**
-State AFC version and OS information.
+State your AFC version, OS version, and CPU name.
 
 **Basic configuration**
 If only temperatures were set and they worked, add output of:
