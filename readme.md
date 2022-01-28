@@ -47,9 +47,9 @@ AFC solves the problems above and even more. **Tested devices** with links to th
 >
 > Compatibility notes:
 >
-> * Devices with AMD processors do not work with AFC
-> * Devices with the 7th gen Intel processors work well
-> * Other devices may vary
+> * Devices with AMD processors do not work with AFC.
+> * Devices with the 7th gen Intel processors work well.
+> * Other devices may vary.
 
 ## Table of Contents
 
