@@ -35,7 +35,7 @@ main() {
 #   Initializes static constants.
 init_constants() {
     # the current version of asus-fan-control
-    readonly VERSION=3.12.0
+    readonly VERSION=3.13.0
 
     # ACPI related constants
     readonly ACPI_WRITE_COMMAND='\_SB.PCI0.LPCB.EC0.WRAM' # write to ACPI
