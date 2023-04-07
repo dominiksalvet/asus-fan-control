@@ -13,14 +13,15 @@ In default, some ASUS devices running Linux control their system fans inappropri
 
 AFC solves the problems above and even more. **Tested devices** with links to their first testers:
 
-| ASUS VivoBook | ASUS ZenBook  | ASUS ROG       | Others         |
-|---------------|---------------|----------------|----------------|
-| [N580VD][14]  | [UX310UA][18] | [G752VL][2]    | [B9440UA][1]   |
-| [S530UA][13]  | [UX360UAK][6] | [GL502VMK][21] | [FX505GM][15]  |
-| [X507UF][17]  | [UX410UA][7]  | [GL502VSK][10] | [FX505GT][22]  |
-| [X510UA][4]   | [UX410UQ][9]  | [GL553VD][3]   | [FX553VD][12]  |
-| [X512FA][5]   | [UX430UA][8]  | [GL553VE][11]  | [TP550LAB][23] |
-| [X542UF][16]  | [UX430UN][20] | [GL702VSK][19] |                |
+| ASUS VivoBook | ASUS ZenBook   | ASUS ROG       | Others         |
+|---------------|----------------|----------------|----------------|
+| [N580VD][14]  | [UX310UA][18]  | [G752VL][2]    | [B9440UA][1]   |
+| [S530UA][13]  | [UX330UAK][24] | [GL502VMK][21] | [FX505GM][15]  |
+| [X507UF][17]  | [UX360UAK][6]  | [GL502VSK][10] | [FX505GT][22]  |
+| [X510UA][4]   | [UX410UA][7]   | [GL553VD][3]   | [FX553VD][12]  |
+| [X512FA][5]   | [UX410UQ][9]   | [GL553VE][11]  | [TP550LAB][23] |
+| [X542UF][16]  | [UX430UA][8]   | [GL702VSK][19] |                |
+|               | [UX430UN][20]  |                |                |
 
 [1]: https://github.com/fzwoch
 [2]: https://github.com/icegood
@@ -45,6 +46,7 @@ AFC solves the problems above and even more. **Tested devices** with links to th
 [21]: https://github.com/Errivincenz
 [22]: https://github.com/zukurnaz
 [23]: https://github.com/HamzaLakhani01
+[24]: https://github.com/a-johnston
 
 > **ProTip!** Your device is not in the table? Take a look at [contributing.md](contributing.md) file and you can easily add it.
 >
