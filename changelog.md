@@ -12,6 +12,7 @@ The changes not yet present in any release are listed in this section.
 
 * Support for ASUS TUF Gaming FX505GT ([Zukurnaz](https://github.com/zukurnaz)).
 * Support for ASUS Transformer Book Flip TP550LA ([HamzaLakhani01](https://github.com/HamzaLakhani01)).
+* Support for ASUS ZenBook UX330UAK ([a-johnston](https://github.com/a-johnston)).
 
 ## 3.13.0 (2022-04-06)
 
