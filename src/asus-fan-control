@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #-------------------------------------------------------------------------------
-# Copyright 2017-2022 Dominik Salvet
+# Copyright 2017-2023 Dominik Salvet
 # https://github.com/dominiksalvet/asus-fan-control
 #-------------------------------------------------------------------------------
 # DESCRIPTION:
@@ -35,7 +35,7 @@ main() {
 #   Initializes static constants.
 init_constants() {
     # the current version of asus-fan-control
-    readonly VERSION=3.13.0
+    readonly VERSION=3.14.0
 
     # ACPI related constants
     readonly ACPI_WRITE_COMMAND='\_SB.PCI0.LPCB.EC0.WRAM' # write to ACPI
@@ -58,7 +58,7 @@ COMMAND:
     readonly ABOUT_MESSAGE="asus-fan-control $VERSION
 Fan control for ASUS devices running Linux
 
-Copyright 2017-2022 Dominik Salvet
+Copyright 2017-2023 Dominik Salvet
 https://github.com/dominiksalvet/asus-fan-control"
 
     readonly CONTRIBUTE_MESSAGE='
