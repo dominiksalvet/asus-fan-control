@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 The changes not yet present in any release are listed in this section.
 
+## 3.15.0 (2023-07-23)
+
 ### Added
 
 * Support for ASUS G751JY ([nick-dimitrov](https://github.com/nick-dimitrov)).
