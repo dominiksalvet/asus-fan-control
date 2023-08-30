@@ -94,7 +94,7 @@ We have an [AUR package](https://aur.archlinux.org/packages/asus-fan-control) av
 ```sh
 mkdir -p /tmp/asus-fan-control/ && cd /tmp/asus-fan-control/ &&
 git clone https://aur.archlinux.org/asus-fan-control.git . &&
-sudo makepkg -si
+makepkg -si
 ```
 
 For AUR installations, enable running AFC automatically:
