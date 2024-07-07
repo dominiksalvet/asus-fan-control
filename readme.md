@@ -21,7 +21,7 @@ AFC solves the problems above and even more. **Tested devices** with links to th
 | [X510UA][4]   | [UX410UA][7]   | [GL502VSK][10] | [FX553VD][12]  |
 | [X512FA][5]   | [UX410UQ][9]   | [GL553VD][3]   | [TP550LAB][23] |
 | [X542UF][16]  | [UX430UA][8]   | [GL553VE][11]  | [X540LA][26]   |
-|               | [UX430UN][20]  | [GL702VSK][19] |                |
+|               | [UX430UN][20]  | [GL702VSK][19] | [X555LB][27]   |
 
 [1]: https://github.com/fzwoch
 [2]: https://github.com/icegood
@@ -49,6 +49,7 @@ AFC solves the problems above and even more. **Tested devices** with links to th
 [24]: https://github.com/a-johnston
 [25]: https://github.com/nick-dimitrov
 [26]: https://github.com/anzepintar
+[27]: https://github.com/huiyifyj
 
 > **ProTip!** Your device is not in the table? Take a look at [contributing.md](contributing.md) file and you can easily add it.
 >
