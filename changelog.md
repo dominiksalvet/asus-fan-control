@@ -12,6 +12,7 @@ The changes not yet present in any release are listed in this section.
 
 * Support for ASUS X540LA ([Anže Pintar](https://github.com/anzepintar)).
 * Support for ASUS X555LB ([Feng.YJ](https://github.com/huiyifyj))
+* Support for ASUS N56VV ([h0t.smirn](https://github.com/h0tsmirn))
 
 ## 3.15.0 (2023-07-23)
 
