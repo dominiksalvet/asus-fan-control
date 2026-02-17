@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 The changes not yet present in any release are listed in this section.
 
+## 3.16.0 (2026-02-17)
+
 ### Added
 
 * Support for ASUS X540LA ([Anže Pintar](https://github.com/anzepintar)).
