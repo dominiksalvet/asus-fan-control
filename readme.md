@@ -22,6 +22,7 @@ AFC solves the problems above and even more. **Tested devices** with links to th
 | [X542UF][16]  | [UX430UA][8]   | [GL553VE][11]  | [X540LA][26]   |
 |               | [UX430UN][20]  | [GL702VSK][19] | [X555LB][27]   |
 |               |                |                | [N751JX][28]   |
+|               |                |                | [N56VV][29]    |
 
 [1]: https://github.com/fzwoch
 [2]: https://github.com/icegood
@@ -51,6 +52,7 @@ AFC solves the problems above and even more. **Tested devices** with links to th
 [26]: https://github.com/anzepintar
 [27]: https://github.com/huiyifyj
 [28]: https://github.com/rayman1972
+[29]: https://github.com/h0tsmirn
 
 > **ProTip!** Your device is not in the table? Take a look at [contributing.md](contributing.md) file and you can easily add it.
 >
