@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 The changes not yet present in any release are listed in this section.
 
+* Support for ASUS TUF Gaming FX705GE ([KorneiDontsov](https://github.com/KorneiDontsov)).
+
 ## 3.17.0 (2026-05-31)
 
 ### Added

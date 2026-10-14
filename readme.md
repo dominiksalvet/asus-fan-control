@@ -17,11 +17,12 @@ AFC solves the problems above and even more. **Tested devices** with links to th
 | [N580VD][14]  | [UX310UA][18]  | [G751JY][25]   | [B9440UA][1]   |
 | [S530UA][13]  | [UX330UAK][24] | [G752VL][2]    | [FX505GM][15]  |
 | [X507UF][17]  | [UX360UAK][6]  | [GL502VMK][21] | [FX505GT][22]  |
-| [X510UA][4]   | [UX410UA][7]   | [GL502VSK][10] | [FX553VD][12]  |
-| [X512FA][5]   | [UX410UQ][9]   | [GL553VD][3]   | [TP550LAB][23] |
-| [X542UF][16]  | [UX430UA][8]   | [GL553VE][11]  | [X540LA][26]   |
-|               | [UX430UN][20]  | [GL702VSK][19] | [X555LB][27]   |
-|               |                | [GL552VW][30]  | [N751JX][28]   |
+| [X510UA][4]   | [UX410UA][7]   | [GL502VSK][10] | [FX705GE][22]  |
+| [X512FA][5]   | [UX410UQ][9]   | [GL553VD][3]   | [FX553VD][12]  |
+| [X542UF][16]  | [UX430UA][8]   | [GL553VE][11]  | [TP550LAB][23] |
+|               | [UX430UN][20]  | [GL702VSK][19] | [X540LA][26]   |
+|               |                | [GL552VW][30]  | [X555LB][27]   |
+|               |                |                | [N751JX][28]   |
 |               |                |                | [N56VV][29]    |
 
 [1]: https://github.com/fzwoch
